@@ -3,9 +3,14 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { EcoDashboard } from "@/components/account/EcoDashboard";
+import { OrderTimeline } from "@/components/account/OrderTimeline";
+import { ReminderCountdownCards } from "@/components/account/ReminderCountdownCards";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { appleCalendarIcs, googleCalendarUrl } from "@/lib/calendar";
 import { getDistrictLabel } from "@/lib/i18n/districts";
+import { CalendarPlus } from "lucide-react";
 
 export default function AccountPage() {
   const router = useRouter();
@@ -16,6 +21,7 @@ export default function AccountPage() {
     orders,
     bookmarks,
     reminders,
+    ecoStats,
     removeBookmark,
     addReminder,
     removeReminder,
@@ -74,6 +80,11 @@ export default function AccountPage() {
       </section>
 
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-12 sm:px-6">
+        <EcoDashboard
+          carbonDivertedKg={ecoStats.carbonDivertedKg}
+          largeItemsRecycled={ecoStats.largeItemsRecycled}
+        />
+
         <section>
           <h2 className="font-display text-xl font-semibold text-slate-900">{t.account.orderHistory}</h2>
           <p className="mt-1 text-sm text-slate-600">{t.account.orderDesc}</p>
@@ -83,33 +94,29 @@ export default function AccountPage() {
               {t.account.noOrders}
             </p>
           ) : (
-            <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <table className="w-full min-w-[480px] text-left text-sm">
-                <thead className="border-b border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  <tr>
-                    <th className="px-5 py-3">{t.account.orderCol}</th>
-                    <th className="px-5 py-3">{t.account.dateCol}</th>
-                    <th className="px-5 py-3">{t.account.itemsCol}</th>
-                    <th className="px-5 py-3">{t.account.totalCol}</th>
-                    <th className="px-5 py-3">{t.account.statusCol}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {orders.map((order) => (
-                    <tr key={order.id} className="text-slate-700">
-                      <td className="px-5 py-4 font-medium text-slate-900">{order.id}</td>
-                      <td className="px-5 py-4">{order.date}</td>
-                      <td className="px-5 py-4">{order.items}</td>
-                      <td className="px-5 py-4">${order.total.toFixed(2)}</td>
-                      <td className="px-5 py-4">
-                        <span className="rounded-full bg-brand-cyan-muted px-2.5 py-0.5 text-xs font-medium text-brand-cyan-foreground">
-                          {order.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="mt-6 space-y-4">
+              {orders.map((order) => (
+                <div
+                  key={order.id}
+                  className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 bg-slate-50/80 px-5 py-4">
+                    <div>
+                      <p className="font-semibold text-slate-900">{order.id}</p>
+                      <p className="text-sm text-slate-600">{order.date} · {order.items}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-bold text-slate-900">HK$ {order.total.toFixed(0)}</p>
+                      <span className="rounded-full bg-brand-cyan-muted px-2.5 py-0.5 text-xs font-medium text-brand-cyan-foreground">
+                        {order.status}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="px-5 pb-5">
+                    <OrderTimeline order={order} />
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </section>
@@ -163,6 +170,10 @@ export default function AccountPage() {
             {t.account.reminders}
           </h2>
           <p className="mt-1 text-sm text-slate-600">{t.account.remindersDesc}</p>
+
+          <div className="mt-6">
+            <ReminderCountdownCards reminders={reminders} />
+          </div>
 
           <form
             onSubmit={handleAddReminder}
@@ -233,6 +244,25 @@ export default function AccountPage() {
                     {reminder.notes && (
                       <p className="mt-1 text-sm text-slate-600">{reminder.notes}</p>
                     )}
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <a
+                        href={googleCalendarUrl(reminder.title, reminder.date, reminder.notes)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                      >
+                        <CalendarPlus className="h-3.5 w-3.5" />
+                        {t.account.countdown.addGoogle}
+                      </a>
+                      <a
+                        href={appleCalendarIcs(reminder.title, reminder.date, reminder.notes)}
+                        download={`${reminder.title.replace(/\s+/g, "-")}.ics`}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                      >
+                        <CalendarPlus className="h-3.5 w-3.5" />
+                        {t.account.countdown.addApple}
+                      </a>
+                    </div>
                   </div>
                   <button
                     type="button"

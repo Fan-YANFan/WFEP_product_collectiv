@@ -24,9 +24,16 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 glass">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-gradient text-sm font-bold text-white shadow-md shadow-brand-orange/25">
-            C
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
+          <span className="logo-brand">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="Collectiv logo"
+              width={32}
+              height={32}
+              decoding="async"
+            />
           </span>
           <span className="font-display text-lg font-semibold tracking-tight text-slate-900">
             Collectiv

@@ -10,12 +10,27 @@ import {
 } from "react";
 import type { RecyclingCollectionPoint } from "@/lib/csdi/types";
 
+export type OrderTimelineStep =
+  | "accepted"
+  | "en_route"
+  | "collected"
+  | "at_facility"
+  | "sorted";
+
 export type MemberOrder = {
   id: string;
   date: string;
   items: string;
   total: number;
   status: "Delivered" | "Processing" | "Shipped";
+  timeline?: {
+    current: OrderTimelineStep;
+    eta?: string;
+  };
+  ecoImpact?: {
+    carbonDivertedKg: number;
+    largeItems: number;
+  };
 };
 
 export type BookmarkedPoint = {
@@ -52,6 +67,7 @@ type AuthContextValue = {
   addReminder: (title: string, date: string, notes: string) => void;
   removeReminder: (id: string) => void;
   addOrder: (order: Omit<MemberOrder, "id">) => void;
+  ecoStats: { carbonDivertedKg: number; largeItemsRecycled: number };
 };
 
 const SESSION_KEY = "collectiv-member-session";
@@ -59,6 +75,9 @@ const ACCOUNTS_KEY = "collectiv-member-accounts";
 const ORDERS_KEY = "collectiv-member-orders";
 const BOOKMARKS_KEY = "collectiv-member-bookmarks";
 const REMINDERS_KEY = "collectiv-member-reminders";
+
+const DEFAULT_ACCOUNT_EMAIL = "collectiv@gmail.com";
+const DEFAULT_ACCOUNT_PASSWORD = "123456";
 
 type StoredAccounts = Record<string, string>;
 
@@ -84,6 +103,13 @@ function loadAccounts(): StoredAccounts {
   }
 }
 
+function ensureDefaultAccount() {
+  if (typeof window === "undefined") return;
+  const accounts = loadAccounts();
+  accounts[DEFAULT_ACCOUNT_EMAIL] = DEFAULT_ACCOUNT_PASSWORD;
+  localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
+}
+
 function loadMemberData<T>(key: string, email: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   try {
@@ -103,23 +129,54 @@ function saveMemberData<T>(key: string, email: string, data: T) {
   localStorage.setItem(key, JSON.stringify(all));
 }
 
-function seedDemoOrders(email: string): MemberOrder[] {
+function seedDemoOrders(): MemberOrder[] {
+  const twoDaysFromNow = new Date();
+  twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2);
+  const pickupDate = twoDaysFromNow.toISOString().slice(0, 10);
+
   return [
     {
       id: "ORD-10042",
-      date: "2025-11-18",
-      items: "Calmexa XR × 1",
-      total: 49.99,
-      status: "Delivered",
+      date: pickupDate,
+      items: "Mixed recyclables — plastics, paper, 2 large appliances",
+      total: 485,
+      status: "Processing",
+      timeline: { current: "en_route", eta: "3:30 PM" },
+      ecoImpact: { carbonDivertedKg: 42, largeItems: 2 },
     },
     {
       id: "ORD-10038",
-      date: "2025-09-02",
-      items: "Calmexa XR × 2 (subscription)",
-      total: 84.98,
+      date: "2025-11-18",
+      items: "E-waste, metals, cardboard — flat clearance",
+      total: 720,
       status: "Delivered",
+      timeline: { current: "sorted" },
+      ecoImpact: { carbonDivertedKg: 85, largeItems: 6 },
     },
   ];
+}
+
+function seedDemoReminders(): EventReminder[] {
+  const endDate = new Date();
+  endDate.setDate(endDate.getDate() + 2);
+  return [
+    {
+      id: "demo-ssp-books",
+      title: "Sham Shui Po Book Recycling Drive",
+      date: endDate.toISOString().slice(0, 10),
+      notes: "Shek Kip Mei Community Hall, 10am–4pm. Bring paperback books only.",
+    },
+  ];
+}
+
+function computeEcoStats(orders: MemberOrder[]) {
+  return orders.reduce(
+    (acc, o) => ({
+      carbonDivertedKg: acc.carbonDivertedKg + (o.ecoImpact?.carbonDivertedKg ?? 0),
+      largeItemsRecycled: acc.largeItemsRecycled + (o.ecoImpact?.largeItems ?? 0),
+    }),
+    { carbonDivertedKg: 0, largeItemsRecycled: 0 },
+  );
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -130,19 +187,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [orders, setOrders] = useState<MemberOrder[]>([]);
   const [bookmarks, setBookmarks] = useState<BookmarkedPoint[]>([]);
   const [reminders, setReminders] = useState<EventReminder[]>([]);
+  const [ecoStats, setEcoStats] = useState({ carbonDivertedKg: 0, largeItemsRecycled: 0 });
 
   const loadMemberState = useCallback((email: string) => {
     let memberOrders = loadMemberData<MemberOrder[]>(ORDERS_KEY, email, []);
     if (memberOrders.length === 0) {
-      memberOrders = seedDemoOrders(email);
+      memberOrders = seedDemoOrders();
       saveMemberData(ORDERS_KEY, email, memberOrders);
     }
     setOrders(memberOrders);
+    setEcoStats(computeEcoStats(memberOrders));
     setBookmarks(loadMemberData<BookmarkedPoint[]>(BOOKMARKS_KEY, email, []));
-    setReminders(loadMemberData<EventReminder[]>(REMINDERS_KEY, email, []));
+    let memberReminders = loadMemberData<EventReminder[]>(REMINDERS_KEY, email, []);
+    if (memberReminders.length === 0) {
+      memberReminders = seedDemoReminders();
+      saveMemberData(REMINDERS_KEY, email, memberReminders);
+    }
+    setReminders(memberReminders);
   }, []);
 
   useEffect(() => {
+    ensureDefaultAccount();
     const session = loadSession();
     if (session) {
       setMember(session);
@@ -208,6 +273,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setOrders([]);
     setBookmarks([]);
     setReminders([]);
+    setEcoStats({ carbonDivertedKg: 0, largeItemsRecycled: 0 });
   }, []);
 
   const addBookmark = useCallback(
@@ -275,6 +341,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         ...orders,
       ];
       setOrders(next);
+      setEcoStats(computeEcoStats(next));
       saveMemberData(ORDERS_KEY, member.email, next);
     },
     [member, orders],
@@ -297,6 +364,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         addReminder,
         removeReminder,
         addOrder,
+        ecoStats,
       }}
     >
       {children}

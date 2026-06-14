@@ -156,6 +156,36 @@ export const en: Translations = {
     estWeight: "Estimated weight:",
     estTotalCharge: "Estimated total charge:",
     backHome: "Back to Homepage",
+    validation: {
+      nameRequired: "Please enter your full name.",
+      phoneRequired: "Please enter your WhatsApp or phone number.",
+      phoneInvalid: "Please enter a valid phone number.",
+      districtRequired: "Please select your region.",
+      addressRequired: "Please enter your full address.",
+      dateRequired: "Please choose a collection date.",
+      materialRequired: "Please select a material type.",
+      weightRequired: "Estimated weight must be at least 2 kg.",
+      floorsRequired: "Please enter the number of floors to climb.",
+      bagsRequired: "Please enter the number of bags or items.",
+      fixErrors: "Please complete all required fields before submitting.",
+    },
+    photoQuote: {
+      title: "Too much to sort? Snap a photo instead.",
+      desc: "Dealing with a massive flat clearance? Skip the forms — upload 1–3 photos and we'll send you a quick estimate via WhatsApp or phone.",
+      cta: "Take a Photo for an Instant Quote",
+      formTitle: "Photo quote request",
+      formDesc: "Upload photos of your items. Our AI and customer service team will review and contact you shortly.",
+      uploadLabel: "Photos",
+      addPhoto: "Add",
+      phoneRequired: "Please enter your phone number so we can reach you.",
+      photosRequired: "Please upload at least one photo.",
+      submit: "Send for Instant Quote",
+      submitting: "Uploading…",
+      successTitle: "Photos received!",
+      success: "Our team will contact you shortly with a quote.",
+      failed: "Upload failed. Please try again.",
+      sendAnother: "Send another photo quote",
+    },
     regions: [
       "Hong Kong Island (Central & Western, Wan Chai, Eastern, Southern)",
       "Kowloon (Yau Tsim Mong, Sham Shui Po, Kowloon City, Wong Tai Sin, Kwun Tong)",
@@ -219,6 +249,36 @@ export const en: Translations = {
     notesPlaceholder: "Location, time, what to bring…",
     addReminder: "Add reminder",
     noReminders: "No reminders set yet.",
+    ecoDashboard: {
+      badge: "Your impact",
+      title: "Eco Dashboard",
+      carbonLine: "You have helped Collectiv divert {kg} kg of carbon emissions from landfills.",
+      itemsLine: "{count} large items successfully recycled.",
+      treeLabel: "Your impact grows",
+      coastLabel: "Cleaner Hong Kong coastline",
+      coastProgress: "{pct}% cleaner since you joined",
+    },
+    countdown: {
+      endsToday: "Ends today!",
+      endsTomorrow: "Ends tomorrow!",
+      endsInDays: "Ends in {days} days",
+      actionUrgent: "The {event} you bookmarked is almost over. Time to clear your bookshelf!",
+      actionSoon: "Don't forget — {event} is coming up soon.",
+      addGoogle: "Add to Google Calendar",
+      addApple: "Add to Apple Calendar",
+    },
+    timeline: {
+      title: "Pickup tracking",
+      steps: {
+        accepted: "Order Accepted",
+        en_route: "Driver en Route",
+        collected: "Collection Complete",
+        at_facility: "Arrived at Recycling Facility",
+        sorted: "Sorted / Donated",
+      },
+      enRouteEta: "Driver en Route (ETA {eta})",
+      closureNote: "Your items have been successfully sorted and donated. Thank you!",
+    },
   },
   cookies: {
     title: "Cookie settings",
@@ -366,6 +426,36 @@ export type Translations = {
     estWeight: string;
     estTotalCharge: string;
     backHome: string;
+    validation: {
+      nameRequired: string;
+      phoneRequired: string;
+      phoneInvalid: string;
+      districtRequired: string;
+      addressRequired: string;
+      dateRequired: string;
+      materialRequired: string;
+      weightRequired: string;
+      floorsRequired: string;
+      bagsRequired: string;
+      fixErrors: string;
+    };
+    photoQuote: {
+      title: string;
+      desc: string;
+      cta: string;
+      formTitle: string;
+      formDesc: string;
+      uploadLabel: string;
+      addPhoto: string;
+      phoneRequired: string;
+      photosRequired: string;
+      submit: string;
+      submitting: string;
+      successTitle: string;
+      success: string;
+      failed: string;
+      sendAnother: string;
+    };
     regions: readonly string[];
     materials: Record<string, string>;
     perKg: string;
@@ -419,6 +509,30 @@ export type Translations = {
     notesPlaceholder: string;
     addReminder: string;
     noReminders: string;
+    ecoDashboard: {
+      badge: string;
+      title: string;
+      carbonLine: string;
+      itemsLine: string;
+      treeLabel: string;
+      coastLabel: string;
+      coastProgress: string;
+    };
+    countdown: {
+      endsToday: string;
+      endsTomorrow: string;
+      endsInDays: string;
+      actionUrgent: string;
+      actionSoon: string;
+      addGoogle: string;
+      addApple: string;
+    };
+    timeline: {
+      title: string;
+      steps: Record<string, string>;
+      enRouteEta: string;
+      closureNote: string;
+    };
   };
   cookies: {
     title: string;

@@ -22,6 +22,9 @@
 .DS_Store
 *.pem
 
+# uploaded photo quotes (API storage)
+/data/photo-quotes/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

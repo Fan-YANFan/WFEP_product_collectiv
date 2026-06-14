@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* Tailwind v4 design tokens (powers utility classes + :root variables) */
 @theme inline {
   --color-background: #f8fafc;
   --color-foreground: #0f172a;
@@ -17,6 +18,7 @@
   --color-accent-dark: #0099ad;
   --color-surface: #ffffff;
   --color-border: #e2e8f0;
+  --color-logo-bg: #ffffff;
   --font-sans: var(--font-dm-sans);
   --font-display: var(--font-fraunces);
 }
@@ -27,6 +29,7 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 body {
@@ -34,6 +37,17 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
 }
 
 .font-display {
@@ -59,9 +73,62 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: #e2e8f0;
+  }
+}
+
+@layer components {
+  /* Logo tile — forced white surface in all color schemes */
+  .logo-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.5rem;
+    background-color: var(--color-logo-bg) !important;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    color-scheme: light;
+    forced-color-adjust: none;
+    isolation: isolate;
+  }
+
+  .logo-brand img {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    background-color: var(--color-logo-bg) !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    mix-blend-mode: normal;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo-brand {
+    background-color: var(--color-logo-bg) !important;
+    border-color: var(--color-border);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  }
+
+  .logo-brand img {
+    background-color: var(--color-logo-bg) !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+  }
 }
 
 .btn-primary {

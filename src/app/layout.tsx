@@ -27,6 +27,10 @@ export const metadata: Metadata = {
   },
   description:
     "Find Hong Kong recyclable collection points and manage your member account — order history, saved locations, and recycling event reminders.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

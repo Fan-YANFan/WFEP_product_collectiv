@@ -11,6 +11,7 @@ import {
   Weight,
 } from "lucide-react";
 import { CollectionDatePicker } from "@/components/booking/CollectionDatePicker";
+import { PhotoQuoteSection } from "@/components/booking/PhotoQuoteSection";
 import { PricingBreakdown } from "@/components/booking/PricingBreakdown";
 import { useLanguage } from "@/context/LanguageContext";
 import {
@@ -22,6 +23,7 @@ import {
   type RemoteAreaId,
   REMOTE_AREA_SURCHARGES,
 } from "@/lib/booking/pricing";
+import { validateBookingForm, type BookingFieldErrors } from "@/lib/booking/validation";
 import { formatMessage } from "@/lib/i18n";
 
 const REMOTE_AREA_IDS = Object.keys(REMOTE_AREA_SURCHARGES) as RemoteAreaId[];
@@ -29,6 +31,7 @@ const REMOTE_AREA_IDS = Object.keys(REMOTE_AREA_SURCHARGES) as RemoteAreaId[];
 export default function BookingPage() {
   const { t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<BookingFieldErrors>({});
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -59,8 +62,17 @@ export default function BookingPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.date) return;
+    const { valid, fieldErrors: errors } = validateBookingForm(formData, t.booking.validation);
+    setFieldErrors(errors);
+    if (!valid) return;
     setSubmitted(true);
+  };
+
+  const fieldErrorClass = (key: keyof BookingFieldErrors) =>
+    fieldErrors[key] ? "border-red-300 ring-1 ring-red-200" : "";
+
+  const clearError = (key: keyof BookingFieldErrors) => {
+    if (fieldErrors[key]) setFieldErrors((prev) => ({ ...prev, [key]: undefined }));
   };
 
   if (submitted) {
@@ -100,13 +112,15 @@ export default function BookingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50/50 px-4 py-12 sm:px-6">
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-2xl space-y-8">
         <Link
           href="/"
-          className="mb-8 inline-flex items-center gap-2 font-medium text-slate-500 transition hover:text-slate-800"
+          className="inline-flex items-center gap-2 font-medium text-slate-500 transition hover:text-slate-800"
         >
           <ArrowLeft className="h-4 w-4" /> {t.booking.back}
         </Link>
+
+        <PhotoQuoteSection />
 
         <div className="animate-fade-in-up overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
           <div className="gradient-mesh border-b border-slate-100 p-6 sm:p-10">
@@ -115,6 +129,11 @@ export default function BookingPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6 p-6 sm:p-10">
+            {Object.keys(fieldErrors).length > 0 && (
+              <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-800">
+                {t.booking.validation.fixErrors}
+              </p>
+            )}
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm font-medium text-slate-700">
@@ -122,12 +141,17 @@ export default function BookingPage() {
                 </label>
                 <input
                   type="text"
-                  required
-                  className="input-brand w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm"
+                  className={`input-brand w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm ${fieldErrorClass("name")}`}
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) => {
+                    setFormData({ ...formData, name: e.target.value });
+                    clearError("name");
+                  }}
                   placeholder={t.booking.namePlaceholder}
                 />
+                {fieldErrors.name && (
+                  <p className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
+                )}
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium text-slate-700">
@@ -135,12 +159,17 @@ export default function BookingPage() {
                 </label>
                 <input
                   type="tel"
-                  required
-                  className="input-brand w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm"
+                  className={`input-brand w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm ${fieldErrorClass("phone")}`}
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={(e) => {
+                    setFormData({ ...formData, phone: e.target.value });
+                    clearError("phone");
+                  }}
                   placeholder={t.booking.phonePlaceholder}
                 />
+                {fieldErrors.phone && (
+                  <p className="mt-1 text-xs text-red-600">{fieldErrors.phone}</p>
+                )}
               </div>
             </div>
 
@@ -149,10 +178,12 @@ export default function BookingPage() {
                 {t.booking.region}
               </label>
               <select
-                required
-                className="input-brand w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm"
+                className={`input-brand w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm ${fieldErrorClass("district")}`}
                 value={formData.district}
-                onChange={(e) => setFormData({ ...formData, district: e.target.value })}
+                onChange={(e) => {
+                  setFormData({ ...formData, district: e.target.value });
+                  clearError("district");
+                }}
               >
                 <option value="">{t.booking.selectRegion}</option>
                 {t.booking.regions.map((dist, idx) => (
@@ -161,6 +192,9 @@ export default function BookingPage() {
                   </option>
                 ))}
               </select>
+              {fieldErrors.district && (
+                <p className="mt-1 text-xs text-red-600">{fieldErrors.district}</p>
+              )}
             </div>
 
             <div>
@@ -170,21 +204,33 @@ export default function BookingPage() {
               <div className="relative">
                 <MapPin className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
                 <textarea
-                  required
                   rows={2}
-                  className="input-brand w-full resize-none rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-4 text-sm"
+                  className={`input-brand w-full resize-none rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-4 text-sm ${fieldErrorClass("address")}`}
                   value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  onChange={(e) => {
+                    setFormData({ ...formData, address: e.target.value });
+                    clearError("address");
+                  }}
                   placeholder={t.booking.addressPlaceholder}
                 />
               </div>
+              {fieldErrors.address && (
+                <p className="mt-1 text-xs text-red-600">{fieldErrors.address}</p>
+              )}
             </div>
 
-            <CollectionDatePicker
-              required
-              value={formData.date}
-              onChange={(date) => setFormData({ ...formData, date })}
-            />
+            <div>
+              <CollectionDatePicker
+                value={formData.date}
+                onChange={(date) => {
+                  setFormData({ ...formData, date });
+                  clearError("date");
+                }}
+              />
+              {fieldErrors.date && (
+                <p className="mt-1 text-xs text-red-600">{fieldErrors.date}</p>
+              )}
+            </div>
 
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">
@@ -260,12 +306,16 @@ export default function BookingPage() {
                       type="number"
                       min={1}
                       max={40}
-                      className="input-brand w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
+                      className={`input-brand w-full rounded-lg border border-slate-200 px-3 py-2 text-sm ${fieldErrorClass("floors")}`}
                       value={formData.floors}
-                      onChange={(e) =>
-                        setFormData({ ...formData, floors: parseInt(e.target.value, 10) || 1 })
-                      }
+                      onChange={(e) => {
+                        setFormData({ ...formData, floors: parseInt(e.target.value, 10) || 1 });
+                        clearError("floors");
+                      }}
                     />
+                    {fieldErrors.floors && (
+                      <p className="mt-1 text-xs text-red-600">{fieldErrors.floors}</p>
+                    )}
                   </div>
                   <div>
                     <label className="mb-1 block text-xs font-medium text-slate-600">
@@ -275,12 +325,16 @@ export default function BookingPage() {
                       type="number"
                       min={1}
                       max={50}
-                      className="input-brand w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
+                      className={`input-brand w-full rounded-lg border border-slate-200 px-3 py-2 text-sm ${fieldErrorClass("bagCount")}`}
                       value={formData.bagCount}
-                      onChange={(e) =>
-                        setFormData({ ...formData, bagCount: parseInt(e.target.value, 10) || 1 })
-                      }
+                      onChange={(e) => {
+                        setFormData({ ...formData, bagCount: parseInt(e.target.value, 10) || 1 });
+                        clearError("bagCount");
+                      }}
                     />
+                    {fieldErrors.bagCount && (
+                      <p className="mt-1 text-xs text-red-600">{fieldErrors.bagCount}</p>
+                    )}
                   </div>
                   <p className="sm:col-span-2 text-xs text-violet-700">{t.booking.walkUpRateNote}</p>
                 </div>
