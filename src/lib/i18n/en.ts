@@ -61,6 +61,16 @@ export const en: Translations = {
     csdiPortal: "CSDI geoportal",
     dataNote:
       "Dataset layer: geotagging. Map explorer updates are irregular when locations change. This finder is for convenience only; verify details on site or via official channels.",
+    carousel: {
+      title: "Latest short-term recycling campaigns",
+      prev: "Previous slide",
+      next: "Next slide",
+      goToSlide: "Go to slide",
+      slide1Alt:
+        "Books for Love @ $10 charity book drive — book collection Jan 2026, online sale Mar–Apr, in-person sale May 2026.",
+      slide2Alt:
+        "Hong Kong Adventist Hospital Tsuen Wan medication recycling program — collection May 4–31, 2026.",
+    },
   },
   explorer: {
     searchAddress: "Search address",
@@ -355,6 +365,14 @@ export type Translations = {
     explorerDescSuffix: string;
     csdiPortal: string;
     dataNote: string;
+    carousel: {
+      title: string;
+      prev: string;
+      next: string;
+      goToSlide: string;
+      slide1Alt: string;
+      slide2Alt: string;
+    };
   };
   explorer: {
     searchAddress: string;

@@ -181,6 +181,23 @@ body {
   box-shadow: 0 6px 16px -4px rgba(255, 163, 77, 0.35);
 }
 
+/* Carousel arrows — primary style without vertical shift on hover */
+.carousel-nav-btn.btn-primary:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.carousel-nav-btn.btn-primary:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.carousel-controls {
+  pointer-events: none;
+}
+
+.carousel-controls > * {
+  pointer-events: auto;
+}
+
 .btn-primary:disabled {
   opacity: 0.6;
   cursor: not-allowed;

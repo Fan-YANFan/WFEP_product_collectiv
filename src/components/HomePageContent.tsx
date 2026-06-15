@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRight, Map, Recycle, ShieldCheck } from "lucide-react";
+import { Map, Recycle, ShieldCheck } from "lucide-react";
+import { HomeEventCarousel } from "@/components/HomeEventCarousel";
 import { RecyclingPointsExplorer } from "@/components/RecyclingPointsExplorer";
 import { useLanguage } from "@/context/LanguageContext";
 import { CSDI_DATA_ATTRIBUTION, CSDI_PORTAL_URL } from "@/lib/csdi/constants";
@@ -11,30 +11,7 @@ export function HomePageContent() {
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50/30">
-      <section className="gradient-mesh relative w-full overflow-hidden border-b border-slate-200/60 px-4 py-20 text-center">
-        <div className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-brand-cyan/20 blur-3xl animate-float" />
-        <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-brand-orange/15 blur-3xl animate-float stagger-3" />
-
-        <div className="relative mx-auto max-w-3xl">
-          <p className="badge-brand animate-fade-in inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider shadow-sm">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-gradient" />
-            {t.home.badge}
-          </p>
-          <h1 className="animate-fade-in-up stagger-1 mt-6 mb-6 text-5xl font-extrabold tracking-tight text-slate-900 md:text-6xl">
-            {t.home.titleLine1} <br />
-            <span className="text-brand-gradient">{t.home.titleLine2}</span>
-          </h1>
-          <p className="animate-fade-in-up stagger-2 mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-slate-600">
-            {t.home.subtitle}
-          </p>
-          <Link
-            href="/booking"
-            className="btn-primary animate-fade-in-up stagger-3 inline-flex items-center gap-2 rounded-xl px-8 py-4 text-lg"
-          >
-            {t.home.cta} <ArrowRight className="h-5 w-5 transition group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-      </section>
+      <HomeEventCarousel />
 
       <section className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-16 md:grid-cols-3">
         <Feature

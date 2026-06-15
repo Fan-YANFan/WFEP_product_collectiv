@@ -62,6 +62,16 @@ export const zh: Translations = {
     csdiPortal: "CSDI 地理資訊平台",
     dataNote:
       "數據圖層：geotagging。地圖資料會因位置變更而不定期更新。本搜尋工具僅供參考，請以現場或官方資訊為準。",
+    carousel: {
+      title: "最新的短期回收活動",
+      prev: "上一張",
+      next: "下一張",
+      goToSlide: "前往第",
+      slide1Alt:
+        "書出愛心十元義賣 — 2026年1月收書、3至4月網上義賣、5月實體書籍義賣。",
+      slide2Alt:
+        "荃灣港安醫院藥物回收計劃 — 2026年5月4日至31日收集期。",
+    },
   },
   explorer: {
     searchAddress: "搜尋地址",
