@@ -94,7 +94,14 @@ export const en: Translations = {
     removeBookmarkTitle: "Remove bookmark",
     openStreetMap: "OpenStreetMap",
     googleMaps: "Google Maps",
+    shortTermBadge: "Short-term",
+    booksCampaignTitle: "Books for Love @ $10 — Swire Properties",
+    booksCampaignDesc:
+      "Jan 2026 collection at 47 drop-off points across Hong Kong — Swire Properties malls & offices, BGCA youth centres, and AVS centres. Good-condition books are sold at HK$10 in May at Taikoo Place, benefiting BGCA & the Agency for Volunteer Service.",
+    booksCampaignLink: "View official campaign page & full point list →",
+    campaignDetails: "Campaign details",
     wasteTypes: {
+      Books: "Books (charity drive)",
       Paper: "Paper",
       Metals: "Metals",
       Plastics: "Plastics",
@@ -396,6 +403,11 @@ export type Translations = {
     removeBookmarkTitle: string;
     openStreetMap: string;
     googleMaps: string;
+    shortTermBadge: string;
+    booksCampaignTitle: string;
+    booksCampaignDesc: string;
+    booksCampaignLink: string;
+    campaignDetails: string;
     wasteTypes: Record<string, string>;
   };
   booking: {

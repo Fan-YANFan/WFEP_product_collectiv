@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Battery,
+  BookOpen,
   Box,
   FileText,
   GlassWater,
@@ -16,6 +17,10 @@ import type { WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
 
 export type WasteTypeFilter = (typeof WASTE_TYPE_FILTERS)[number];
 
+export function isShortTermWasteType(type: string): boolean {
+  return type === "Books";
+}
+
 export interface WasteTypeStyle {
   icon: LucideIcon;
   /** Tailwind classes for inactive chip */
@@ -27,11 +32,19 @@ export interface WasteTypeStyle {
 }
 
 export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
+  Books: {
+    icon: BookOpen,
+    chip:
+      "border-amber-400 bg-gradient-to-r from-amber-50 to-yellow-50 text-amber-950 shadow-sm ring-2 ring-amber-300/70 hover:from-amber-100 hover:to-yellow-100",
+    chipActive:
+      "border-amber-500 bg-gradient-to-r from-amber-400 to-yellow-400 text-white shadow-lg shadow-amber-300/50 ring-2 ring-amber-300 scale-105",
+    tag: "border border-amber-300 bg-amber-50 text-amber-900 font-semibold",
+  },
   Paper: {
     icon: FileText,
-    chip: "border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100 hover:border-amber-300",
-    chipActive: "border-amber-500 bg-amber-500 text-white shadow-md shadow-amber-200",
-    tag: "border border-amber-200 bg-amber-50 text-amber-800",
+    chip: "border-teal-200 bg-teal-50 text-teal-900 hover:bg-teal-100 hover:border-teal-300",
+    chipActive: "border-teal-600 bg-teal-600 text-white shadow-md shadow-teal-200",
+    tag: "border border-teal-200 bg-teal-50 text-teal-900",
   },
   Metals: {
     icon: Wrench,

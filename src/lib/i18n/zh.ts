@@ -95,7 +95,14 @@ export const zh: Translations = {
     removeBookmarkTitle: "移除收藏",
     openStreetMap: "OpenStreetMap",
     googleMaps: "Google 地圖",
+    shortTermBadge: "短期活動",
+    booksCampaignTitle: "書出愛心 十元義賣 — 太古地產",
+    booksCampaignDesc:
+      "2026年1月全港47個收書點（太古地產商場及辦公大樓、小童群益會青年中心及義務工作發展局中心）收集狀態良好的二手書，5月於太古坊以每本港幣10元義賣，收益撥捐香港小童群益會及義務工作發展局。",
+    booksCampaignLink: "查看官方活動頁面及完整收書點 →",
+    campaignDetails: "活動詳情",
     wasteTypes: {
+      Books: "書籍（慈善回收）",
       Paper: "紙張",
       Metals: "金屬",
       Plastics: "塑膠",

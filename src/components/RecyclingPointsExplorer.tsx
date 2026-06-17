@@ -15,6 +15,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { HK_DISTRICTS, WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
+import { BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
 import {
   getAddress,
   getContact,
@@ -25,7 +26,7 @@ import {
 } from "@/lib/csdi/display";
 import { getDistrictLabel } from "@/lib/i18n/districts";
 import { formatMessage } from "@/lib/i18n";
-import { getWasteTypeStyle } from "@/lib/waste-types";
+import { getWasteTypeStyle, isShortTermWasteType } from "@/lib/waste-types";
 import type { RecyclingCollectionPoint } from "@/lib/csdi/types";
 
 interface ApiResponse {
@@ -219,6 +220,7 @@ export function RecyclingPointsExplorer() {
             const Icon = style.icon;
             const selected = wasteType === type;
             const label = t.explorer.wasteTypes[type] ?? type;
+            const shortTerm = isShortTermWasteType(type);
 
             return (
               <button
@@ -230,14 +232,34 @@ export function RecyclingPointsExplorer() {
                 }}
                 className={`chip-pop inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${
                   selected ? `${style.chipActive} scale-105` : style.chip
-                }`}
+                } ${shortTerm ? "short-term-waste-chip" : ""}`}
               >
                 <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden />
                 {label}
+                {shortTerm && (
+                  <span className="rounded-full bg-amber-500/90 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                    {t.explorer.shortTermBadge}
+                  </span>
+                )}
               </button>
             );
           })}
         </div>
+
+        {wasteType === "Books" && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-yellow-50 p-4 text-sm text-amber-950">
+            <p className="font-semibold">{t.explorer.booksCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-amber-900/90">{t.explorer.booksCampaignDesc}</p>
+            <a
+              href={BOOKS_FOR_LOVE_CAMPAIGN.officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-brand mt-2 inline-block font-semibold underline"
+            >
+              {t.explorer.booksCampaignLink}
+            </a>
+          </div>
+        )}
 
         {geoError && (
           <p className="animate-fade-in mt-3 text-sm text-amber-700">{geoError}</p>
@@ -366,9 +388,21 @@ function PointCard({
             </button>
           )}
           {point.cp_state && (
-            <span className="status-accepted rounded-full px-2 py-0.5 text-xs">
-              <CheckCircle2 className="h-3 w-3" aria-hidden />
-              {point.cp_state}
+            <span
+              className={`rounded-full px-2 py-0.5 text-xs ${
+                point.is_short_term
+                  ? "border border-amber-300 bg-amber-100 font-semibold text-amber-900"
+                  : "status-accepted"
+              }`}
+            >
+              {point.is_short_term ? (
+                t.explorer.shortTermBadge
+              ) : (
+                <>
+                  <CheckCircle2 className="h-3 w-3" aria-hidden />
+                  {point.cp_state}
+                </>
+              )}
             </span>
           )}
         </div>
@@ -422,6 +456,16 @@ function PointCard({
       )}
 
       <div className="mt-4 flex flex-wrap gap-3 text-xs font-semibold">
+        {point.campaign_url && (
+          <a
+            href={point.campaign_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-amber-900 hover:bg-amber-100"
+          >
+            {t.explorer.campaignDetails}
+          </a>
+        )}
         <a
           href={openStreetMapUrl(point.lat, point.lng)}
           target="_blank"

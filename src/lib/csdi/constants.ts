@@ -43,6 +43,7 @@ export const HK_DISTRICTS = [
 
 /** Common waste types for filter chips */
 export const WASTE_TYPE_FILTERS = [
+  "Books",
   "Paper",
   "Metals",
   "Plastics",
@@ -55,3 +56,8 @@ export const WASTE_TYPE_FILTERS = [
   "Clothes",
   "Tetra Pak",
 ] as const;
+
+/** Short-term / campaign waste types shown with highlight styling */
+export const SHORT_TERM_WASTE_TYPES = ["Books"] as const;
+
+export type ShortTermWasteType = (typeof SHORT_TERM_WASTE_TYPES)[number];

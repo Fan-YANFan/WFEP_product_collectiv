@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isBooksWasteType, queryBooksForLovePoints } from "@/lib/campaigns/books-for-love";
 import { queryRecyclingPoints } from "@/lib/csdi/client";
 import { CSDI_DATA_ATTRIBUTION, CSDI_MAX_PAGE_SIZE } from "@/lib/csdi/constants";
 
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
 
   try {
-    const result = await queryRecyclingPoints({
+    const query = {
       district: searchParams.get("district") ?? undefined,
       wasteType: searchParams.get("wasteType") ?? undefined,
       search: searchParams.get("search") ?? undefined,
@@ -32,11 +33,17 @@ export async function GET(request: NextRequest) {
         parseOptionalInt(searchParams.get("limit")) ?? 50,
         CSDI_MAX_PAGE_SIZE,
       ),
-    });
+    };
+
+    const result = isBooksWasteType(query.wasteType)
+      ? queryBooksForLovePoints(query)
+      : await queryRecyclingPoints(query);
 
     return NextResponse.json({
       ...result,
-      attribution: CSDI_DATA_ATTRIBUTION,
+      attribution: isBooksWasteType(query.wasteType)
+        ? "Swire Properties — Books for Love @ $10 (short-term campaign)"
+        : CSDI_DATA_ATTRIBUTION,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to fetch recycling points";

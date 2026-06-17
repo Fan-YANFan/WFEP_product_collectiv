@@ -20,6 +20,10 @@ export interface RecyclingCollectionPoint {
   openhour_en: string | null;
   openhour_tc: string | null;
   openhour_sc: string | null;
+  /** Short-term campaign metadata (non-CSDI points) */
+  campaign_source?: string | null;
+  campaign_url?: string | null;
+  is_short_term?: boolean;
 }
 
 export type AddressLocale = "en" | "tc" | "sc";

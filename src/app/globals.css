@@ -377,6 +377,20 @@ body {
   transform: scale(0.94);
 }
 
+.short-term-waste-chip:not(:active) {
+  animation: short-term-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes short-term-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(251, 191, 36, 0);
+  }
+}
+
 .collection-day-cell:active:not(:disabled) {
   transform: scale(0.94);
 }
