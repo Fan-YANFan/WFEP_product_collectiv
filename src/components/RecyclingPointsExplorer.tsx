@@ -16,6 +16,8 @@ import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { HK_DISTRICTS, WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
 import { BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
+import { WATSONS_SKINCARE_CAMPAIGN } from "@/lib/campaigns/watsons-skincare-recycling";
+import { WATSONS_PLASTIC_BATTERY_CAMPAIGN } from "@/lib/campaigns/watsons-plastic-battery-recycling";
 import {
   getAddress,
   getContact,
@@ -26,7 +28,13 @@ import {
 } from "@/lib/csdi/display";
 import { getDistrictLabel } from "@/lib/i18n/districts";
 import { formatMessage } from "@/lib/i18n";
-import { getWasteTypeStyle, isShortTermWasteType } from "@/lib/waste-types";
+import {
+  EXPIRED_WASTE_TYPE_STYLE,
+  getWasteTypeStyle,
+  isExpiredWasteType,
+  SHORT_TERM_BADGE_STYLE,
+  isShortTermWasteType,
+} from "@/lib/waste-types";
 import type { RecyclingCollectionPoint } from "@/lib/csdi/types";
 
 interface ApiResponse {
@@ -38,6 +46,7 @@ interface ApiResponse {
 }
 
 const PAGE_SIZE = 25;
+const CAMPAIGN_PAGE_SIZE = 100;
 const NEARBY_RADIUS_M = 2000;
 
 export function RecyclingPointsExplorer() {
@@ -63,9 +72,14 @@ export function RecyclingPointsExplorer() {
       setLoading(true);
       setError(null);
 
+      const pageSize =
+        wasteType === "Books" || wasteType === "Skincare Containers"
+          ? CAMPAIGN_PAGE_SIZE
+          : PAGE_SIZE;
+
       const params = new URLSearchParams({
         offset: String(offset),
-        limit: String(PAGE_SIZE),
+        limit: String(pageSize),
       });
 
       if (district) params.set("district", district);
@@ -128,8 +142,12 @@ export function RecyclingPointsExplorer() {
   }
 
   const total = data?.total ?? 0;
+  const pageSize =
+    wasteType === "Books" || wasteType === "Skincare Containers"
+      ? CAMPAIGN_PAGE_SIZE
+      : PAGE_SIZE;
   const pageStart = total === 0 ? 0 : offset + 1;
-  const pageEnd = Math.min(offset + PAGE_SIZE, total);
+  const pageEnd = Math.min(offset + pageSize, total);
 
   const resultsLabel = useMemo(() => {
     if (loading) return t.common.loading;
@@ -220,7 +238,16 @@ export function RecyclingPointsExplorer() {
             const Icon = style.icon;
             const selected = wasteType === type;
             const label = t.explorer.wasteTypes[type] ?? type;
+            const expired = isExpiredWasteType(type);
             const shortTerm = isShortTermWasteType(type);
+            const showShortTermBadge = shortTerm || expired;
+            const chipClass = expired
+              ? selected
+                ? EXPIRED_WASTE_TYPE_STYLE.chipActive
+                : EXPIRED_WASTE_TYPE_STYLE.chip
+              : selected
+                ? style.chipActive
+                : style.chip;
 
             return (
               <button
@@ -230,14 +257,18 @@ export function RecyclingPointsExplorer() {
                   setWasteType(selected ? "" : type);
                   setOffset(0);
                 }}
-                className={`chip-pop inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${
-                  selected ? `${style.chipActive} scale-105` : style.chip
-                } ${shortTerm ? "short-term-waste-chip" : ""}`}
+                className={`chip-pop inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${chipClass} ${
+                  shortTerm ? "short-term-waste-chip" : ""
+                }`}
               >
                 <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden />
                 {label}
-                {shortTerm && (
-                  <span className="rounded-full bg-amber-500/90 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                {showShortTermBadge && (
+                  <span
+                    className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+                      expired ? EXPIRED_WASTE_TYPE_STYLE.badge : SHORT_TERM_BADGE_STYLE
+                    }`}
+                  >
                     {t.explorer.shortTermBadge}
                   </span>
                 )}
@@ -247,17 +278,100 @@ export function RecyclingPointsExplorer() {
         </div>
 
         {wasteType === "Books" && (
-          <div className="animate-fade-in mt-4 rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-yellow-50 p-4 text-sm text-amber-950">
-            <p className="font-semibold">{t.explorer.booksCampaignTitle}</p>
-            <p className="mt-1 leading-relaxed text-amber-900/90">{t.explorer.booksCampaignDesc}</p>
+          <div className="animate-fade-in mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+            <p className="font-semibold text-slate-700">{t.explorer.booksCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed">{t.explorer.booksCampaignEndedDesc}</p>
             <a
               href={BOOKS_FOR_LOVE_CAMPAIGN.officialUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="link-brand mt-2 inline-block font-semibold underline"
+              className="mt-2 inline-block font-semibold text-slate-500 underline hover:text-slate-700"
             >
               {t.explorer.booksCampaignLink}
             </a>
+          </div>
+        )}
+
+        {wasteType === "Skincare Containers" && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-rose-200 bg-gradient-to-r from-rose-50 to-pink-50 p-4 text-sm text-rose-950">
+            <p className="font-semibold">{t.explorer.skincareCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-rose-900/90">{t.explorer.skincareCampaignDesc}</p>
+            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+              <a
+                href={WATSONS_SKINCARE_CAMPAIGN.programUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-brand font-semibold underline"
+              >
+                {t.explorer.skincareCampaignProgramLink}
+              </a>
+              <a
+                href={WATSONS_SKINCARE_CAMPAIGN.storeFinderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-brand font-semibold underline"
+              >
+                {t.explorer.skincareCampaignStoreLink}
+              </a>
+            </div>
+          </div>
+        )}
+
+        {wasteType === "Plastic Bottle" && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-cyan-200 bg-gradient-to-r from-cyan-50 to-sky-50 p-4 text-sm text-cyan-950">
+            <p className="font-semibold">{t.explorer.plasticBottleCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-cyan-900/90">{t.explorer.plasticBottleCampaignDesc}</p>
+            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+              <a
+                href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.programUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-cyan-800 underline hover:text-cyan-950"
+              >
+                {t.explorer.plasticBottleCampaignProgramLink}
+              </a>
+              <a
+                href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.storeFinderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-cyan-800 underline hover:text-cyan-950"
+              >
+                {t.explorer.plasticBottleCampaignStoreLink}
+              </a>
+            </div>
+          </div>
+        )}
+
+        {wasteType === "Rechargeable Batteries" && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 p-4 text-sm text-orange-950">
+            <p className="font-semibold">{t.explorer.batteryCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-orange-900/90">{t.explorer.batteryCampaignDesc}</p>
+            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+              <a
+                href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.programUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-orange-800 underline hover:text-orange-950"
+              >
+                {t.explorer.batteryCampaignProgramLink}
+              </a>
+              <a
+                href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.batteryProgramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-orange-800 underline hover:text-orange-950"
+              >
+                {t.explorer.batteryCampaignGovLink}
+              </a>
+              <a
+                href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.storeFinderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-orange-800 underline hover:text-orange-950"
+              >
+                {t.explorer.batteryCampaignStoreLink}
+              </a>
+            </div>
           </div>
         )}
 
@@ -280,7 +394,7 @@ export function RecyclingPointsExplorer() {
           <button
             type="button"
             disabled={loading || offset === 0}
-            onClick={() => setOffset(Math.max(0, offset - PAGE_SIZE))}
+            onClick={() => setOffset(Math.max(0, offset - pageSize))}
             className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 transition hover:bg-slate-50 disabled:opacity-40"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -288,8 +402,8 @@ export function RecyclingPointsExplorer() {
           </button>
           <button
             type="button"
-            disabled={loading || !data || offset + PAGE_SIZE >= total}
-            onClick={() => setOffset(offset + PAGE_SIZE)}
+            disabled={loading || !data || offset + pageSize >= total}
+            onClick={() => setOffset(offset + pageSize)}
             className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 transition hover:bg-slate-50 disabled:opacity-40"
           >
             {t.common.next}
@@ -315,6 +429,7 @@ export function RecyclingPointsExplorer() {
               bookmarked={isBookmarked(point.cp_id)}
               member={!!member}
               siteLocale={siteLocale}
+              expiredCampaign={wasteType === "Books"}
               t={t}
               onToggleBookmark={() =>
                 isBookmarked(point.cp_id)
@@ -346,6 +461,7 @@ interface PointCardProps {
   bookmarked: boolean;
   member: boolean;
   siteLocale: "en" | "zh";
+  expiredCampaign?: boolean;
   t: ReturnType<typeof useLanguage>["t"];
   onToggleBookmark: () => void;
 }
@@ -357,6 +473,7 @@ function PointCard({
   bookmarked,
   member,
   siteLocale,
+  expiredCampaign = false,
   t,
   onToggleBookmark,
 }: PointCardProps) {
@@ -365,10 +482,20 @@ function PointCard({
 
   return (
     <li
-      className={`hover-lift animate-fade-in-up stagger-${stagger} rounded-2xl border border-slate-100 bg-white p-5 shadow-sm`}
+      className={`hover-lift animate-fade-in-up stagger-${stagger} rounded-2xl border p-5 shadow-sm ${
+        expiredCampaign
+          ? "border-slate-200 bg-slate-50"
+          : "border-slate-100 bg-white"
+      }`}
     >
       <div className="flex items-start justify-between gap-2">
-        <p className="font-display text-base leading-snug font-semibold text-slate-900">{address}</p>
+        <p
+          className={`font-display text-base leading-snug font-semibold ${
+            expiredCampaign ? "text-slate-500" : "text-slate-900"
+          }`}
+        >
+          {address}
+        </p>
         <div className="flex shrink-0 items-center gap-2">
           {member && (
             <button
@@ -390,12 +517,16 @@ function PointCard({
           {point.cp_state && (
             <span
               className={`rounded-full px-2 py-0.5 text-xs ${
-                point.is_short_term
-                  ? "border border-amber-300 bg-amber-100 font-semibold text-amber-900"
-                  : "status-accepted"
+                expiredCampaign
+                  ? "border border-slate-300 bg-slate-200 font-semibold text-slate-600"
+                  : point.is_short_term
+                    ? "border border-amber-300 bg-amber-100 font-semibold text-amber-900"
+                    : "status-accepted"
               }`}
             >
-              {point.is_short_term ? (
+              {expiredCampaign ? (
+                t.explorer.expiredBadge
+              ) : point.is_short_term ? (
                 t.explorer.shortTermBadge
               ) : (
                 <>
@@ -409,13 +540,21 @@ function PointCard({
       </div>
 
       {point.district_id && (
-        <p className="mt-1.5 flex items-center gap-1 text-xs text-slate-500">
+        <p
+          className={`mt-1.5 flex items-center gap-1 text-xs ${
+            expiredCampaign ? "text-slate-400" : "text-slate-500"
+          }`}
+        >
           <MapPin className="h-3 w-3 shrink-0 text-slate-400" />
           {getDistrictLabel(point.district_id, siteLocale)}
         </p>
       )}
 
-      {point.legend && <p className="mt-2 text-sm text-slate-600">{point.legend}</p>}
+      {point.legend && (
+        <p className={`mt-2 text-sm ${expiredCampaign ? "text-slate-400" : "text-slate-600"}`}>
+          {point.legend}
+        </p>
+      )}
 
       {point.waste_type && (
         <div className="mt-3 flex flex-wrap gap-1.5">
@@ -423,11 +562,14 @@ function PointCard({
             const style = getWasteTypeStyle(w);
             const Icon = style.icon;
             const label = t.explorer.wasteTypes[w] ?? w;
+            const tagClass = expiredCampaign
+              ? EXPIRED_WASTE_TYPE_STYLE.tag
+              : style.tag;
 
             return (
               <span
                 key={w}
-                className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${style.tag}`}
+                className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${tagClass}`}
               >
                 <Icon className="h-3 w-3 shrink-0" aria-hidden />
                 {label}
@@ -438,17 +580,25 @@ function PointCard({
       )}
 
       {getOpenHours(point, addressLocale) && (
-        <p className="mt-2 flex items-start gap-1.5 text-xs text-slate-600">
+        <p
+          className={`mt-2 flex items-start gap-1.5 text-xs ${
+            expiredCampaign ? "text-slate-400" : "text-slate-600"
+          }`}
+        >
           <Clock className="mt-0.5 h-3 w-3 shrink-0 text-slate-400" />
           <span>
-            <span className="font-medium text-slate-700">{t.explorer.hours} </span>
+            <span className={`font-medium ${expiredCampaign ? "text-slate-400" : "text-slate-700"}`}>
+              {t.explorer.hours}{" "}
+            </span>
             {getOpenHours(point, addressLocale)}
           </span>
         </p>
       )}
 
       {getContact(point, addressLocale) && (
-        <p className="mt-1 text-xs text-slate-600">{getContact(point, addressLocale)}</p>
+        <p className={`mt-1 text-xs ${expiredCampaign ? "text-slate-400" : "text-slate-600"}`}>
+          {getContact(point, addressLocale)}
+        </p>
       )}
 
       {point.accessibilty_notes && (
@@ -461,7 +611,11 @@ function PointCard({
             href={point.campaign_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-amber-900 hover:bg-amber-100"
+            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 ${
+              expiredCampaign
+                ? "border-slate-300 bg-slate-100 text-slate-500 hover:bg-slate-200"
+                : "border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100"
+            }`}
           >
             {t.explorer.campaignDetails}
           </a>
@@ -470,7 +624,11 @@ function PointCard({
           href={openStreetMapUrl(point.lat, point.lng)}
           target="_blank"
           rel="noopener noreferrer"
-          className="link-brand inline-flex items-center gap-1"
+          className={
+            expiredCampaign
+              ? "inline-flex items-center gap-1 text-slate-500 underline hover:text-slate-700"
+              : "link-brand inline-flex items-center gap-1"
+          }
         >
           <MapPin className="h-3 w-3" />
           {t.explorer.openStreetMap}
@@ -479,7 +637,11 @@ function PointCard({
           href={googleMapsUrl(point.lat, point.lng)}
           target="_blank"
           rel="noopener noreferrer"
-          className="link-brand inline-flex items-center gap-1"
+          className={
+            expiredCampaign
+              ? "inline-flex items-center gap-1 text-slate-500 underline hover:text-slate-700"
+              : "link-brand inline-flex items-center gap-1"
+          }
         >
           <Navigation className="h-3 w-3" />
           {t.explorer.googleMaps}

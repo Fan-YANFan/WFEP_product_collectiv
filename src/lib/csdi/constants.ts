@@ -39,11 +39,12 @@ export const HK_DISTRICTS = [
   "Wong_Tai_Sin",
   "Yau_Tsim_Mong",
   "Yuen_Long",
+  "Macau",
 ] as const;
 
 /** Common waste types for filter chips */
 export const WASTE_TYPE_FILTERS = [
-  "Books",
+  "Skincare Containers",
   "Paper",
   "Metals",
   "Plastics",
@@ -55,9 +56,15 @@ export const WASTE_TYPE_FILTERS = [
   "Regulated Electrical Equipment",
   "Clothes",
   "Tetra Pak",
+  "Books",
 ] as const;
 
 /** Short-term / campaign waste types shown with highlight styling */
-export const SHORT_TERM_WASTE_TYPES = ["Books"] as const;
+export const SHORT_TERM_WASTE_TYPES = ["Skincare Containers"] as const;
+
+/** Ended campaigns — shown greyed out, listed after active filters */
+export const EXPIRED_WASTE_TYPES = ["Books"] as const;
 
 export type ShortTermWasteType = (typeof SHORT_TERM_WASTE_TYPES)[number];
+
+export type ExpiredWasteType = (typeof EXPIRED_WASTE_TYPES)[number];

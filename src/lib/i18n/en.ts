@@ -95,13 +95,33 @@ export const en: Translations = {
     openStreetMap: "OpenStreetMap",
     googleMaps: "Google Maps",
     shortTermBadge: "Short-term",
+    expiredBadge: "Ended",
     booksCampaignTitle: "Books for Love @ $10 — Swire Properties",
     booksCampaignDesc:
       "Jan 2026 collection at 47 drop-off points across Hong Kong — Swire Properties malls & offices, BGCA youth centres, and AVS centres. Good-condition books are sold at HK$10 in May at Taikoo Place, benefiting BGCA & the Agency for Volunteer Service.",
+    booksCampaignEndedDesc:
+      "This charity book drive has ended. All 59 collection points from the official campaign and BGCA list are shown below for reference — the Jan 2026 collection period is over.",
     booksCampaignLink: "View official campaign page & full point list →",
+    skincareCampaignTitle: "Watsons — Skincare Container Recycling",
+    skincareCampaignDesc:
+      "Until 31 Dec 2026, bring rinsed empty skincare, cosmetic & personal-care containers (any brand) to 177 participating Watsons stores across Hong Kong & Macau (10:00 AM – 9:00 PM). Containers are processed by V Cycle; MoneyBack members can earn rewards.",
+    skincareCampaignProgramLink: "Program details →",
+    skincareCampaignStoreLink: "Official store finder →",
+    plasticBottleCampaignTitle: "Watsons — Plastic Bottle Recycling",
+    plasticBottleCampaignDesc:
+      "54 participating Watsons stores across Hong Kong accept empty plastic drinking water bottles and other eligible plastic bottles at in-store collection points. Opening hours vary by branch (typically 9:00 AM – 10:00 PM). Government and community recycling points from the EPD database are also listed below.",
+    plasticBottleCampaignProgramLink: "Watsons recycling services →",
+    plasticBottleCampaignStoreLink: "Official store finder →",
+    batteryCampaignTitle: "Watsons — Rechargeable Battery Recycling",
+    batteryCampaignDesc:
+      "54 participating Watsons stores are collection points under the government's Rechargeable Battery Recycling Programme. Drop off portable Li-ion, Ni-MH and Ni-Cd rechargeable batteries from household products during store opening hours. Government and community recycling points from the EPD database are also listed below.",
+    batteryCampaignProgramLink: "Watsons recycling services →",
+    batteryCampaignGovLink: "Government battery programme →",
+    batteryCampaignStoreLink: "Official store finder →",
     campaignDetails: "Campaign details",
     wasteTypes: {
       Books: "Books (charity drive)",
+      "Skincare Containers": "Skincare containers",
       Paper: "Paper",
       Metals: "Metals",
       Plastics: "Plastics",
@@ -404,9 +424,24 @@ export type Translations = {
     openStreetMap: string;
     googleMaps: string;
     shortTermBadge: string;
+    expiredBadge: string;
     booksCampaignTitle: string;
     booksCampaignDesc: string;
+    booksCampaignEndedDesc: string;
     booksCampaignLink: string;
+    skincareCampaignTitle: string;
+    skincareCampaignDesc: string;
+    skincareCampaignProgramLink: string;
+    skincareCampaignStoreLink: string;
+    plasticBottleCampaignTitle: string;
+    plasticBottleCampaignDesc: string;
+    plasticBottleCampaignProgramLink: string;
+    plasticBottleCampaignStoreLink: string;
+    batteryCampaignTitle: string;
+    batteryCampaignDesc: string;
+    batteryCampaignProgramLink: string;
+    batteryCampaignGovLink: string;
+    batteryCampaignStoreLink: string;
     campaignDetails: string;
     wasteTypes: Record<string, string>;
   };

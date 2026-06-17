@@ -96,13 +96,33 @@ export const zh: Translations = {
     openStreetMap: "OpenStreetMap",
     googleMaps: "Google 地圖",
     shortTermBadge: "短期活動",
+    expiredBadge: "已結束",
     booksCampaignTitle: "書出愛心 十元義賣 — 太古地產",
     booksCampaignDesc:
       "2026年1月全港47個收書點（太古地產商場及辦公大樓、小童群益會青年中心及義務工作發展局中心）收集狀態良好的二手書，5月於太古坊以每本港幣10元義賣，收益撥捐香港小童群益會及義務工作發展局。",
+    booksCampaignEndedDesc:
+      "此慈善收書活動已結束。以下顯示官方活動及小童群益會名單共59個收書點，僅供參考，2026年1月收書期已過。",
     booksCampaignLink: "查看官方活動頁面及完整收書點 →",
+    skincareCampaignTitle: "屈臣氏 — 護膚容器回收計劃",
+    skincareCampaignDesc:
+      "活動至2026年12月31日，可將已清洗的護膚、化妝及個人護理空樽（任何品牌）交至全港及澳門177間參與屈臣氏門市（每日上午10時至晚上9時）。容器由 V Cycle 處理；易賞錢會員可賺取積分。",
+    skincareCampaignProgramLink: "活動詳情 →",
+    skincareCampaignStoreLink: "官方分店搜尋器 →",
+    plasticBottleCampaignTitle: "屈臣氏 — 膠樽回收",
+    plasticBottleCampaignDesc:
+      "全港54間參與屈臣氏門市設有膠樽回收點，可交回空的飲用水膠樽及其他合資格膠樽。各分店營業時間不同（一般為上午9時至晚上10時）。以下亦顯示環保署資料庫內的其他政府及社區回收點。",
+    plasticBottleCampaignProgramLink: "屈臣氏回收服務 →",
+    plasticBottleCampaignStoreLink: "官方分店搜尋器 →",
+    batteryCampaignTitle: "屈臣氏 — 充電池回收",
+    batteryCampaignDesc:
+      "全港54間參與屈臣氏門市為政府「充電池回收計劃」收集點，可交回家用產品內的鋰離子、鎳氫及鎳鎘充電池。請於門市營業時間內投放。以下亦顯示環保署資料庫內的其他政府及社區回收點。",
+    batteryCampaignProgramLink: "屈臣氏回收服務 →",
+    batteryCampaignGovLink: "政府充電池回收計劃 →",
+    batteryCampaignStoreLink: "官方分店搜尋器 →",
     campaignDetails: "活動詳情",
     wasteTypes: {
       Books: "書籍（慈善回收）",
+      "Skincare Containers": "護膚容器",
       Paper: "紙張",
       Metals: "金屬",
       Plastics: "塑膠",

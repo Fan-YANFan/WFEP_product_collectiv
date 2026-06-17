@@ -3,6 +3,7 @@ import {
   Battery,
   BookOpen,
   Box,
+  Droplets,
   FileText,
   GlassWater,
   Lightbulb,
@@ -13,13 +14,29 @@ import {
   Shirt,
   Wrench,
 } from "lucide-react";
-import type { WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
+import { EXPIRED_WASTE_TYPES, SHORT_TERM_WASTE_TYPES, type WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
 
 export type WasteTypeFilter = (typeof WASTE_TYPE_FILTERS)[number];
 
 export function isShortTermWasteType(type: string): boolean {
-  return type === "Books";
+  return (SHORT_TERM_WASTE_TYPES as readonly string[]).includes(type);
 }
+
+export function isExpiredWasteType(type: string): boolean {
+  return (EXPIRED_WASTE_TYPES as readonly string[]).includes(type);
+}
+
+/** Grey chip/tag/badge styles for ended campaign waste types */
+export const EXPIRED_WASTE_TYPE_STYLE = {
+  chip:
+    "border-slate-300 bg-slate-100 text-slate-500 hover:bg-slate-100 hover:border-slate-300",
+  chipActive: "border-slate-400 bg-slate-300 text-slate-600 shadow-sm scale-105",
+  tag: "border border-slate-200 bg-slate-100 text-slate-500",
+  badge: "bg-slate-400/90 text-white",
+} as const;
+
+/** Amber pulse badge for active short-term campaigns only */
+export const SHORT_TERM_BADGE_STYLE = "bg-amber-500/90 text-white";
 
 export interface WasteTypeStyle {
   icon: LucideIcon;
@@ -40,6 +57,14 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
       "border-amber-500 bg-gradient-to-r from-amber-400 to-yellow-400 text-white shadow-lg shadow-amber-300/50 ring-2 ring-amber-300 scale-105",
     tag: "border border-amber-300 bg-amber-50 text-amber-900 font-semibold",
   },
+  "Skincare Containers": {
+    icon: Droplets,
+    chip:
+      "border-rose-300 bg-gradient-to-r from-rose-50 to-pink-50 text-rose-950 shadow-sm ring-2 ring-rose-300/70 hover:from-rose-100 hover:to-pink-100",
+    chipActive:
+      "border-rose-500 bg-gradient-to-r from-rose-400 to-pink-400 text-white shadow-lg shadow-rose-300/50 ring-2 ring-rose-300 scale-105",
+    tag: "border border-rose-300 bg-rose-50 text-rose-900 font-semibold",
+  },
   Paper: {
     icon: FileText,
     chip: "border-teal-200 bg-teal-50 text-teal-900 hover:bg-teal-100 hover:border-teal-300",
@@ -48,9 +73,9 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
   },
   Metals: {
     icon: Wrench,
-    chip: "border-slate-300 bg-slate-100 text-slate-700 hover:bg-slate-200 hover:border-slate-400",
-    chipActive: "border-slate-600 bg-slate-600 text-white shadow-md shadow-slate-300",
-    tag: "border border-slate-200 bg-slate-100 text-slate-700",
+    chip: "border-blue-300 bg-blue-50 text-blue-900 hover:bg-blue-100 hover:border-blue-400",
+    chipActive: "border-blue-700 bg-blue-700 text-white shadow-md shadow-blue-200",
+    tag: "border border-blue-200 bg-blue-50 text-blue-900",
   },
   Plastics: {
     icon: Package,
@@ -110,9 +135,9 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
 
 const FALLBACK_STYLE: WasteTypeStyle = {
   icon: Recycle,
-  chip: "border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200",
-  chipActive: "border-slate-600 bg-slate-600 text-white shadow-md",
-  tag: "border border-slate-200 bg-slate-100 text-slate-700",
+  chip: "border-fuchsia-200 bg-fuchsia-50 text-fuchsia-900 hover:bg-fuchsia-100 hover:border-fuchsia-300",
+  chipActive: "border-fuchsia-600 bg-fuchsia-600 text-white shadow-md shadow-fuchsia-200",
+  tag: "border border-fuchsia-200 bg-fuchsia-50 text-fuchsia-900",
 };
 
 export function getWasteTypeStyle(type: string): WasteTypeStyle {

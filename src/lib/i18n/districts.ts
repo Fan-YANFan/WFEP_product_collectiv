@@ -18,6 +18,7 @@ export const DISTRICT_LABELS: Record<string, { en: string; zh: string }> = {
   Wong_Tai_Sin: { en: "Wong Tai Sin", zh: "黃大仙" },
   Yau_Tsim_Mong: { en: "Yau Tsim Mong", zh: "油尖旺" },
   Yuen_Long: { en: "Yuen Long", zh: "元朗" },
+  Macau: { en: "Macau", zh: "澳門" },
 };
 
 export function getDistrictLabel(districtId: string, locale: "en" | "zh"): string {

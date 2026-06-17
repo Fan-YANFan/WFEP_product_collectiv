@@ -1,0 +1,887 @@
+{
+  "Shop 3-10 of G/F, Whole 1/F & 2/F Fortune Centre, 44-48 Yun Ping Road, Causeway Bay, Hong Kong": {
+    "lat": 22.2756,
+    "lng": 114.17268,
+    "source": "district-fallback"
+  },
+  "Shop No. 32A & 32B, G/F, JP Plaza, 22 Paterson Street, Causeway Bay": {
+    "lat": 22.27664,
+    "lng": 114.173,
+    "source": "district-fallback"
+  },
+  "G/F, Wah Ming Centre, 396 Des Voeux Road West, Hong Kong": {
+    "lat": 22.2848,
+    "lng": 114.14515999999999,
+    "source": "district-fallback"
+  },
+  "Shop 1 & 2, Lower Ground Floor, Belcher's Hill, 42-44 Belcher's Street, Kennedy Town, Hong Kong": {
+    "lat": 22.28752,
+    "lng": 114.14508,
+    "source": "district-fallback"
+  },
+  "Shop C, C1 & D, G/F, Kiu Hing Mansion, 14 King's Road, North Point, Hong Kong": {
+    "lat": 22.28492,
+    "lng": 114.22564,
+    "source": "district-fallback"
+  },
+  "G/F & M/F, 205-207 Hennessy Road, Wanchai, Hong Kong": {
+    "lat": 22.27712,
+    "lng": 114.17364,
+    "source": "district-fallback"
+  },
+  "Unit 291-293, 2/F, Shun Tak Centre, 200 Connaught Road Central, Hong Kong": {
+    "lat": 22.286720000000003,
+    "lng": 114.14564,
+    "source": "district-fallback"
+  },
+  "Ground Floor, No. 13-15 Centre Street, Sai Ying Pun, Hong Kong": {
+    "lat": 22.28792,
+    "lng": 114.14508,
+    "source": "district-fallback"
+  },
+  "Shop A, G/F, Cathay Mansion, 3-5 Tung Lo Wan Road, Causeway Bay, HK": {
+    "lat": 22.2756,
+    "lng": 114.17316,
+    "source": "district-fallback"
+  },
+  "Shop 1003-1004, 1/F, United Centre, 95 Queensway Road, Hong Kong": {
+    "lat": 22.28688,
+    "lng": 114.14435999999999,
+    "source": "district-fallback"
+  },
+  "Shop 204, Level 2, Pacific Place, Phase II, 88 Queensway, HK": {
+    "lat": 22.28696,
+    "lng": 114.1446,
+    "source": "district-fallback"
+  },
+  "Shop 23-26, 81-83, 1/F Podium, Admiralty Centre, Admiralty, HK": {
+    "lat": 22.286080000000002,
+    "lng": 114.14468,
+    "source": "district-fallback"
+  },
+  "Shop No.927-928, 9th Floor, Times Square, Causeway Bay, Hong Kong": {
+    "lat": 22.27696,
+    "lng": 114.1734,
+    "source": "district-fallback"
+  },
+  "Shop 301-306, Hopewell Centre, 183 Queen's Road East, Wanchai, Hong Kong": {
+    "lat": 22.27776,
+    "lng": 114.17244000000001,
+    "source": "district-fallback"
+  },
+  "Designated portion on G/F, Fook Sing Court, 378 Queen's Road Central, HK": {
+    "lat": 22.287760000000002,
+    "lng": 114.14492,
+    "source": "district-fallback"
+  },
+  "Shop G1-A, G/F, Melbourne Plaza, 33 Queen's Road Central, Hong Kong": {
+    "lat": 22.28656,
+    "lng": 114.14475999999999,
+    "source": "district-fallback"
+  },
+  "Concession HOK 55, Unpaid Concourse, MTR Hong Kong Station, Central, HK": {
+    "lat": 22.28424,
+    "lng": 114.14444,
+    "source": "district-fallback"
+  },
+  "Whole Shop on G/F, No.33 Des Voeux Road Central, Central, HK": {
+    "lat": 22.286800000000003,
+    "lng": 114.14484,
+    "source": "district-fallback"
+  },
+  "Portal of Parknshop, Basement 2, Cheung Kong Centre, Central, Hong Kong": {
+    "lat": 22.28472,
+    "lng": 114.14452,
+    "source": "district-fallback"
+  },
+  "Shop 135, 1/F, Block C, D B Plaza, Discovery Bay, Lantau Island, Hong Kong": {
+    "lat": 22.2896,
+    "lng": 113.945,
+    "source": "district-fallback"
+  },
+  "G/F-3/F & roof, 85 Praya Road, Cheung Chau, Hong Kong": {
+    "lat": 22.28744,
+    "lng": 113.94444,
+    "source": "district-fallback"
+  },
+  "Shop No. 119-120, 1/F Hing Wah Plaza, Chai Wan, Hong Kong": {
+    "lat": 22.28372,
+    "lng": 114.22515999999999,
+    "source": "district-fallback"
+  },
+  "Flat/RM 6C, G/F, Hoi Chu Court, AC4 Aberdeen, HK": {
+    "lat": 22.24588,
+    "lng": 114.1542,
+    "source": "district-fallback"
+  },
+  "Shop No. L-202C, 1/F Lei Tung Comm Centre Phase 1, Lei Tung Est, HK": {
+    "lat": 22.24828,
+    "lng": 114.15516,
+    "source": "district-fallback"
+  },
+  "Shop No. 124, First Floor, Cityplaza, 18 TaiKoo Shing Rd, Island East, HK": {
+    "lat": 22.28396,
+    "lng": 114.22467999999999,
+    "source": "district-fallback"
+  },
+  "Shop D & E, G/F, King Fai Building, 104 Shau Kei Wan Main Street, Hong Kong": {
+    "lat": 22.28484,
+    "lng": 114.22467999999999,
+    "source": "district-fallback"
+  },
+  "Shop No. 108, First Floor, Siu Sai Wan Shopping Centre, Hong Kong": {
+    "lat": 22.28452,
+    "lng": 114.22532,
+    "source": "district-fallback"
+  },
+  "Shop 112, 112A & 113, 1/F, South Horizon Marina Square West Comm. Ctr., Ap Lei Chau, HK": {
+    "lat": 22.24716,
+    "lng": 114.155,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 15-16, G/F Noble Square, Wah Kwai Estate, 3 Wah Kwai Road, Aberdeen, HK": {
+    "lat": 22.24724,
+    "lng": 114.1546,
+    "source": "district-fallback"
+  },
+  "Shop Unit G13, Ground Floor, The SouthSide, Wong Chuk Hang, HK": {
+    "lat": 22.24732,
+    "lng": 114.15516,
+    "source": "district-fallback"
+  },
+  "Unit 1 on Ground Floor, 228 Electric Road, North Point, HK": {
+    "lat": 22.28612,
+    "lng": 114.22564,
+    "source": "district-fallback"
+  },
+  "Shop Nos. S26-S27, 2/F, Kornhill Plaza, 1 Kornhill Road, Quarry Bay, HK": {
+    "lat": 22.28508,
+    "lng": 114.22475999999999,
+    "source": "district-fallback"
+  },
+  "Shop 111, 1/F, Island Place, 500 King's Road, North Point, Hong Kong": {
+    "lat": 22.28604,
+    "lng": 114.22484,
+    "source": "district-fallback"
+  },
+  "Shop A, G/F, Majestic House, No. 80 Nathan Rd, Tsim Sha Tsui, KL": {
+    "lat": 22.306359999999998,
+    "lng": 114.17172000000001,
+    "source": "district-fallback"
+  },
+  "Shop Nos. G83-G85, G/F, Metro Harbour Plaza, Tai Kok Tsui, KL": {
+    "lat": 22.32952,
+    "lng": 114.16136,
+    "source": "district-fallback"
+  },
+  "Shop No G3A, G/F, Site 2, Whampoa Garden, Hunghom, KLN": {
+    "lat": 22.32648,
+    "lng": 114.19124000000001,
+    "source": "district-fallback"
+  },
+  "Shop 3302 Level 3, Gateway Arcade, Harbour City, 7-23 Canton Road, Tsim Sha Tsui": {
+    "lat": 22.30572,
+    "lng": 114.17084000000001,
+    "source": "district-fallback"
+  },
+  "Shop 60-62, Level 1, Laguna City Plaza, Kowloon": {
+    "lat": 22.310000000000002,
+    "lng": 114.22428,
+    "source": "district-fallback"
+  },
+  "Shop No. 719 & 720B, Level 7, The Metropolis Mall, 6 Metropolis Drive, Hunghom": {
+    "lat": 22.32976,
+    "lng": 114.19084000000001,
+    "source": "district-fallback"
+  },
+  "Front Portion of Shop C, G/F, Hilton Tower, 96 Granville Road, Tsimshatsui, KL": {
+    "lat": 22.30324,
+    "lng": 114.17044000000001,
+    "source": "district-fallback"
+  },
+  "Shop 10, G/F, Hunghom Bay Centre, 92-112 Baker Street, Hunghom, Kowloon": {
+    "lat": 22.328,
+    "lng": 114.1902,
+    "source": "district-fallback"
+  },
+  "Shop 108, 1/F, Olympian City 2, 18 Hoi Ting Road, Kowloon": {
+    "lat": 22.33176,
+    "lng": 114.16272000000001,
+    "source": "district-fallback"
+  },
+  "Portion of Unit MTR-01, Level MTR, Festival Walk, 80 Tat Chee Avenue, Kowloon": {
+    "lat": 22.32896,
+    "lng": 114.16176,
+    "source": "district-fallback"
+  },
+  "UG/F 43D, China Hong Kong City, 33 Canton Road, Tsim Sha Tsui": {
+    "lat": 22.30444,
+    "lng": 114.17156,
+    "source": "district-fallback"
+  },
+  "Shop G06 & G07, G/F, Sim City, 47-51 Shan Tung Street, Mongkok, KL": {
+    "lat": 22.30452,
+    "lng": 114.17028,
+    "source": "district-fallback"
+  },
+  "Shop No. 16, 1/F, Celestial Place, No. 80 Sheung Shing Street, KL": {
+    "lat": 22.32928,
+    "lng": 114.19132,
+    "source": "district-fallback"
+  },
+  "Shop No. 45-47, G/F, Hunghom Commercial Centre, 37-41 Ma Tau Wai Road, KL": {
+    "lat": 22.32792,
+    "lng": 114.19148,
+    "source": "district-fallback"
+  },
+  "Shop No. 153, Level 1, MOKO, 193 Prince Edward Road West, Mong Kok, KL": {
+    "lat": 22.305,
+    "lng": 114.17124000000001,
+    "source": "district-fallback"
+  },
+  "Shops 28-30 & 46-49, G/F, Jubilant Place, 33 Ma Tau Kok Road, Tokwawan, KL": {
+    "lat": 22.328,
+    "lng": 114.19132,
+    "source": "district-fallback"
+  },
+  "Shop C1 & C2, G/F and Whole of M/F Wu Sang House, 655 Nathan Road, Mongkok, KL": {
+    "lat": 22.305,
+    "lng": 114.17076,
+    "source": "district-fallback"
+  },
+  "G/F, Shop 20-1, Portion of Shop 30B, Honor Building, 80-2 Tokwawan Road, Tokwawan, KLN": {
+    "lat": 22.32872,
+    "lng": 114.19108,
+    "source": "district-fallback"
+  },
+  "G/F, No. 13 Fuk Lo Tsun Road, Kowloon City, Kowloon": {
+    "lat": 22.3292,
+    "lng": 114.19052,
+    "source": "district-fallback"
+  },
+  "Unit 203, 2/F, Dragon Centre, 37 Yen Chow Street, Sham Shui Po, Kowloon": {
+    "lat": 22.3308,
+    "lng": 114.16128,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 4-6, G/F, Union Park Centre, 771-775 Nathan Road, Mongkok, Kowloon": {
+    "lat": 22.30436,
+    "lng": 114.17124000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. G16, G/F, Oi Man Plaza, 60 Chung Hau Street, KL": {
+    "lat": 22.32952,
+    "lng": 114.19164,
+    "source": "district-fallback"
+  },
+  "Units 32 & 33, Level 2, Megabox, 38 Wang Chiu Road, Kowloon Bay, KL": {
+    "lat": 22.31288,
+    "lng": 114.22524,
+    "source": "district-fallback"
+  },
+  "Shop No.201A, Tsuen Shek House, Ping Shek Estate, Kowloon": {
+    "lat": 22.31256,
+    "lng": 114.22564,
+    "source": "district-fallback"
+  },
+  "Shop No. N221 Level 2, Temple Mall North, 136 Lung Cheung Road, KL": {
+    "lat": 22.341359999999998,
+    "lng": 114.195,
+    "source": "district-fallback"
+  },
+  "Shop No. B203, 2/F, Choi Wan Shopping Centre Phase 3, Ngau Chi Wan, Kowloon": {
+    "lat": 22.34328,
+    "lng": 114.19444,
+    "source": "district-fallback"
+  },
+  "Shop Nos. G73-76, 78, G/F Amoy Plaza, 77 Ngau Tau Kok Rd, Kowloon": {
+    "lat": 22.31368,
+    "lng": 114.22435999999999,
+    "source": "district-fallback"
+  },
+  "Shop No. M1-217, Level 2, Kai Tak Mall 1, Kai Tak Sports Park, Kai Tak, KL": {
+    "lat": 22.32904,
+    "lng": 114.19076,
+    "source": "district-fallback"
+  },
+  "Shop Unit G52, Telford Plaza I, Kowloon Bay, Kowloon": {
+    "lat": 22.31184,
+    "lng": 114.22547999999999,
+    "source": "district-fallback"
+  },
+  "Shop No. G02B-G03 on G/F, Mikiki, 638 Prince Edward Road East, San Po Kong, Kowloon": {
+    "lat": 22.343439999999998,
+    "lng": 114.19539999999999,
+    "source": "district-fallback"
+  },
+  "Shop B021, G/F, Ching Long Shopping Centre, Kowloon City": {
+    "lat": 22.32872,
+    "lng": 114.191,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 2116 & 2117, 2/F, Lok Fu Place, 198 Junction Road, Kowloon": {
+    "lat": 22.343359999999997,
+    "lng": 114.19564,
+    "source": "district-fallback"
+  },
+  "Shop 513, 5/F, Choi Tak Shopping Centre, Ngau Tau Kok, Kowloon": {
+    "lat": 22.313760000000002,
+    "lng": 114.2254,
+    "source": "district-fallback"
+  },
+  "Shop 414-416, Tsz Wan Shan Shopping Centre, 23 Yuk Wah Street, Tze Wan Shan, Kln": {
+    "lat": 22.340799999999998,
+    "lng": 114.1946,
+    "source": "district-fallback"
+  },
+  "Shop No. 228, L2, Plaza Hollywood, Diamond Hill, Kowloon": {
+    "lat": 22.34208,
+    "lng": 114.19427999999999,
+    "source": "district-fallback"
+  },
+  "Shop No. S231, Chuk Yuen Shopping Centre, Wong Tai Sin, Kowloon": {
+    "lat": 22.340719999999997,
+    "lng": 114.19444,
+    "source": "district-fallback"
+  },
+  "Unit G02, G/F, Cheung Sha Wan Plaza, 833 Cheung Sha Wan Road, KL": {
+    "lat": 22.33128,
+    "lng": 114.1624,
+    "source": "district-fallback"
+  },
+  "G/F, N58 & N65-N68, Mount Sterling Mall, Stage 7, Mei Foo, Kowloon": {
+    "lat": 22.33176,
+    "lng": 114.16144000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. 41, 42 & 47, 2/F, The Pacifica Mall, 9 Sham Shing Road, Lai Chi Kok, Kowloon": {
+    "lat": 22.329759999999997,
+    "lng": 114.16264000000001,
+    "source": "district-fallback"
+  },
+  "Shop G03, Un Chau Shopping Centre, 303 Un Chau Street, Cheung Sha Wan, Kowloon": {
+    "lat": 22.32904,
+    "lng": 114.16192000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. 220 on second floor, Domain, Yau Tong, KL": {
+    "lat": 22.311680000000003,
+    "lng": 114.22484,
+    "source": "district-fallback"
+  },
+  "Shop 101A, 1/F, Kai Tin Shopping Centre, Lam Tin, Kowloon": {
+    "lat": 22.312,
+    "lng": 114.2246,
+    "source": "district-fallback"
+  },
+  "Shop No. G2A, G/F, Tak Tin Shopping Centre, 223 Pik Wan Road, Lam Tin, Kowloon": {
+    "lat": 22.312240000000003,
+    "lng": 114.22555999999999,
+    "source": "district-fallback"
+  },
+  "Shop no. 210, 2/F, Sau Mau Ping Shopping Ctr, 101 Sau Ming Rd, Kwun Tong": {
+    "lat": 22.312240000000003,
+    "lng": 114.22572,
+    "source": "district-fallback"
+  },
+  "Shop A, G/F, Crocodile Centre, 79 Hoi Yuen Road, Kwun Tong, Kowloon": {
+    "lat": 22.31184,
+    "lng": 114.2242,
+    "source": "district-fallback"
+  },
+  "Shop 2-383, 2-385-7, 2-396-397, 2/F Chungking Mansion, 36-44 Nathan Road, KL": {
+    "lat": 22.30596,
+    "lng": 114.17092000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. LG301, LG3/F, Pak Tin Commercial Centre, Pak Tin Estate, Sham Shui Po": {
+    "lat": 22.32968,
+    "lng": 114.16128,
+    "source": "district-fallback"
+  },
+  "G/F and Cockloft, No. 17 Un Chau Street, Sham Shui Po": {
+    "lat": 22.328719999999997,
+    "lng": 114.16216,
+    "source": "district-fallback"
+  },
+  "Shop Unit 311-312, Level 3, Maritime Square, 33 Tsing King Road, Tsing Yi, N.T.": {
+    "lat": 22.356640000000002,
+    "lng": 114.12476,
+    "source": "district-fallback"
+  },
+  "Shops 13 & 14, G/F, Hong Kwai House, Cheung Hong Estate, Tsing Yi, NT": {
+    "lat": 22.356080000000002,
+    "lng": 114.12428,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 113B & 114, 1/F Fu Tung Plaza, 6 Fu Tung Street, Tung Chung, NT": {
+    "lat": 22.28656,
+    "lng": 113.94564,
+    "source": "district-fallback"
+  },
+  "Shop No. 209, 2/F, Cheung Fat Shopping Centre, Tsing Yi, New Territories": {
+    "lat": 22.35704,
+    "lng": 114.1254,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 104-109, 2/F, Tsuen Kam Centre, 338 Castle Peak Road, Tsuen Wan, NT": {
+    "lat": 22.36908,
+    "lng": 114.11444,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 52-53, G/F Belvedere Square, 625 Castle Peak Rd, Tsuen Wan, N.T.": {
+    "lat": 22.372919999999997,
+    "lng": 114.11484,
+    "source": "district-fallback"
+  },
+  "Shop No. 3027, 3/F OP Mall, 100 Tai Ho Road, Tsuen Wan, NT": {
+    "lat": 22.37156,
+    "lng": 114.11507999999999,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 2004-2005, Level 2, D. Park Discovery Park, 398 Castle Peak Rd, Tsuen Wan, NT": {
+    "lat": 22.37052,
+    "lng": 114.11467999999999,
+    "source": "district-fallback"
+  },
+  "Shops 103 & 104, 1/F, On Yam Shopping Centre, 7 On Chuk St, Kwai Chung, NT": {
+    "lat": 22.35936,
+    "lng": 114.12508,
+    "source": "district-fallback"
+  },
+  "Shop No. 101, LG 1/F, Shek Yam Shopping Centre, Shek Yam Estate, Kwai Chung, NT": {
+    "lat": 22.35688,
+    "lng": 114.12428,
+    "source": "district-fallback"
+  },
+  "Shop No. B001B & B001C, G/F, Shek Lei Shopping Centre Phase 2, Kwai Chung, NT": {
+    "lat": 22.35968,
+    "lng": 114.12484,
+    "source": "district-fallback"
+  },
+  "Shop 117, Lei Muk Shue Shopping Centre, Lei Muk Shue Estate, Tsuen Wan, NT": {
+    "lat": 22.370919999999998,
+    "lng": 114.11547999999999,
+    "source": "district-fallback"
+  },
+  "Shop Unit F20A, Luk Yeung Galleria, Tsuen Wan, New Territories": {
+    "lat": 22.371959999999998,
+    "lng": 114.11507999999999,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 7&8, G/F Lido Avenue, 41-63 Castle Peak Road, Sham Tseng, N.T.": {
+    "lat": 22.371879999999997,
+    "lng": 114.115,
+    "source": "district-fallback"
+  },
+  "Shop G66-68, G/F, Citywalk 2, 18 Yeung Uk Road, Tsuen Wan, NT": {
+    "lat": 22.37052,
+    "lng": 114.11507999999999,
+    "source": "district-fallback"
+  },
+  "Shop 341, Level 3, Metroplaza, Kwai Fong, N.T.": {
+    "lat": 22.35752,
+    "lng": 114.12468,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 125 & 128A, Level 1, Park Central, 9 Tong Tak Street, Tseung Kwan O, NT": {
+    "lat": 22.38144,
+    "lng": 114.27224000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. 246-247, Level 2, MCP Discovery, Tseung Kwan O": {
+    "lat": 22.38296,
+    "lng": 114.27128,
+    "source": "district-fallback"
+  },
+  "Shop No. 202, 2/F, Sheung Tak Shopping Centre, Tseung Kwan O, N.T.": {
+    "lat": 22.383680000000002,
+    "lng": 114.27272,
+    "source": "district-fallback"
+  },
+  "Shop No.226, 2/F, East Point City, 8 Chung Wa Road, Tseung Kwan O, NT": {
+    "lat": 22.38352,
+    "lng": 114.27208,
+    "source": "district-fallback"
+  },
+  "Shop Nos.L2-018 & L2-019, Level 2, Metro Town, 8 King Ling Road, Tseung Kwan O, NT": {
+    "lat": 22.380560000000003,
+    "lng": 114.27152000000001,
+    "source": "district-fallback"
+  },
+  "Shop Nos.1-073-075 & 1-085-086, Level 1, Tseung Kwan O Plaza, 1 Tong Tak St, TKO, NT": {
+    "lat": 22.3804,
+    "lng": 114.27152000000001,
+    "source": "district-fallback"
+  },
+  "Shops UG026-27, UG/F, MCP Central, Tseung Kwan O, NT": {
+    "lat": 22.38128,
+    "lng": 114.27272,
+    "source": "district-fallback"
+  },
+  "Designated Portion on G/F of Sai Kung Garden, 16 Chan Man Street, Sai Kung, N.T.": {
+    "lat": 22.380080000000003,
+    "lng": 114.27152000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. 218, Level 2, Tai Wo Plaza, 12 Tai Po Tai Wo Road, Tai Po, NT": {
+    "lat": 22.44992,
+    "lng": 114.16944000000001,
+    "source": "district-fallback"
+  },
+  "Shop Nos. L046A & L046B, G/F, Tin Yiu Plaza, Tin Shui Wai, NT": {
+    "lat": 22.4454,
+    "lng": 114.02264000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. L112, 1/F Tin Shui Shopping Centre, Tin Shui Wai, NT": {
+    "lat": 22.44372,
+    "lng": 114.02152000000001,
+    "source": "district-fallback"
+  },
+  "Shop B169 & B187, Level 1, Yoho Mix, Yuen Long, NT": {
+    "lat": 22.44612,
+    "lng": 114.02248,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 101-102, G/F, Park Circle, 18 Castle Peak Road Tam Mi, Kam Tin, NT": {
+    "lat": 22.44612,
+    "lng": 114.02208,
+    "source": "district-fallback"
+  },
+  "Shop No. L112, 1/F, Long Ping Shopping Centre, Long Ping Estate, Yuen Long, NT": {
+    "lat": 22.445240000000002,
+    "lng": 114.02128,
+    "source": "district-fallback"
+  },
+  "Shop No. G007 and G012, G/F, Fu Shin Estate, Tai Po, NT": {
+    "lat": 22.451919999999998,
+    "lng": 114.17056,
+    "source": "district-fallback"
+  },
+  "Shop No. 113, Level 1, Zone B, Tai Po Mega Mall, 8-10 On Pong Road, Tai Po, NT": {
+    "lat": 22.44944,
+    "lng": 114.17056,
+    "source": "district-fallback"
+  },
+  "Shop Nos. G73A, G74 & G75, G/F, +WOO Phase 1, 12-18 Tin Yan Road, Tin Shui Wai, N.T.": {
+    "lat": 22.4442,
+    "lng": 114.02120000000001,
+    "source": "district-fallback"
+  },
+  "Shop N133-N134, 1/F, T-TOWN North, Tin Chung Court, Tin Shui Wai": {
+    "lat": 22.44436,
+    "lng": 114.02272,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 3 & 4, 1/F, Locwood Court, Kingswood Villas, 1 Tin Wu Road, Tin Shui Wai, NT": {
+    "lat": 22.44396,
+    "lng": 114.02184000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. 212C, 2/F, Tin Chak Shopping Centre, Tin Chak Estate, Tin Shui Wai, NT": {
+    "lat": 22.44476,
+    "lng": 114.02176,
+    "source": "district-fallback"
+  },
+  "Shop B, G/F, Tak Shun Building, 82 Po Heung Street, Tai Po, NT": {
+    "lat": 22.4484,
+    "lng": 114.17072,
+    "source": "district-fallback"
+  },
+  "Shop 079-082, Level 1, Uptown Plaza, Tai Po, New Territories": {
+    "lat": 22.45184,
+    "lng": 114.16928,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 336, 337 & 345-352, Level 3, K-Point, 1 Tuen Lung Street, Tuen Mun, NT": {
+    "lat": 22.39068,
+    "lng": 113.97652000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. A210-212, H.A.N.D.S., On Ting Estate, Tuen Mun, NT": {
+    "lat": 22.391,
+    "lng": 113.97644000000001,
+    "source": "district-fallback"
+  },
+  "Shop No. 120 & 121, G/F Kin Sang Shopping Centre, Tuen Mun, NT": {
+    "lat": 22.392919999999997,
+    "lng": 113.97644000000001,
+    "source": "district-fallback"
+  },
+  "Shop No 9-10, G/F, Marina Magic Shopping Mall, HK Gold Coast, 1 Castle Peak Road, Tsuen Wan, NT": {
+    "lat": 22.37276,
+    "lng": 114.11467999999999,
+    "source": "district-fallback"
+  },
+  "Shop 101, 1/F, Chelsea Heights, Tuen Mun, New Territories": {
+    "lat": 22.39276,
+    "lng": 113.97724000000001,
+    "source": "district-fallback"
+  },
+  "G/F, 1/F & 2/F, 142 Castle Peak Road, Yuen Long, New Territories": {
+    "lat": 22.44612,
+    "lng": 114.02248,
+    "source": "district-fallback"
+  },
+  "Shop 2 & 3, 8-10, G/F, Hing Fat House, 9-13 Kau Yuk Road, Yuen Long, NT": {
+    "lat": 22.44612,
+    "lng": 114.02176,
+    "source": "district-fallback"
+  },
+  "Shop 125, Level 3, Sun Tuen Mun Shopping Centre, 55-65 Lung Mun Road, Tuen Mun, NT": {
+    "lat": 22.39268,
+    "lng": 113.97652000000001,
+    "source": "district-fallback"
+  },
+  "Shop 2100B-C & 2115-2122, 2/F, Tuen Mun Town Plaza Phase 1, 1 Tuen Shing Street, Tuen Mun, NT": {
+    "lat": 22.391479999999998,
+    "lng": 113.97652000000001,
+    "source": "district-fallback"
+  },
+  "Shop Nos. R260, R261 and R262, Level 2, Butterfly Shopping Centre, Tuen Mun, N.T.": {
+    "lat": 22.39268,
+    "lng": 113.97716,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 11 & 12, G/F, Kam Men Mansion, 15 Tseng Choi Street, Tuen Mun, NT": {
+    "lat": 22.39108,
+    "lng": 113.97628,
+    "source": "district-fallback"
+  },
+  "Shop M-32, MTR Level, V City, 83 Tuen Mun Heung Sze Wui Road, Tuen Mun, NT": {
+    "lat": 22.390839999999997,
+    "lng": 113.97628,
+    "source": "district-fallback"
+  },
+  "G/F, 17 Sau Fu Street, Yuen Long, New Territories": {
+    "lat": 22.44596,
+    "lng": 114.02176,
+    "source": "district-fallback"
+  },
+  "Shop No.7, 2/F Double Cove Place, 8 Wu Kai Sha Road, Ma On Shan, NT": {
+    "lat": 22.37916,
+    "lng": 114.19524,
+    "source": "district-fallback"
+  },
+  "Shop G10, G/F, Kings Wing Plaza 1, 3 On Kwan Street, Shatin, NT": {
+    "lat": 22.38044,
+    "lng": 114.19564,
+    "source": "district-fallback"
+  },
+  "Shop Nos. A42 & A46, G/F, Flora Plaza, Fanling, NT": {
+    "lat": 22.494,
+    "lng": 114.128,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 7-9, 1/F Shatin Galleria, 18-24 Shan Mei Street, Shatin, N.T.": {
+    "lat": 22.381,
+    "lng": 114.19427999999999,
+    "source": "district-fallback"
+  },
+  "Shop No. 117, Level 2, Lung Hang Shopping Centre, Lung Hang Estate, Shatin, N.T.": {
+    "lat": 22.37948,
+    "lng": 114.19475999999999,
+    "source": "district-fallback"
+  },
+  "Shop No. 28B, Level 2, Fanling Town Centre, Fanling, New Territories": {
+    "lat": 22.49552,
+    "lng": 114.12816,
+    "source": "district-fallback"
+  },
+  "Shop Unit 504, 5/F, The Wai Commercial Development at Tai Wai Station, Shatin, NT": {
+    "lat": 22.38068,
+    "lng": 114.195,
+    "source": "district-fallback"
+  },
+  "Shop 222-225, Level 2, Ma On Shan Plaza, 608 Sai Sha Road, Ma On Shan, NT": {
+    "lat": 22.38276,
+    "lng": 114.19539999999999,
+    "source": "district-fallback"
+  },
+  "Shop No.2136, Level 2, MOS Town, Ma On Shan, NT": {
+    "lat": 22.38004,
+    "lng": 114.19564,
+    "source": "district-fallback"
+  },
+  "Shops 451-453, Level 4, New Town Plaza Phase 1, Shatin, New Territories": {
+    "lat": 22.38212,
+    "lng": 114.19444,
+    "source": "district-fallback"
+  },
+  "Shops 3058, 3087 & 3088, Level 3 Lucky Plaza, 1-15 Wang Pok Street, Sha Tin, NT": {
+    "lat": 22.38012,
+    "lng": 114.19444,
+    "source": "district-fallback"
+  },
+  "Shop 102B, The Palazzo, Fo Tan, Shatin, New Territories": {
+    "lat": 22.38052,
+    "lng": 114.19547999999999,
+    "source": "district-fallback"
+  },
+  "Shop G24B, G25 & G26, Fortune City One, City One Shatin, Shatin, NT": {
+    "lat": 22.379080000000002,
+    "lng": 114.1942,
+    "source": "district-fallback"
+  },
+  "Shop No. 27-28, 1/F, Regentville Shopping Mall, 8 Wo Mun Street, Fanling, NT": {
+    "lat": 22.49344,
+    "lng": 114.12784,
+    "source": "district-fallback"
+  },
+  "Shop G09, G/F, Green Code Plaza, 1 Ma Sik Road, Fanling, NT": {
+    "lat": 22.49296,
+    "lng": 114.1276,
+    "source": "district-fallback"
+  },
+  "Shop A & B, G/F & Cockloft, Chung Pak Lau, 28-30 Tai Wai Road, Tai Wai, NT": {
+    "lat": 22.38012,
+    "lng": 114.19427999999999,
+    "source": "district-fallback"
+  },
+  "Shop Nos 206, 213-214, 2/F Spot, 48 Lung Sum Avenue, Sheung Shui, NT": {
+    "lat": 22.49288,
+    "lng": 114.12824,
+    "source": "district-fallback"
+  },
+  "Shop No. R42 & R43, 3/F, Choi Yuen Plaza, Sheung Shui, N.T.": {
+    "lat": 22.49352,
+    "lng": 114.12856,
+    "source": "district-fallback"
+  },
+  "G/F & Cockloft, 43-45 Fu Hing Street, Sheung Shui, New Territories": {
+    "lat": 22.49344,
+    "lng": 114.12784,
+    "source": "district-fallback"
+  },
+  "MTR Station Shop LMC 115 and Storeroom LMC STR 11, Lok Ma Chau Station, NT": {
+    "lat": 22.4936,
+    "lng": 114.12744,
+    "source": "district-fallback"
+  },
+  "Shop LG 12, 13, 15 LG Floor, Mayfair Lane, 21 Fo Chun Road, Tai Po, NT": {
+    "lat": 22.44856,
+    "lng": 114.17064,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 401-402, Level 4 Landmark North, 39 Lung Sum Avenue, Sheung Shui, NT": {
+    "lat": 22.49288,
+    "lng": 114.12784,
+    "source": "district-fallback"
+  },
+  "Shop LMC 207, 208 and Storeroom LMC STR 12, 14, Lok Ma Chau Station, NT": {
+    "lat": 22.49544,
+    "lng": 114.1272,
+    "source": "district-fallback"
+  },
+  "Shops 108 & 120, G/F, Tin Ping Shopping Centre, Tin Ping Estate, Sheung Shui, NT": {
+    "lat": 22.492,
+    "lng": 114.12736,
+    "source": "district-fallback"
+  },
+  "Shop 35, Podium, 1/F, Caribbean Square, 1 Kin Tung Road, Tung Chung, NT": {
+    "lat": 22.28808,
+    "lng": 113.945,
+    "source": "district-fallback"
+  },
+  "Shop No. 7 G/F Smartland, 16 Tsuen Wah Street, Tsuen Wan, NT": {
+    "lat": 22.37004,
+    "lng": 114.11555999999999,
+    "source": "district-fallback"
+  },
+  "Shop Nos. G57, G59, G61a, G61b & G63, G/F, Citywalk 1, Tsuen Wan, N.T.": {
+    "lat": 22.370839999999998,
+    "lng": 114.11452,
+    "source": "district-fallback"
+  },
+  "Shop Nos. 2020, 2029 & 2030, 2/F KOLOUR Tsuen Wan 1, 68 Chung On Street, Tsuen Wan, N.T.": {
+    "lat": 22.36908,
+    "lng": 114.11428,
+    "source": "district-fallback"
+  },
+  "Shop No. 104, L1, SOHO WEST, 10 Lai Ying Street, Cheung Sha Wan, KL": {
+    "lat": 22.328799999999998,
+    "lng": 114.1616,
+    "source": "district-fallback"
+  },
+  "Shop No. 239, 2/F East Point City, 8 Chung Wa Road, Tseung Kwan O, N.T.": {
+    "lat": 22.381680000000003,
+    "lng": 114.27136,
+    "source": "district-fallback"
+  },
+  "Shop Unit 430, 4/F The Lohas, Tseung Kwan O, N.T.": {
+    "lat": 22.38072,
+    "lng": 114.2716,
+    "source": "district-fallback"
+  },
+  "Shop L314, Level 3, Leung King Plaza, Tuen Mun, N.T.": {
+    "lat": 22.39212,
+    "lng": 113.97748,
+    "source": "district-fallback"
+  },
+  "Shop No. 14, G/F, Queens Hill Shopping Centre, Queens Hill Estate, Fanling": {
+    "lat": 22.49392,
+    "lng": 114.12744,
+    "source": "district-fallback"
+  },
+  "Unit S046B, G/F Building 10W Phase Two, Hong Kong Science Park, Pak Shek Kok, NT": {
+    "lat": 22.3798,
+    "lng": 114.19532,
+    "source": "district-fallback"
+  },
+  "Rua Campo No.62-92, Ljs. A,B,C,D, China Const. Com. Building, Macau": {
+    "lat": 22.1967,
+    "lng": 113.5439,
+    "source": "district-fallback"
+  },
+  "6A Rotunda De Carlos Da Maia, Macau": {
+    "lat": 22.19782,
+    "lng": 113.54445999999999,
+    "source": "district-fallback"
+  },
+  "Largo Senado No. 11, Shun Tak House, G/F to 3/F, Macau": {
+    "lat": 22.19702,
+    "lng": 113.54445999999999,
+    "source": "district-fallback"
+  },
+  "Avenida De Horta E Costa, Millennium Court, Res-do-chao B, Macau": {
+    "lat": 22.20038,
+    "lng": 113.54397999999999,
+    "source": "district-fallback"
+  },
+  "Shops 2230, 2231 & 2232, Level 2, Cotai, Macau": {
+    "lat": 22.19942,
+    "lng": 113.54437999999999,
+    "source": "district-fallback"
+  },
+  "Rua Da Serenidade No.82, Nam Fai, Macau": {
+    "lat": 22.198059999999998,
+    "lng": 113.54325999999999,
+    "source": "district-fallback"
+  },
+  "Shop 3549, Level 5, Shoppes at Parisian, The Parisian Macao, Cotai, Macau": {
+    "lat": 22.19718,
+    "lng": 113.54437999999999,
+    "source": "district-fallback"
+  },
+  "Rua Do Canal Novo Nos 62-64, Hoi Pan Fa Un Bloco XI, Macau": {
+    "lat": 22.19838,
+    "lng": 113.54357999999999,
+    "source": "district-fallback"
+  },
+  "Shop 2016 & 2017a, Level 3, Shoppes at Venetian, Taipa, Macau": {
+    "lat": 22.19894,
+    "lng": 113.54357999999999,
+    "source": "district-fallback"
+  },
+  "Shop 2025 & 2026, Level 3, Shoppes at Venetian, Taipa, Macau": {
+    "lat": 22.19942,
+    "lng": 113.54374,
+    "source": "district-fallback"
+  },
+  "Shop L1095 & L1097, Level 1, The Boulevard at Studio City, Cotai, Macau": {
+    "lat": 22.20054,
+    "lng": 113.54374,
+    "source": "district-fallback"
+  }
+}
