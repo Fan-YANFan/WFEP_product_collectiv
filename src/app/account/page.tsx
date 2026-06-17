@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { BookmarkPointCard } from "@/components/account/BookmarkPointCard";
 import { EcoDashboard } from "@/components/account/EcoDashboard";
 import { OrderTimeline } from "@/components/account/OrderTimeline";
 import { ReminderCountdownCards } from "@/components/account/ReminderCountdownCards";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { appleCalendarIcs, googleCalendarUrl } from "@/lib/calendar";
-import { getDistrictLabel } from "@/lib/i18n/districts";
 import { CalendarPlus } from "lucide-react";
 
 export default function AccountPage() {
@@ -139,27 +139,13 @@ export default function AccountPage() {
           ) : (
             <ul className="mt-6 grid gap-4 sm:grid-cols-2">
               {bookmarks.map((point) => (
-                <li
+                <BookmarkPointCard
                   key={point.cp_id}
-                  className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm"
-                >
-                  <p className="font-display font-semibold text-slate-900">{point.address}</p>
-                  {point.district && (
-                    <p className="mt-1 text-xs text-slate-500">
-                      {getDistrictLabel(point.district, locale)}
-                    </p>
-                  )}
-                  {point.wasteTypes && (
-                    <p className="mt-2 text-xs text-slate-600">{point.wasteTypes}</p>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => removeBookmark(point.cp_id)}
-                    className="mt-4 text-xs font-semibold text-red-600 hover:text-red-800"
-                  >
-                    {t.account.removeBookmark}
-                  </button>
-                </li>
+                  bookmark={point}
+                  locale={locale}
+                  t={t}
+                  onRemove={() => removeBookmark(point.cp_id)}
+                />
               ))}
             </ul>
           )}

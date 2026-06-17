@@ -1,33 +1,23 @@
 "use client";
 
+import { RecyclingPointCard } from "@/components/RecyclingPointCard";
 import {
-  Bookmark,
-  BookmarkCheck,
-  CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  Clock,
-  MapPin,
   Navigation,
   Search,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { HK_DISTRICTS, WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
 import { BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
 import { WATSONS_SKINCARE_CAMPAIGN } from "@/lib/campaigns/watsons-skincare-recycling";
 import { WATSONS_PLASTIC_BATTERY_CAMPAIGN } from "@/lib/campaigns/watsons-plastic-battery-recycling";
-import {
-  getAddress,
-  getContact,
-  getOpenHours,
-  googleMapsUrl,
-  openStreetMapUrl,
-  parseWasteTypes,
-} from "@/lib/csdi/display";
-import { getDistrictLabel } from "@/lib/i18n/districts";
+import { getAddress } from "@/lib/csdi/display";
+import type { RecyclingCollectionPoint } from "@/lib/csdi/types";
 import { formatMessage } from "@/lib/i18n";
+import { getDistrictLabel } from "@/lib/i18n/districts";
 import {
   EXPIRED_WASTE_TYPE_STYLE,
   getWasteTypeStyle,
@@ -35,7 +25,6 @@ import {
   SHORT_TERM_BADGE_STYLE,
   isShortTermWasteType,
 } from "@/lib/waste-types";
-import type { RecyclingCollectionPoint } from "@/lib/csdi/types";
 
 interface ApiResponse {
   points: RecyclingCollectionPoint[];
@@ -64,6 +53,7 @@ export function RecyclingPointsExplorer() {
   const [error, setError] = useState<string | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const resultsAnchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -73,7 +63,10 @@ export function RecyclingPointsExplorer() {
       setError(null);
 
       const pageSize =
-        wasteType === "Books" || wasteType === "Skincare Containers"
+        wasteType === "Books" ||
+        wasteType === "Skincare Containers" ||
+        wasteType === "Plastic Bottle" ||
+        wasteType === "Rechargeable Batteries"
           ? CAMPAIGN_PAGE_SIZE
           : PAGE_SIZE;
 
@@ -141,13 +134,26 @@ export function RecyclingPointsExplorer() {
     );
   }
 
-  const total = data?.total ?? 0;
   const pageSize =
-    wasteType === "Books" || wasteType === "Skincare Containers"
+    wasteType === "Books" ||
+    wasteType === "Skincare Containers" ||
+    wasteType === "Plastic Bottle" ||
+    wasteType === "Rechargeable Batteries"
       ? CAMPAIGN_PAGE_SIZE
       : PAGE_SIZE;
+  const total = data?.total ?? 0;
   const pageStart = total === 0 ? 0 : offset + 1;
   const pageEnd = Math.min(offset + pageSize, total);
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const currentPage = Math.floor(offset / pageSize) + 1;
+  const hasMultiplePages = total > pageSize;
+
+  function goToPage(newOffset: number) {
+    setOffset(newOffset);
+    requestAnimationFrame(() => {
+      resultsAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
 
   const resultsLabel = useMemo(() => {
     if (loading) return t.common.loading;
@@ -388,56 +394,52 @@ export function RecyclingPointsExplorer() {
         )}
       </form>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
-        <p className={loading ? "animate-pulse" : ""}>{resultsLabel}</p>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            disabled={loading || offset === 0}
-            onClick={() => setOffset(Math.max(0, offset - pageSize))}
-            className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 transition hover:bg-slate-50 disabled:opacity-40"
-          >
-            <ChevronLeft className="h-4 w-4" />
-            {t.common.previous}
-          </button>
-          <button
-            type="button"
-            disabled={loading || !data || offset + pageSize >= total}
-            onClick={() => setOffset(offset + pageSize)}
-            className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 transition hover:bg-slate-50 disabled:opacity-40"
-          >
-            {t.common.next}
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
+      <div ref={resultsAnchorRef} className="scroll-mt-20 space-y-4">
+        <ExplorerPagination
+            loading={loading}
+            resultsLabel={resultsLabel}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            showPageNumber={hasMultiplePages}
+            canGoPrev={offset > 0}
+            canGoNext={!!data && offset + pageSize < total}
+            onPrev={() => goToPage(Math.max(0, offset - pageSize))}
+            onNext={() => goToPage(offset + pageSize)}
+            t={t}
+          />
 
-      {error && (
-        <div className="animate-fade-in rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
-          {error}
-        </div>
-      )}
+        {error && (
+          <div className="animate-fade-in rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+            {error}
+          </div>
+        )}
 
-      <ul className="grid gap-4 sm:grid-cols-2">
+        <ul className="grid gap-4 sm:grid-cols-2">
         {!loading &&
-          data?.points.map((point, index) => (
-            <PointCard
-              key={point.cp_id}
-              point={point}
-              index={index}
-              address={getAddress(point, addressLocale)}
-              bookmarked={isBookmarked(point.cp_id)}
-              member={!!member}
-              siteLocale={siteLocale}
-              expiredCampaign={wasteType === "Books"}
-              t={t}
-              onToggleBookmark={() =>
-                isBookmarked(point.cp_id)
-                  ? removeBookmark(point.cp_id)
-                  : addBookmark(point, getAddress(point, addressLocale))
-              }
-            />
-          ))}
+          data?.points.map((point, index) => {
+            const stagger = Math.min(index % 6, 5) + 1;
+            return (
+              <li
+                key={point.cp_id}
+                className={`hover-lift animate-fade-in-up stagger-${stagger}`}
+              >
+                <RecyclingPointCard
+                  point={point}
+                  address={getAddress(point, addressLocale)}
+                  locale={siteLocale}
+                  t={t}
+                  expiredCampaign={wasteType === "Books"}
+                  bookmarked={isBookmarked(point.cp_id)}
+                  showBookmark={!!member}
+                  onToggleBookmark={() =>
+                    isBookmarked(point.cp_id)
+                      ? removeBookmark(point.cp_id)
+                      : addBookmark(point, getAddress(point, addressLocale))
+                  }
+                />
+              </li>
+            );
+          })}
       </ul>
 
       {loading && (
@@ -450,206 +452,81 @@ export function RecyclingPointsExplorer() {
           ))}
         </div>
       )}
+
+        {hasMultiplePages && !loading && (
+          <ExplorerPagination
+            loading={loading}
+            resultsLabel={resultsLabel}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            showPageNumber={hasMultiplePages}
+            canGoPrev={offset > 0}
+            canGoNext={!!data && offset + pageSize < total}
+            onPrev={() => goToPage(Math.max(0, offset - pageSize))}
+            onNext={() => goToPage(offset + pageSize)}
+            t={t}
+          />
+        )}
+      </div>
     </div>
   );
 }
 
-interface PointCardProps {
-  point: RecyclingCollectionPoint;
-  index: number;
-  address: string;
-  bookmarked: boolean;
-  member: boolean;
-  siteLocale: "en" | "zh";
-  expiredCampaign?: boolean;
+type ExplorerPaginationProps = {
+  loading: boolean;
+  resultsLabel: string;
+  currentPage: number;
+  totalPages: number;
+  showPageNumber: boolean;
+  canGoPrev: boolean;
+  canGoNext: boolean;
+  onPrev: () => void;
+  onNext: () => void;
   t: ReturnType<typeof useLanguage>["t"];
-  onToggleBookmark: () => void;
-}
+};
 
-function PointCard({
-  point,
-  index,
-  address,
-  bookmarked,
-  member,
-  siteLocale,
-  expiredCampaign = false,
+function ExplorerPagination({
+  loading,
+  resultsLabel,
+  currentPage,
+  totalPages,
+  showPageNumber,
+  canGoPrev,
+  canGoNext,
+  onPrev,
+  onNext,
   t,
-  onToggleBookmark,
-}: PointCardProps) {
-  const addressLocale = siteLocale === "zh" ? "tc" : "en";
-  const stagger = Math.min(index % 6, 5) + 1;
-
+}: ExplorerPaginationProps) {
   return (
-    <li
-      className={`hover-lift animate-fade-in-up stagger-${stagger} rounded-2xl border p-5 shadow-sm ${
-        expiredCampaign
-          ? "border-slate-200 bg-slate-50"
-          : "border-slate-100 bg-white"
-      }`}
-    >
-      <div className="flex items-start justify-between gap-2">
-        <p
-          className={`font-display text-base leading-snug font-semibold ${
-            expiredCampaign ? "text-slate-500" : "text-slate-900"
-          }`}
-        >
-          {address}
-        </p>
-        <div className="flex shrink-0 items-center gap-2">
-          {member && (
-            <button
-              type="button"
-              onClick={onToggleBookmark}
-              className={`rounded-full px-2.5 py-1 text-xs ${
-                bookmarked ? "btn-save-saved" : "btn-save"
-              }`}
-              title={bookmarked ? t.explorer.removeBookmarkTitle : t.explorer.saveTitle}
-            >
-              {bookmarked ? (
-                <BookmarkCheck className="h-3.5 w-3.5" aria-hidden />
-              ) : (
-                <Bookmark className="h-3.5 w-3.5" aria-hidden />
-              )}
-              {bookmarked ? t.explorer.saved : t.explorer.save}
-            </button>
-          )}
-          {point.cp_state && (
-            <span
-              className={`rounded-full px-2 py-0.5 text-xs ${
-                expiredCampaign
-                  ? "border border-slate-300 bg-slate-200 font-semibold text-slate-600"
-                  : point.is_short_term
-                    ? "border border-amber-300 bg-amber-100 font-semibold text-amber-900"
-                    : "status-accepted"
-              }`}
-            >
-              {expiredCampaign ? (
-                t.explorer.expiredBadge
-              ) : point.is_short_term ? (
-                t.explorer.shortTermBadge
-              ) : (
-                <>
-                  <CheckCircle2 className="h-3 w-3" aria-hidden />
-                  {point.cp_state}
-                </>
-              )}
-            </span>
-          )}
-        </div>
-      </div>
-
-      {point.district_id && (
-        <p
-          className={`mt-1.5 flex items-center gap-1 text-xs ${
-            expiredCampaign ? "text-slate-400" : "text-slate-500"
-          }`}
-        >
-          <MapPin className="h-3 w-3 shrink-0 text-slate-400" />
-          {getDistrictLabel(point.district_id, siteLocale)}
-        </p>
-      )}
-
-      {point.legend && (
-        <p className={`mt-2 text-sm ${expiredCampaign ? "text-slate-400" : "text-slate-600"}`}>
-          {point.legend}
-        </p>
-      )}
-
-      {point.waste_type && (
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {parseWasteTypes(point.waste_type).map((w) => {
-            const style = getWasteTypeStyle(w);
-            const Icon = style.icon;
-            const label = t.explorer.wasteTypes[w] ?? w;
-            const tagClass = expiredCampaign
-              ? EXPIRED_WASTE_TYPE_STYLE.tag
-              : style.tag;
-
-            return (
-              <span
-                key={w}
-                className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${tagClass}`}
-              >
-                <Icon className="h-3 w-3 shrink-0" aria-hidden />
-                {label}
-              </span>
-            );
-          })}
-        </div>
-      )}
-
-      {getOpenHours(point, addressLocale) && (
-        <p
-          className={`mt-2 flex items-start gap-1.5 text-xs ${
-            expiredCampaign ? "text-slate-400" : "text-slate-600"
-          }`}
-        >
-          <Clock className="mt-0.5 h-3 w-3 shrink-0 text-slate-400" />
-          <span>
-            <span className={`font-medium ${expiredCampaign ? "text-slate-400" : "text-slate-700"}`}>
-              {t.explorer.hours}{" "}
-            </span>
-            {getOpenHours(point, addressLocale)}
-          </span>
-        </p>
-      )}
-
-      {getContact(point, addressLocale) && (
-        <p className={`mt-1 text-xs ${expiredCampaign ? "text-slate-400" : "text-slate-600"}`}>
-          {getContact(point, addressLocale)}
-        </p>
-      )}
-
-      {point.accessibilty_notes && (
-        <p className="mt-2 text-xs text-slate-500">{point.accessibilty_notes}</p>
-      )}
-
-      <div className="mt-4 flex flex-wrap gap-3 text-xs font-semibold">
-        {point.campaign_url && (
-          <a
-            href={point.campaign_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 ${
-              expiredCampaign
-                ? "border-slate-300 bg-slate-100 text-slate-500 hover:bg-slate-200"
-                : "border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100"
-            }`}
-          >
-            {t.explorer.campaignDetails}
-          </a>
+    <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+      <div className="min-w-0">
+        <p className={loading ? "animate-pulse" : ""}>{resultsLabel}</p>
+        {showPageNumber && !loading && (
+          <p className="mt-0.5 text-xs text-slate-500">
+            {formatMessage(t.explorer.pageOf, { page: currentPage, pages: totalPages })}
+          </p>
         )}
-        <a
-          href={openStreetMapUrl(point.lat, point.lng)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={
-            expiredCampaign
-              ? "inline-flex items-center gap-1 text-slate-500 underline hover:text-slate-700"
-              : "link-brand inline-flex items-center gap-1"
-          }
-        >
-          <MapPin className="h-3 w-3" />
-          {t.explorer.openStreetMap}
-        </a>
-        <a
-          href={googleMapsUrl(point.lat, point.lng)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={
-            expiredCampaign
-              ? "inline-flex items-center gap-1 text-slate-500 underline hover:text-slate-700"
-              : "link-brand inline-flex items-center gap-1"
-          }
-        >
-          <Navigation className="h-3 w-3" />
-          {t.explorer.googleMaps}
-        </a>
-        {/* <span className="text-slate-400">
-          {point.lat.toFixed(5)}, {point.lng.toFixed(5)}
-        </span> */}
       </div>
-    </li>
+      <div className="flex gap-2">
+        <button
+          type="button"
+          disabled={loading || !canGoPrev}
+          onClick={onPrev}
+          className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 font-semibold transition hover:bg-slate-50 disabled:opacity-40"
+        >
+          <ChevronLeft className="h-4 w-4" />
+          {t.common.previous}
+        </button>
+        <button
+          type="button"
+          disabled={loading || !canGoNext}
+          onClick={onNext}
+          className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 font-semibold transition hover:bg-slate-50 disabled:opacity-40"
+        >
+          {t.common.next}
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
   );
 }

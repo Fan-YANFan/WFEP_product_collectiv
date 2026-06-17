@@ -8,11 +8,13 @@ import {
   CheckCircle2,
   MapPin,
   MapPinned,
+  User,
   Weight,
 } from "lucide-react";
 import { CollectionDatePicker } from "@/components/booking/CollectionDatePicker";
 import { PhotoQuoteSection } from "@/components/booking/PhotoQuoteSection";
 import { PricingBreakdown } from "@/components/booking/PricingBreakdown";
+import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import {
   calculateBookingCharge,
@@ -30,6 +32,7 @@ const REMOTE_AREA_IDS = Object.keys(REMOTE_AREA_SURCHARGES) as RemoteAreaId[];
 
 export default function BookingPage() {
   const { t } = useLanguage();
+  const { member } = useAuth();
   const [submitted, setSubmitted] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<BookingFieldErrors>({});
   const [formData, setFormData] = useState({
@@ -102,9 +105,19 @@ export default function BookingPage() {
               </span>
             </p>
           </div>
-          <Link href="/" className="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm">
-            <ArrowLeft className="h-4 w-4" /> {t.booking.backHome}
-          </Link>
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link href="/" className="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm">
+              <ArrowLeft className="h-4 w-4" /> {t.booking.backHome}
+            </Link>
+            {member && (
+              <Link
+                href="/account"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-cyan hover:bg-brand-cyan-muted/50 hover:text-brand-cyan-foreground"
+              >
+                <User className="h-4 w-4" /> {t.booking.backToAccount}
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     );

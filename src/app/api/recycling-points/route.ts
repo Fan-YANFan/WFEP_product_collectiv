@@ -6,6 +6,12 @@ import {
 } from "@/lib/campaigns/watsons-skincare-recycling";
 import { queryRecyclingPoints } from "@/lib/csdi/client";
 import { CSDI_DATA_ATTRIBUTION, CSDI_MAX_PAGE_SIZE } from "@/lib/csdi/constants";
+import {
+  isPlasticBottleWasteType,
+  isRechargeableBatteryWasteType,
+  queryPlasticBottlePoints,
+  queryRechargeableBatteryPoints,
+} from "@/lib/campaigns/watsons-plastic-battery-recycling";
 
 export const dynamic = "force-dynamic";
 
@@ -43,7 +49,11 @@ export async function GET(request: NextRequest) {
       ? queryBooksForLovePoints(query)
       : isSkincareContainersWasteType(query.wasteType)
         ? queryWatsonsSkincarePoints(query)
-        : await queryRecyclingPoints(query);
+        : isPlasticBottleWasteType(query.wasteType)
+          ? await queryPlasticBottlePoints(query)
+          : isRechargeableBatteryWasteType(query.wasteType)
+            ? await queryRechargeableBatteryPoints(query)
+            : await queryRecyclingPoints(query);
 
     return NextResponse.json({
       ...result,
@@ -51,7 +61,11 @@ export async function GET(request: NextRequest) {
         ? "Swire Properties — Books for Love @ $10 (short-term campaign)"
         : isSkincareContainersWasteType(query.wasteType)
           ? "Watsons Hong Kong — Skincare container recycling (short-term campaign)"
-          : CSDI_DATA_ATTRIBUTION,
+          : isPlasticBottleWasteType(query.wasteType)
+            ? "Watsons Hong Kong & EPD — Plastic bottle recycling"
+            : isRechargeableBatteryWasteType(query.wasteType)
+              ? "Watsons Hong Kong & EPD — Rechargeable battery recycling"
+              : CSDI_DATA_ATTRIBUTION,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to fetch recycling points";

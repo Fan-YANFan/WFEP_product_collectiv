@@ -36,9 +36,11 @@ export type MemberOrder = {
 export type BookmarkedPoint = {
   cp_id: string;
   address: string;
-  district: string | null;
-  wasteTypes: string | null;
   savedAt: string;
+  point?: RecyclingCollectionPoint;
+  /** Legacy snapshot fields when full point was not stored */
+  district?: string | null;
+  wasteTypes?: string | null;
 };
 
 export type EventReminder = {
@@ -284,9 +286,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         {
           cp_id: point.cp_id,
           address,
-          district: point.district_id,
-          wasteTypes: point.waste_type,
           savedAt: new Date().toISOString(),
+          point,
         },
       ];
       setBookmarks(next);

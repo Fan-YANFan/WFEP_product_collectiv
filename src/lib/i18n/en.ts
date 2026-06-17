@@ -83,6 +83,7 @@ export const en: Translations = {
     nearMeHint: "Showing points within {km} km of your location.",
     noResults: "No results",
     showing: "Showing {start}–{end} of {total} points",
+    pageOf: "Page {page} of {pages}",
     requestFailed: "Request failed",
     apiError: "Could not reach the recycling points API.",
     geoUnsupported: "Geolocation is not supported in this browser.",
@@ -109,12 +110,12 @@ export const en: Translations = {
     skincareCampaignStoreLink: "Official store finder →",
     plasticBottleCampaignTitle: "Watsons — Plastic Bottle Recycling",
     plasticBottleCampaignDesc:
-      "54 participating Watsons stores across Hong Kong accept empty plastic drinking water bottles and other eligible plastic bottles at in-store collection points. Opening hours vary by branch (typically 9:00 AM – 10:00 PM). Government and community recycling points from the EPD database are also listed below.",
+      "54 participating Watsons stores across Hong Kong accept empty plastic drinking water bottles and other eligible plastic bottles at in-store collection points. Opening hours vary by branch. All 54 Watsons branches are searchable below, alongside government and community recycling points from the EPD database.",
     plasticBottleCampaignProgramLink: "Watsons recycling services →",
     plasticBottleCampaignStoreLink: "Official store finder →",
     batteryCampaignTitle: "Watsons — Rechargeable Battery Recycling",
     batteryCampaignDesc:
-      "54 participating Watsons stores are collection points under the government's Rechargeable Battery Recycling Programme. Drop off portable Li-ion, Ni-MH and Ni-Cd rechargeable batteries from household products during store opening hours. Government and community recycling points from the EPD database are also listed below.",
+      "54 participating Watsons stores are collection points under the government's Rechargeable Battery Recycling Programme. Drop off portable Li-ion, Ni-MH and Ni-Cd rechargeable batteries from household products during store opening hours. All 54 Watsons branches are searchable below, alongside government and community recycling points from the EPD database.",
     batteryCampaignProgramLink: "Watsons recycling services →",
     batteryCampaignGovLink: "Government battery programme →",
     batteryCampaignStoreLink: "Official store finder →",
@@ -193,6 +194,7 @@ export const en: Translations = {
     estWeight: "Estimated weight:",
     estTotalCharge: "Estimated total charge:",
     backHome: "Back to Homepage",
+    backToAccount: "Back to My Account",
     validation: {
       nameRequired: "Please enter your full name.",
       phoneRequired: "Please enter your WhatsApp or phone number.",
@@ -277,6 +279,10 @@ export const en: Translations = {
     noBookmarks:
       "No saved points yet. Browse recycling locations on the home page and bookmark your favourites.",
     removeBookmark: "Remove bookmark",
+    bookmarkShowMore: "Show full details",
+    bookmarkShowLess: "Show less",
+    bookmarkLegacyNote:
+      "This bookmark was saved before full details were available. Remove and re-save from the recycling map to see hours, contacts, and map links.",
     reminders: "Recycling event reminders",
     remindersDesc: "Set reminders for community recycling drives, e-waste collection days, and other events.",
     eventName: "Event name",
@@ -306,6 +312,7 @@ export const en: Translations = {
     },
     timeline: {
       title: "Pickup tracking",
+      inProgress: "In progress",
       steps: {
         accepted: "Order Accepted",
         en_route: "Driver en Route",
@@ -314,7 +321,9 @@ export const en: Translations = {
         sorted: "Sorted / Donated",
       },
       enRouteEta: "Driver en Route (ETA {eta})",
-      closureNote: "Your items have been successfully sorted and donated. Thank you!",
+      closureTitle: "Journey complete",
+      closureNote:
+        "Your items have been successfully sorted and donated — thank you for making a real difference.",
     },
   },
   cookies: {
@@ -412,6 +421,7 @@ export type Translations = {
     nearMeHint: string;
     noResults: string;
     showing: string;
+    pageOf: string;
     requestFailed: string;
     apiError: string;
     geoUnsupported: string;
@@ -491,6 +501,7 @@ export type Translations = {
     estWeight: string;
     estTotalCharge: string;
     backHome: string;
+    backToAccount: string;
     validation: {
       nameRequired: string;
       phoneRequired: string;
@@ -565,6 +576,9 @@ export type Translations = {
     browsePoints: string;
     noBookmarks: string;
     removeBookmark: string;
+    bookmarkShowMore: string;
+    bookmarkShowLess: string;
+    bookmarkLegacyNote: string;
     reminders: string;
     remindersDesc: string;
     eventName: string;
@@ -594,8 +608,10 @@ export type Translations = {
     };
     timeline: {
       title: string;
+      inProgress: string;
       steps: Record<string, string>;
       enRouteEta: string;
+      closureTitle: string;
       closureNote: string;
     };
   };

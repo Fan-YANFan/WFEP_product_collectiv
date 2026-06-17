@@ -84,6 +84,7 @@ export const zh: Translations = {
     nearMeHint: "顯示距離您 {km} 公里內的回收點。",
     noResults: "沒有結果",
     showing: "顯示第 {start}–{end} 項，共 {total} 個回收點",
+    pageOf: "第 {page} 頁，共 {pages} 頁",
     requestFailed: "請求失敗",
     apiError: "無法連接回收點 API。",
     geoUnsupported: "此瀏覽器不支援定位功能。",
@@ -110,12 +111,12 @@ export const zh: Translations = {
     skincareCampaignStoreLink: "官方分店搜尋器 →",
     plasticBottleCampaignTitle: "屈臣氏 — 膠樽回收",
     plasticBottleCampaignDesc:
-      "全港54間參與屈臣氏門市設有膠樽回收點，可交回空的飲用水膠樽及其他合資格膠樽。各分店營業時間不同（一般為上午9時至晚上10時）。以下亦顯示環保署資料庫內的其他政府及社區回收點。",
+      "全港54間參與屈臣氏門市設有膠樽回收點，可交回空的飲用水膠樽及其他合資格膠樽。各分店營業時間不同。以下可搜尋全部54間屈臣氏分店，以及環保署資料庫內的其他政府及社區回收點。",
     plasticBottleCampaignProgramLink: "屈臣氏回收服務 →",
     plasticBottleCampaignStoreLink: "官方分店搜尋器 →",
     batteryCampaignTitle: "屈臣氏 — 充電池回收",
     batteryCampaignDesc:
-      "全港54間參與屈臣氏門市為政府「充電池回收計劃」收集點，可交回家用產品內的鋰離子、鎳氫及鎳鎘充電池。請於門市營業時間內投放。以下亦顯示環保署資料庫內的其他政府及社區回收點。",
+      "全港54間參與屈臣氏門市為政府「充電池回收計劃」收集點，可交回家用產品內的鋰離子、鎳氫及鎳鎘充電池。請於門市營業時間內投放。以下可搜尋全部54間屈臣氏分店，以及環保署資料庫內的其他政府及社區回收點。",
     batteryCampaignProgramLink: "屈臣氏回收服務 →",
     batteryCampaignGovLink: "政府充電池回收計劃 →",
     batteryCampaignStoreLink: "官方分店搜尋器 →",
@@ -187,6 +188,7 @@ export const zh: Translations = {
     estWeight: "估計重量：",
     estTotalCharge: "估計總收費：",
     backHome: "返回主頁",
+    backToAccount: "返回我的帳戶",
     validation: {
       nameRequired: "請輸入您的全名。",
       phoneRequired: "請輸入 WhatsApp 或電話號碼。",
@@ -270,6 +272,10 @@ export const zh: Translations = {
     browsePoints: "瀏覽回收點 →",
     noBookmarks: "尚未收藏任何回收點。請在主頁搜尋並收藏常用地點。",
     removeBookmark: "移除收藏",
+    bookmarkShowMore: "顯示完整詳情",
+    bookmarkShowLess: "收起詳情",
+    bookmarkLegacyNote:
+      "此收藏於較早版本儲存，詳情不完整。請移除後於回收地圖重新收藏，即可查看營業時間、聯絡方式及地圖連結。",
     reminders: "回收活動提醒",
     remindersDesc: "為社區回收日、電子廢物回收日等活動設定提醒。",
     eventName: "活動名稱",
@@ -299,6 +305,7 @@ export const zh: Translations = {
     },
     timeline: {
       title: "回收追蹤",
+      inProgress: "進行中",
       steps: {
         accepted: "訂單已確認",
         en_route: "司機在途中",
@@ -307,7 +314,8 @@ export const zh: Translations = {
         sorted: "已分類 / 捐贈",
       },
       enRouteEta: "司機在途中（預計 {eta} 抵達）",
-      closureNote: "您的物品已成功分類並捐出。感謝您的貢獻！",
+      closureTitle: "回收旅程完成",
+      closureNote: "您的物品已成功分類並捐出——感謝您為環境帶來實質改變。",
     },
   },
   cookies: {

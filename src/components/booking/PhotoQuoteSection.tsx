@@ -71,17 +71,17 @@ export function PhotoQuoteSection() {
 
   if (done) {
     return (
-      <div className="animate-scale-in rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-        <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600" />
-        <p className="mt-3 font-semibold text-emerald-900">{t.booking.photoQuote.successTitle}</p>
-        <p className="mt-2 text-sm text-emerald-800">{done}</p>
+      <div className="animate-scale-in rounded-2xl border border-brand-orange/30 bg-gradient-to-br from-brand-orange-muted to-white p-6 text-center">
+        <CheckCircle2 className="mx-auto h-12 w-12 text-brand-orange-dark" />
+        <p className="mt-3 font-semibold text-brand-orange-foreground">{t.booking.photoQuote.successTitle}</p>
+        <p className="mt-2 text-sm text-slate-700">{done}</p>
         <button
           type="button"
           onClick={() => {
             setDone(null);
             setExpanded(false);
           }}
-          className="mt-4 text-sm font-semibold text-emerald-700 underline"
+          className="mt-4 text-sm font-semibold text-brand-orange-dark underline hover:text-brand-orange-foreground"
         >
           {t.booking.photoQuote.sendAnother}
         </button>
@@ -91,9 +91,9 @@ export function PhotoQuoteSection() {
 
   if (!expanded) {
     return (
-      <div className="rounded-2xl border-2 border-dashed border-emerald-200 bg-gradient-to-br from-emerald-50 to-green-50 p-6 sm:p-8">
+      <div className="rounded-2xl border-2 border-dashed border-brand-orange/40 bg-gradient-to-br from-brand-orange-muted via-white to-brand-orange-muted/60 p-6 sm:p-8">
         <div className="flex flex-col items-center text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-200">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-orange text-white shadow-lg shadow-brand-orange/30">
             <Camera className="h-7 w-7" />
           </div>
           <h2 className="mt-4 text-xl font-bold text-slate-900">{t.booking.photoQuote.title}</h2>
@@ -103,7 +103,7 @@ export function PhotoQuoteSection() {
           <button
             type="button"
             onClick={() => setExpanded(true)}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-8 py-4 text-base font-bold text-white shadow-lg shadow-emerald-200 transition hover:scale-[1.02] hover:bg-emerald-700"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-orange px-8 py-4 text-base font-bold text-white shadow-lg shadow-brand-orange/25 transition hover:scale-[1.02] hover:bg-brand-orange-dark"
           >
             <Camera className="h-5 w-5" />
             {t.booking.photoQuote.cta}
@@ -116,7 +116,7 @@ export function PhotoQuoteSection() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="animate-fade-in-up rounded-2xl border border-emerald-200 bg-white p-6 shadow-sm sm:p-8"
+      className="animate-fade-in-up rounded-2xl border border-brand-orange/25 bg-white p-6 shadow-sm sm:p-8"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -126,7 +126,7 @@ export function PhotoQuoteSection() {
         <button
           type="button"
           onClick={() => setExpanded(false)}
-          className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+          className="rounded-lg p-1 text-slate-400 hover:bg-brand-orange-muted hover:text-brand-orange-foreground"
           aria-label={t.common.back}
         >
           <X className="h-5 w-5" />
@@ -175,7 +175,7 @@ export function PhotoQuoteSection() {
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="flex h-24 w-24 flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-emerald-300 bg-emerald-50 text-emerald-700 transition hover:bg-emerald-100"
+              className="flex h-24 w-24 flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-brand-orange/40 bg-brand-orange-muted text-brand-orange-foreground transition hover:border-brand-orange hover:bg-brand-orange-muted/80"
             >
               <ImagePlus className="h-6 w-6" />
               <span className="text-xs font-semibold">{t.booking.photoQuote.addPhoto}</span>
@@ -191,7 +191,7 @@ export function PhotoQuoteSection() {
       <button
         type="submit"
         disabled={submitting}
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-4 text-base font-bold text-white shadow-md shadow-emerald-100 transition hover:bg-emerald-700 disabled:opacity-60"
+        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-orange py-4 text-base font-bold text-white shadow-md shadow-brand-orange/20 transition hover:bg-brand-orange-dark disabled:opacity-60"
       >
         {submitting ? (
           <>
