@@ -24,7 +24,9 @@ function buildWhereClause(query: RecyclingPointsQuery): string {
     clauses.push(`district_id = '${escapeSqlLiteral(query.district)}'`);
   }
 
-  if (query.wasteType) {
+  if (query.wasteType === "Clothing") {
+    clauses.push(`(waste_type LIKE '%Clothes%' OR waste_type LIKE '%Clothing%')`);
+  } else if (query.wasteType) {
     clauses.push(`waste_type LIKE '%${escapeSqlLiteral(query.wasteType)}%'`);
   }
 

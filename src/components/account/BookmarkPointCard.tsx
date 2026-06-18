@@ -3,7 +3,7 @@
 import type { BookmarkedPoint } from "@/context/AuthContext";
 import type { RecyclingCollectionPoint } from "@/lib/csdi/types";
 import { getAddress } from "@/lib/csdi/display";
-import type { Translations } from "@/lib/i18n/en";
+import type { Translations } from "@/lib/i18n/types";
 import { isPointExpiredCampaign, RecyclingPointCard } from "@/components/RecyclingPointCard";
 
 type BookmarkPointCardProps = {

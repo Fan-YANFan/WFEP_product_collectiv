@@ -1,3 +1,5 @@
+import type { Translations } from "./types";
+
 export const en: Translations = {
   meta: {
     siteDescription:
@@ -119,6 +121,35 @@ export const en: Translations = {
     batteryCampaignProgramLink: "Watsons recycling services →",
     batteryCampaignGovLink: "Government battery programme →",
     batteryCampaignStoreLink: "Official store finder →",
+    milBusCampaignTitle: "Mil Mill 喵巴士 — Community Recycling Bus",
+    milBusCampaignDesc:
+      "The 20 Jun 2026 stop (Kingswood Villas) is the active short-term 喵巴士 event. Earlier June stops are listed in grey at the end for reference. Stops after 20 Jun are not shown.",
+    milBusCampaignLink: "Official schedule & programme →",
+    foodRescueCampaignTitle: "Food Angel 惜食堂 — Food Rescue Programme",
+    foodRescueCampaignDesc:
+      "Donate surplus edible food at 153 smart donation machines, collection boxes, and the Kwai Chung sharing hub across Hong Kong. Food Angel turns safe surplus into nutritious meals for people in need.",
+    foodRescueRule1:
+      "Personal donations: unopened dry goods with 4+ weeks until expiry; intact non-glass packaging.",
+    foodRescueRule2:
+      "Not accepted at public boxes: chilled, frozen, fresh, baked items, glass containers, or expired food.",
+    foodRescueRule3:
+      "Bulk donations (50 kg+): contact Food Angel logistics — Mon–Fri 9 AM–6 PM.",
+    foodRescueCampaignLink: "Programme details (EN) →",
+    foodRescueCampaignLinkTc: "活動詳情（中文）→",
+    greenCollectionCampaignTitle: "Green Collection Programme — Christian Action",
+    greenCollectionCampaignDesc:
+      "One-day collection at Central Park & Park Avenue (Tai Kok Tsui) on Sat 20 Jun 2026, 10 AM–3 PM. Accepts clothing, footwear, bags, small home appliances, toys, accessories, household items, and computer supplies.",
+    greenCollectionCampaignLink: "Event poster & details →",
+    medicationCampaignTitle: "Medicine Collection Program 2026 — Greeners Action",
+    medicationCampaignEndedDesc:
+      "This programme has ended. 46 collection boxes across Hong Kong Island, Kowloon and the New Territories accepted leftover or expired medicine. All points from the official list are shown below for reference only.",
+    medicationCampaignRule1:
+      "Accepted: residual or expired solid pills and Western medicine — keep in original bags or bottles and cross out personal details on labels.",
+    medicationCampaignRule2:
+      "Not accepted: liquids, ointments, inhalers, Chinese medicine, proprietary Chinese medicine, or dangerous drugs.",
+    medicationCampaignLinkEn: "Official collection points (EN PDF) →",
+    medicationCampaignLinkTc: "官方收集點列表（中文 PDF）→",
+    medicationCampaignFolderLink: "Google Drive folder →",
     campaignDetails: "Campaign details",
     wasteTypes: {
       Books: "Books (charity drive)",
@@ -132,8 +163,10 @@ export const en: Translations = {
       "Rechargeable Batteries": "Rechargeable Batteries",
       "Small Electrical Appliances": "Small Electrical Appliances",
       "Regulated Electrical Equipment": "Regulated Electrical Equipment",
-      Clothes: "Clothes",
+      Clothing: "Clothing",
+      "Food Rescue": "Food rescue (dry goods)",
       "Tetra Pak": "Tetra Pak",
+      Medication: "Medication disposal",
     },
   },
   booking: {
@@ -343,293 +376,4 @@ export const en: Translations = {
     customize: "Customize",
     dialogLabel: "Cookie consent",
   },
-};
-
-export type Translations = {
-  meta: { siteDescription: string };
-  common: {
-    loading: string;
-    previous: string;
-    next: string;
-    remove: string;
-    search: string;
-    back: string;
-    backToHome: string;
-    lastUpdated: string;
-    dataSource: string;
-    allRights: string;
-  };
-  language: {
-    label: string;
-    en: string;
-    zh: string;
-    switchTo: string;
-    switchToEn: string;
-  };
-  nav: {
-    home: string;
-    booking: string;
-    myAccount: string;
-    login: string;
-    openMenu: string;
-  };
-  footer: {
-    tagline: string;
-    links: string;
-    recyclingPoints: string;
-    terms: string;
-    privacy: string;
-    cookies: string;
-    cookiePreferences: string;
-    contact: string;
-    disclaimer: string;
-  };
-  home: {
-    badge: string;
-    titleLine1: string;
-    titleLine2: string;
-    subtitle: string;
-    cta: string;
-    feature1Title: string;
-    feature1Desc: string;
-    feature2Title: string;
-    feature2Desc: string;
-    feature3Title: string;
-    feature3Desc: string;
-    explorerTitle: string;
-    explorerDesc: string;
-    explorerDescSuffix: string;
-    csdiPortal: string;
-    dataNote: string;
-    carousel: {
-      title: string;
-      prev: string;
-      next: string;
-      goToSlide: string;
-      slide1Alt: string;
-      slide2Alt: string;
-    };
-  };
-  explorer: {
-    searchAddress: string;
-    searchPlaceholder: string;
-    district: string;
-    allDistricts: string;
-    wasteType: string;
-    nearMe: string;
-    clearNearby: string;
-    nearMeHint: string;
-    noResults: string;
-    showing: string;
-    pageOf: string;
-    requestFailed: string;
-    apiError: string;
-    geoUnsupported: string;
-    geoDenied: string;
-    hours: string;
-    save: string;
-    saved: string;
-    saveTitle: string;
-    removeBookmarkTitle: string;
-    openStreetMap: string;
-    googleMaps: string;
-    shortTermBadge: string;
-    expiredBadge: string;
-    booksCampaignTitle: string;
-    booksCampaignDesc: string;
-    booksCampaignEndedDesc: string;
-    booksCampaignLink: string;
-    skincareCampaignTitle: string;
-    skincareCampaignDesc: string;
-    skincareCampaignProgramLink: string;
-    skincareCampaignStoreLink: string;
-    plasticBottleCampaignTitle: string;
-    plasticBottleCampaignDesc: string;
-    plasticBottleCampaignProgramLink: string;
-    plasticBottleCampaignStoreLink: string;
-    batteryCampaignTitle: string;
-    batteryCampaignDesc: string;
-    batteryCampaignProgramLink: string;
-    batteryCampaignGovLink: string;
-    batteryCampaignStoreLink: string;
-    campaignDetails: string;
-    wasteTypes: Record<string, string>;
-  };
-  booking: {
-    back: string;
-    title: string;
-    subtitle: string;
-    fullName: string;
-    namePlaceholder: string;
-    phone: string;
-    phonePlaceholder: string;
-    region: string;
-    selectRegion: string;
-    address: string;
-    addressPlaceholder: string;
-    date: string;
-    selectedDate: string;
-    selectDateHint: string;
-    prevMonth: string;
-    nextMonth: string;
-    material: string;
-    weight: string;
-    minWeight: string;
-    maxWeight: string;
-    pricingTitle: string;
-    pricingFormula: string;
-    pricingFormulaNote: string;
-    tunnelNote: string;
-    baseLogisticsFee: string;
-    baseLogisticsNote: string;
-    weightCharge: string;
-    weightChargeFormula: string;
-    walkUpTitle: string;
-    walkUpDesc: string;
-    walkUpToggle: string;
-    floors: string;
-    bagCount: string;
-    walkUpFee: string;
-    walkUpRateNote: string;
-    remoteAreaTitle: string;
-    remoteAreaDesc: string;
-    remoteAreas: Record<string, string>;
-    totalCharge: string;
-    submit: string;
-    confirmed: string;
-    confirmedBody: string;
-    estWeight: string;
-    estTotalCharge: string;
-    backHome: string;
-    backToAccount: string;
-    validation: {
-      nameRequired: string;
-      phoneRequired: string;
-      phoneInvalid: string;
-      districtRequired: string;
-      addressRequired: string;
-      dateRequired: string;
-      materialRequired: string;
-      weightRequired: string;
-      floorsRequired: string;
-      bagsRequired: string;
-      fixErrors: string;
-    };
-    photoQuote: {
-      title: string;
-      desc: string;
-      cta: string;
-      formTitle: string;
-      formDesc: string;
-      uploadLabel: string;
-      addPhoto: string;
-      phoneRequired: string;
-      photosRequired: string;
-      submit: string;
-      submitting: string;
-      successTitle: string;
-      success: string;
-      failed: string;
-      sendAnother: string;
-    };
-    regions: readonly string[];
-    materials: Record<string, string>;
-    perKg: string;
-  };
-  login: {
-    loginTitle: string;
-    signupTitle: string;
-    loginDesc: string;
-    signupDesc: string;
-    email: string;
-    password: string;
-    submitLogin: string;
-    submitSignup: string;
-    pleaseWait: string;
-    noAccount: string;
-    hasAccount: string;
-    signupLink: string;
-    loginLink: string;
-    errors: {
-      required: string;
-      notFound: string;
-      wrongPassword: string;
-      shortPassword: string;
-      exists: string;
-      generic: string;
-    };
-  };
-  account: {
-    memberArea: string;
-    welcome: string;
-    logout: string;
-    orderHistory: string;
-    orderDesc: string;
-    noOrders: string;
-    orderCol: string;
-    dateCol: string;
-    itemsCol: string;
-    totalCol: string;
-    statusCol: string;
-    savedPoints: string;
-    savedDesc: string;
-    browsePoints: string;
-    noBookmarks: string;
-    removeBookmark: string;
-    bookmarkShowMore: string;
-    bookmarkShowLess: string;
-    bookmarkLegacyNote: string;
-    reminders: string;
-    remindersDesc: string;
-    eventName: string;
-    eventPlaceholder: string;
-    date: string;
-    notes: string;
-    notesPlaceholder: string;
-    addReminder: string;
-    noReminders: string;
-    ecoDashboard: {
-      badge: string;
-      title: string;
-      carbonLine: string;
-      itemsLine: string;
-      treeLabel: string;
-      coastLabel: string;
-      coastProgress: string;
-    };
-    countdown: {
-      endsToday: string;
-      endsTomorrow: string;
-      endsInDays: string;
-      actionUrgent: string;
-      actionSoon: string;
-      addGoogle: string;
-      addApple: string;
-    };
-    timeline: {
-      title: string;
-      inProgress: string;
-      steps: Record<string, string>;
-      enRouteEta: string;
-      closureTitle: string;
-      closureNote: string;
-    };
-  };
-  cookies: {
-    title: string;
-    body: string;
-    bodySuffix: string;
-    policyLink: string;
-    necessary: string;
-    necessaryDesc: string;
-    analytics: string;
-    analyticsDesc: string;
-    marketing: string;
-    marketingDesc: string;
-    acceptAll: string;
-    reject: string;
-    save: string;
-    customize: string;
-    dialogLabel: string;
-  };
 };

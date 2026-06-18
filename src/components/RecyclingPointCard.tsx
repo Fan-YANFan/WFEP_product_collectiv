@@ -19,11 +19,14 @@ import {
   parseWasteTypes,
 } from "@/lib/csdi/display";
 import { getDistrictLabel } from "@/lib/i18n/districts";
-import type { Translations } from "@/lib/i18n/en";
+import type { Translations } from "@/lib/i18n/types";
+import { MIL_BUS_CAMPAIGN } from "@/lib/campaigns/mil-bus-recycling";
+import { GREEN_COLLECTION_CAMPAIGN } from "@/lib/campaigns/green-collection-programme";
 import {
   EXPIRED_WASTE_TYPE_STYLE,
   getWasteTypeStyle,
   isExpiredWasteType,
+  normalizeWasteTypeKey,
 } from "@/lib/waste-types";
 
 export type RecyclingPointCardProps = {
@@ -58,21 +61,42 @@ export function RecyclingPointCard({
   const addressLocale = locale === "zh" ? "tc" : "en";
   const showDetails = !collapsible || expanded;
   const hasCoords = Number.isFinite(point.lat) && Number.isFinite(point.lng) && (point.lat !== 0 || point.lng !== 0);
+  const isShortTermEvent = point.is_short_term && !expiredCampaign;
+  const mapPinClass = isShortTermEvent ? "short-term-map-pin text-amber-500" : "text-slate-400";
+  const wasteTypes = parseWasteTypes(point.waste_type);
+  const singleWasteType = wasteTypes.length === 1 ? wasteTypes[0] : null;
+  const primaryWasteStyle = singleWasteType ? getWasteTypeStyle(singleWasteType) : null;
+  const useWasteTypeStatusBadge =
+    !expiredCampaign &&
+    primaryWasteStyle &&
+    singleWasteType &&
+    (point.is_short_term || point.cp_state === "Upcoming");
 
   return (
     <div
       className={`rounded-2xl border p-5 shadow-sm ${
-        expiredCampaign ? "border-slate-200 bg-slate-50" : "border-slate-100 bg-white"
+        expiredCampaign
+          ? "border-slate-200 bg-slate-50"
+          : isShortTermEvent
+            ? "border-amber-200/80 bg-gradient-to-br from-amber-50/40 to-white"
+            : "border-slate-100 bg-white"
       } ${className}`}
     >
       <div className="flex items-start justify-between gap-2">
-        <p
-          className={`font-display text-base leading-snug font-semibold ${
-            expiredCampaign ? "text-slate-500" : "text-slate-900"
-          }`}
-        >
-          {address}
-        </p>
+        <div className="flex min-w-0 items-start gap-2">
+          {isShortTermEvent && (
+            <span className="short-term-map-pin mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-100 ring-2 ring-amber-300/60">
+              <MapPin className="h-4 w-4 text-amber-600" aria-hidden />
+            </span>
+          )}
+          <p
+            className={`font-display text-base leading-snug font-semibold ${
+              expiredCampaign ? "text-slate-500" : "text-slate-900"
+            }`}
+          >
+            {address}
+          </p>
+        </div>
         <div className="flex shrink-0 items-center gap-2">
           {showBookmark && onToggleBookmark && (
             <button
@@ -96,9 +120,11 @@ export function RecyclingPointCard({
               className={`rounded-full px-2 py-0.5 text-xs ${
                 expiredCampaign
                   ? "border border-slate-300 bg-slate-200 font-semibold text-slate-600"
-                  : point.is_short_term
-                    ? "border border-amber-300 bg-amber-100 font-semibold text-amber-900"
-                    : "status-accepted"
+                  : useWasteTypeStatusBadge
+                    ? `inline-flex items-center gap-1 border font-semibold ${primaryWasteStyle!.chipActive}`
+                    : point.is_short_term
+                      ? "border border-amber-300 bg-amber-100 font-semibold text-amber-900"
+                      : "status-accepted"
               }`}
             >
               {expiredCampaign ? (
@@ -107,7 +133,9 @@ export function RecyclingPointCard({
                 t.explorer.shortTermBadge
               ) : (
                 <>
-                  <CheckCircle2 className="h-3 w-3" aria-hidden />
+                  {!useWasteTypeStatusBadge && (
+                    <CheckCircle2 className="h-3 w-3" aria-hidden />
+                  )}
                   {point.cp_state}
                 </>
               )}
@@ -122,7 +150,7 @@ export function RecyclingPointCard({
             expiredCampaign ? "text-slate-400" : "text-slate-500"
           }`}
         >
-          <MapPin className="h-3 w-3 shrink-0 text-slate-400" />
+          <MapPin className={`h-3 w-3 shrink-0 ${mapPinClass}`} />
           {getDistrictLabel(point.district_id, locale)}
         </p>
       )}
@@ -138,9 +166,10 @@ export function RecyclingPointCard({
           {point.waste_type && (
             <div className="mt-3 flex flex-wrap gap-1.5">
               {parseWasteTypes(point.waste_type).map((w) => {
-                const style = getWasteTypeStyle(w);
+                const styleKey = normalizeWasteTypeKey(w);
+                const style = getWasteTypeStyle(styleKey);
                 const Icon = style.icon;
-                const label = t.explorer.wasteTypes[w] ?? w;
+                const label = t.explorer.wasteTypes[styleKey] ?? t.explorer.wasteTypes[w] ?? w;
                 const tagClass = expiredCampaign ? EXPIRED_WASTE_TYPE_STYLE.tag : style.tag;
 
                 return (
@@ -208,7 +237,7 @@ export function RecyclingPointCard({
                     : "link-brand inline-flex items-center gap-1"
                 }
               >
-                <MapPin className="h-3 w-3" />
+                <MapPin className={`h-3 w-3 ${mapPinClass}`} />
                 {t.explorer.openStreetMap}
               </a>
               <a
@@ -218,10 +247,12 @@ export function RecyclingPointCard({
                 className={
                   expiredCampaign
                     ? "inline-flex items-center gap-1 text-slate-500 underline hover:text-slate-700"
-                    : "link-brand inline-flex items-center gap-1"
+                    : isShortTermEvent
+                      ? "inline-flex items-center gap-1 font-semibold text-amber-700 underline hover:text-amber-900"
+                      : "link-brand inline-flex items-center gap-1"
                 }
               >
-                <Navigation className="h-3 w-3" />
+                <Navigation className={`h-3 w-3 ${isShortTermEvent ? "text-amber-600" : ""}`} />
                 {t.explorer.googleMaps}
               </a>
             </div>
@@ -248,6 +279,12 @@ export function RecyclingPointCard({
 }
 
 export function isPointExpiredCampaign(point: RecyclingCollectionPoint): boolean {
+  if (point.campaign_source === MIL_BUS_CAMPAIGN.id) {
+    return !point.is_short_term;
+  }
+  if (point.campaign_source === GREEN_COLLECTION_CAMPAIGN.id) {
+    return point.cp_state === "Ended";
+  }
   const types = parseWasteTypes(point.waste_type);
-  return types.some((w) => isExpiredWasteType(w));
+  return types.some((w) => isExpiredWasteType(normalizeWasteTypeKey(w)));
 }

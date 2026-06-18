@@ -1,5 +1,6 @@
-import { en, type Translations } from "./en";
+import { en } from "./en";
 import { zh } from "./zh";
+import type { Translations } from "./types";
 
 export type Locale = "en" | "zh";
 
@@ -21,4 +22,4 @@ export function formatMessage(
 }
 
 export { en, zh };
-export type { Translations };
+export type { Translations } from "./types";

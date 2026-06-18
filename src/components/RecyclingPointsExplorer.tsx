@@ -1,6 +1,6 @@
 "use client";
 
-import { RecyclingPointCard } from "@/components/RecyclingPointCard";
+import { RecyclingPointCard, isPointExpiredCampaign } from "@/components/RecyclingPointCard";
 import {
   ChevronLeft,
   ChevronRight,
@@ -12,6 +12,13 @@ import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { HK_DISTRICTS, WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
 import { BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
+import { MEDICATION_COLLECTION_CAMPAIGN } from "@/lib/campaigns/medication-collection-2026";
+import { FOOD_ANGEL_CAMPAIGN } from "@/lib/campaigns/food-angel-food-rescue";
+import {
+  isGreenCollectionWasteType,
+  GREEN_COLLECTION_CAMPAIGN,
+} from "@/lib/campaigns/green-collection-programme";
+import { isMilBusWasteType, MIL_BUS_CAMPAIGN } from "@/lib/campaigns/mil-bus-recycling";
 import { WATSONS_SKINCARE_CAMPAIGN } from "@/lib/campaigns/watsons-skincare-recycling";
 import { WATSONS_PLASTIC_BATTERY_CAMPAIGN } from "@/lib/campaigns/watsons-plastic-battery-recycling";
 import { getAddress } from "@/lib/csdi/display";
@@ -19,11 +26,9 @@ import type { RecyclingCollectionPoint } from "@/lib/csdi/types";
 import { formatMessage } from "@/lib/i18n";
 import { getDistrictLabel } from "@/lib/i18n/districts";
 import {
-  EXPIRED_WASTE_TYPE_STYLE,
+  getExpiredBadgeClass,
   getWasteTypeStyle,
   isExpiredWasteType,
-  SHORT_TERM_BADGE_STYLE,
-  isShortTermWasteType,
 } from "@/lib/waste-types";
 
 interface ApiResponse {
@@ -37,6 +42,19 @@ interface ApiResponse {
 const PAGE_SIZE = 25;
 const CAMPAIGN_PAGE_SIZE = 100;
 const NEARBY_RADIUS_M = 2000;
+
+function usesCampaignPageSize(wasteType: string): boolean {
+  return (
+    wasteType === "Books" ||
+    wasteType === "Medication" ||
+    wasteType === "Food Rescue" ||
+    isGreenCollectionWasteType(wasteType) ||
+    wasteType === "Skincare Containers" ||
+    wasteType === "Plastic Bottle" ||
+    wasteType === "Rechargeable Batteries" ||
+    isMilBusWasteType(wasteType)
+  );
+}
 
 export function RecyclingPointsExplorer() {
   const { member, addBookmark, removeBookmark, isBookmarked } = useAuth();
@@ -62,13 +80,7 @@ export function RecyclingPointsExplorer() {
       setLoading(true);
       setError(null);
 
-      const pageSize =
-        wasteType === "Books" ||
-        wasteType === "Skincare Containers" ||
-        wasteType === "Plastic Bottle" ||
-        wasteType === "Rechargeable Batteries"
-          ? CAMPAIGN_PAGE_SIZE
-          : PAGE_SIZE;
+      const pageSize = usesCampaignPageSize(wasteType) ? CAMPAIGN_PAGE_SIZE : PAGE_SIZE;
 
       const params = new URLSearchParams({
         offset: String(offset),
@@ -134,13 +146,7 @@ export function RecyclingPointsExplorer() {
     );
   }
 
-  const pageSize =
-    wasteType === "Books" ||
-    wasteType === "Skincare Containers" ||
-    wasteType === "Plastic Bottle" ||
-    wasteType === "Rechargeable Batteries"
-      ? CAMPAIGN_PAGE_SIZE
-      : PAGE_SIZE;
+  const pageSize = usesCampaignPageSize(wasteType) ? CAMPAIGN_PAGE_SIZE : PAGE_SIZE;
   const total = data?.total ?? 0;
   const pageStart = total === 0 ? 0 : offset + 1;
   const pageEnd = Math.min(offset + pageSize, total);
@@ -245,15 +251,7 @@ export function RecyclingPointsExplorer() {
             const selected = wasteType === type;
             const label = t.explorer.wasteTypes[type] ?? type;
             const expired = isExpiredWasteType(type);
-            const shortTerm = isShortTermWasteType(type);
-            const showShortTermBadge = shortTerm || expired;
-            const chipClass = expired
-              ? selected
-                ? EXPIRED_WASTE_TYPE_STYLE.chipActive
-                : EXPIRED_WASTE_TYPE_STYLE.chip
-              : selected
-                ? style.chipActive
-                : style.chip;
+            const chipClass = selected ? style.chipActive : style.chip;
 
             return (
               <button
@@ -263,19 +261,15 @@ export function RecyclingPointsExplorer() {
                   setWasteType(selected ? "" : type);
                   setOffset(0);
                 }}
-                className={`chip-pop inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${chipClass} ${
-                  shortTerm ? "short-term-waste-chip" : ""
-                }`}
+                className={`chip-pop inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${chipClass}`}
               >
                 <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden />
                 {label}
-                {showShortTermBadge && (
+                {expired && (
                   <span
-                    className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
-                      expired ? EXPIRED_WASTE_TYPE_STYLE.badge : SHORT_TERM_BADGE_STYLE
-                    }`}
+                    className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${getExpiredBadgeClass(type)}`}
                   >
-                    {t.explorer.shortTermBadge}
+                    {t.explorer.expiredBadge}
                   </span>
                 )}
               </button>
@@ -295,6 +289,88 @@ export function RecyclingPointsExplorer() {
             >
               {t.explorer.booksCampaignLink}
             </a>
+          </div>
+        )}
+
+        {wasteType === "Food Rescue" && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-red-200 bg-gradient-to-r from-red-50 to-orange-50 p-4 text-sm text-red-950">
+            <p className="font-semibold">{t.explorer.foodRescueCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-red-900/90">{t.explorer.foodRescueCampaignDesc}</p>
+            <ul className="mt-2 list-inside list-disc space-y-1 text-red-900/85">
+              <li>{t.explorer.foodRescueRule1}</li>
+              <li>{t.explorer.foodRescueRule2}</li>
+              <li>{t.explorer.foodRescueRule3}</li>
+            </ul>
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+              <a
+                href={FOOD_ANGEL_CAMPAIGN.programUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-red-800 underline hover:text-red-950"
+              >
+                {t.explorer.foodRescueCampaignLink}
+              </a>
+              <a
+                href={FOOD_ANGEL_CAMPAIGN.programUrlTc}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-red-800 underline hover:text-red-950"
+              >
+                {t.explorer.foodRescueCampaignLinkTc}
+              </a>
+            </div>
+          </div>
+        )}
+
+        {isGreenCollectionWasteType(wasteType) && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-sky-200 bg-gradient-to-r from-sky-50 to-emerald-50 p-4 text-sm text-sky-950">
+            <p className="font-semibold">{t.explorer.greenCollectionCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-sky-900/90">{t.explorer.greenCollectionCampaignDesc}</p>
+            <a
+              href={GREEN_COLLECTION_CAMPAIGN.eventUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block font-semibold text-sky-800 underline hover:text-sky-950"
+            >
+              {t.explorer.greenCollectionCampaignLink}
+            </a>
+          </div>
+        )}
+
+        {wasteType === "Medication" && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-teal-200 bg-gradient-to-r from-teal-50 to-cyan-50 p-4 text-sm text-teal-950">
+            <p className="font-semibold">{t.explorer.medicationCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-teal-900/90">{t.explorer.medicationCampaignEndedDesc}</p>
+            <ul className="mt-2 list-inside list-disc space-y-1 text-teal-900/85">
+              <li>{t.explorer.medicationCampaignRule1}</li>
+              <li>{t.explorer.medicationCampaignRule2}</li>
+            </ul>
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+              <a
+                href={MEDICATION_COLLECTION_CAMPAIGN.pointsPdfEn}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-teal-800 underline hover:text-teal-950"
+              >
+                {t.explorer.medicationCampaignLinkEn}
+              </a>
+              <a
+                href={MEDICATION_COLLECTION_CAMPAIGN.pointsPdfTc}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-teal-800 underline hover:text-teal-950"
+              >
+                {t.explorer.medicationCampaignLinkTc}
+              </a>
+              <a
+                href={MEDICATION_COLLECTION_CAMPAIGN.pointsFolderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-teal-800 underline hover:text-teal-950"
+              >
+                {t.explorer.medicationCampaignFolderLink}
+              </a>
+            </div>
           </div>
         )}
 
@@ -381,6 +457,21 @@ export function RecyclingPointsExplorer() {
           </div>
         )}
 
+        {isMilBusWasteType(wasteType) && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-teal-50 p-4 text-sm text-emerald-950">
+            <p className="font-semibold">{t.explorer.milBusCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-emerald-900/90">{t.explorer.milBusCampaignDesc}</p>
+            <a
+              href={MIL_BUS_CAMPAIGN.officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block font-semibold text-emerald-800 underline hover:text-emerald-950"
+            >
+              {t.explorer.milBusCampaignLink}
+            </a>
+          </div>
+        )}
+
         {geoError && (
           <p className="animate-fade-in mt-3 text-sm text-amber-700">{geoError}</p>
         )}
@@ -428,7 +519,7 @@ export function RecyclingPointsExplorer() {
                   address={getAddress(point, addressLocale)}
                   locale={siteLocale}
                   t={t}
-                  expiredCampaign={wasteType === "Books"}
+                  expiredCampaign={isPointExpiredCampaign(point)}
                   bookmarked={isBookmarked(point.cp_id)}
                   showBookmark={!!member}
                   onToggleBookmark={() =>

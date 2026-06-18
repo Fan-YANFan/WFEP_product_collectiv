@@ -1,4 +1,4 @@
-import type { Translations } from "./en";
+import type { Translations } from "./types";
 
 export const zh: Translations = {
   meta: {
@@ -120,6 +120,32 @@ export const zh: Translations = {
     batteryCampaignProgramLink: "屈臣氏回收服務 →",
     batteryCampaignGovLink: "政府充電池回收計劃 →",
     batteryCampaignStoreLink: "官方分店搜尋器 →",
+    milBusCampaignTitle: "喵坊 喵巴士 — 社區回收車",
+    milBusCampaignDesc:
+      "2026年6月20日（景湖居）為進行中的短期喵巴士活動。6月20日前的站點以灰色顯示並列於結果最後供參考；6月20日後的站點不會顯示。",
+    milBusCampaignLink: "官方行程表及活動詳情 →",
+    foodRescueCampaignTitle: "惜食堂 — 食物回收計劃",
+    foodRescueCampaignDesc:
+      "全港153個智能食物捐贈機、食物收集箱及葵涌惜食分餉站，方便市民捐贈仍可食用的剩餘乾貨食品。",
+    foodRescueRule1: "個人捐贈：未開封乾貨，距離到期日4星期或以上，包裝完好、非玻璃容器。",
+    foodRescueRule2: "收集箱不接受：冷凍、冷藏、新鮮、烘焙食品、玻璃容器及已過期食品。",
+    foodRescueRule3: "大批捐贈（每次50公斤或以上）：請聯絡惜食堂物流安排，星期一至五上午9時至下午6時。",
+    foodRescueCampaignLink: "活動詳情（英文）→",
+    foodRescueCampaignLinkTc: "活動詳情（中文）→",
+    greenCollectionCampaignTitle: "環保回收活動 — 基督教勵行會",
+    greenCollectionCampaignDesc:
+      "2026年6月20日（星期六）上午10時至下午3時，帝柏海灣及柏景灣會所正門對出空地舉行單日回收活動。接受衣物、鞋履、手袋、小型家電、玩具、首飾、家庭用品及電腦用品等。",
+    greenCollectionCampaignLink: "活動海報及詳情 →",
+    medicationCampaignTitle: "藥餘收集計劃 2026 — 綠領行動",
+    medicationCampaignEndedDesc:
+      "此計劃已結束。全港島、九龍及新界共46個收集箱曾接受剩餘或過期藥物。以下列出官方收集點列表，僅供參考。",
+    medicationCampaignRule1:
+      "接受：剩餘或過期的藥丸及西藥，請保留在原包裝袋或藥瓶內，並塗掉標籤上的個人資料。",
+    medicationCampaignRule2:
+      "不接受：藥水、藥膏、吸入器、中藥、中成藥及危險藥物。",
+    medicationCampaignLinkEn: "官方收集點列表（英文 PDF）→",
+    medicationCampaignLinkTc: "官方收集點列表（中文 PDF）→",
+    medicationCampaignFolderLink: "Google Drive 資料夾 →",
     campaignDetails: "活動詳情",
     wasteTypes: {
       Books: "書籍（慈善回收）",
@@ -133,8 +159,10 @@ export const zh: Translations = {
       "Rechargeable Batteries": "充電池",
       "Small Electrical Appliances": "小型電器",
       "Regulated Electrical Equipment": "四電一腦",
-      Clothes: "衣服",
+      Clothing: "衣物",
+      "Food Rescue": "食物回收（乾貨）",
       "Tetra Pak": "紙包飲品盒",
+      Medication: "藥餘回收",
     },
   },
   booking: {

@@ -1,5 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isBooksWasteType, queryBooksForLovePoints } from "@/lib/campaigns/books-for-love";
+import { isBooksWasteType, filterBooksForLovePoints, BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
+import {
+  isMedicationWasteType,
+  queryMedicationCollectionPoints,
+  MEDICATION_COLLECTION_CAMPAIGN,
+} from "@/lib/campaigns/medication-collection-2026";
+import {
+  isFoodRescueWasteType,
+  queryFoodAngelPoints,
+  FOOD_ANGEL_CAMPAIGN,
+} from "@/lib/campaigns/food-angel-food-rescue";
+import {
+  CLOTHING_WASTE_TYPE,
+  isGreenCollectionWasteType,
+  queryGreenCollectionMergedCsdi,
+  queryGreenCollectionWithMilBus,
+  GREEN_COLLECTION_CAMPAIGN,
+  SMALL_APPLIANCE_WASTE_TYPE,
+} from "@/lib/campaigns/green-collection-programme";
+import {
+  isMilBusWasteType,
+  mergeMilBusWithPoints,
+  MIL_BUS_CAMPAIGN,
+  queryMilBusMergedCsdi,
+} from "@/lib/campaigns/mil-bus-recycling";
 import {
   isSkincareContainersWasteType,
   queryWatsonsSkincarePoints,
@@ -45,27 +69,54 @@ export async function GET(request: NextRequest) {
       ),
     };
 
-    const result = isBooksWasteType(query.wasteType)
-      ? queryBooksForLovePoints(query)
-      : isSkincareContainersWasteType(query.wasteType)
-        ? queryWatsonsSkincarePoints(query)
-        : isPlasticBottleWasteType(query.wasteType)
-          ? await queryPlasticBottlePoints(query)
-          : isRechargeableBatteryWasteType(query.wasteType)
-            ? await queryRechargeableBatteryPoints(query)
-            : await queryRecyclingPoints(query);
+    let result;
+    if (isBooksWasteType(query.wasteType)) {
+      const books = filterBooksForLovePoints(query);
+      result = await mergeMilBusWithPoints(
+        query,
+        books,
+        books.length,
+        BOOKS_FOR_LOVE_CAMPAIGN.officialUrl,
+      );
+    } else if (isMedicationWasteType(query.wasteType)) {
+      result = queryMedicationCollectionPoints(query);
+    } else if (isSkincareContainersWasteType(query.wasteType)) {
+      result = queryWatsonsSkincarePoints(query);
+    } else if (isPlasticBottleWasteType(query.wasteType)) {
+      result = await queryPlasticBottlePoints(query);
+    } else if (isRechargeableBatteryWasteType(query.wasteType)) {
+      result = await queryRechargeableBatteryPoints(query);
+    } else if (query.wasteType === CLOTHING_WASTE_TYPE) {
+      result = await queryGreenCollectionMergedCsdi(query);
+    } else if (query.wasteType === SMALL_APPLIANCE_WASTE_TYPE) {
+      result = await queryGreenCollectionWithMilBus(query);
+    } else if (isMilBusWasteType(query.wasteType)) {
+      result = await queryMilBusMergedCsdi(query);
+    } else if (isFoodRescueWasteType(query.wasteType)) {
+      result = queryFoodAngelPoints(query);
+    } else {
+      result = await queryRecyclingPoints(query);
+    }
 
     return NextResponse.json({
       ...result,
       attribution: isBooksWasteType(query.wasteType)
-        ? "Swire Properties — Books for Love @ $10 (short-term campaign)"
-        : isSkincareContainersWasteType(query.wasteType)
-          ? "Watsons Hong Kong — Skincare container recycling (short-term campaign)"
-          : isPlasticBottleWasteType(query.wasteType)
-            ? "Watsons Hong Kong & EPD — Plastic bottle recycling"
-            : isRechargeableBatteryWasteType(query.wasteType)
-              ? "Watsons Hong Kong & EPD — Rechargeable battery recycling"
-              : CSDI_DATA_ATTRIBUTION,
+        ? "Mil Mill 喵巴士, Swire Properties — Books for Love @ $10"
+        : isMedicationWasteType(query.wasteType)
+          ? `${MEDICATION_COLLECTION_CAMPAIGN.sponsorEn} — ${MEDICATION_COLLECTION_CAMPAIGN.nameEn}`
+          : isSkincareContainersWasteType(query.wasteType)
+            ? "Watsons Hong Kong — Skincare container recycling (short-term campaign)"
+            : isPlasticBottleWasteType(query.wasteType)
+              ? "Watsons Hong Kong & EPD — Plastic bottle recycling"
+              : isRechargeableBatteryWasteType(query.wasteType)
+                ? "Watsons Hong Kong & EPD — Rechargeable battery recycling"
+                : isGreenCollectionWasteType(query.wasteType)
+                  ? `${GREEN_COLLECTION_CAMPAIGN.sponsorEn} — ${GREEN_COLLECTION_CAMPAIGN.nameEn}`
+                  : isMilBusWasteType(query.wasteType)
+                    ? `${MIL_BUS_CAMPAIGN.sponsorEn} — ${MIL_BUS_CAMPAIGN.nameEn}`
+                    : isFoodRescueWasteType(query.wasteType)
+                      ? `${FOOD_ANGEL_CAMPAIGN.sponsorEn} — ${FOOD_ANGEL_CAMPAIGN.nameEn}`
+                      : CSDI_DATA_ATTRIBUTION,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to fetch recycling points";

@@ -64,10 +64,7 @@ function matchesSearch(point: RecyclingCollectionPoint, search: string): boolean
   return haystack.includes(term);
 }
 
-export function queryBooksForLovePoints(query: RecyclingPointsQuery): RecyclingPointsResult {
-  const limit = Math.max(query.limit ?? 50, 1);
-  const offset = Math.max(query.offset ?? 0, 0);
-
+export function filterBooksForLovePoints(query: RecyclingPointsQuery): RecyclingCollectionPoint[] {
   let filtered = BOOKS_FOR_LOVE_POINTS.filter((point) => {
     if (query.district && point.district_id !== query.district) return false;
     if (query.search && !matchesSearch(point, query.search)) return false;
@@ -90,6 +87,14 @@ export function queryBooksForLovePoints(query: RecyclingPointsQuery): RecyclingP
       .map(({ point }) => point);
   }
 
+  return filtered;
+}
+
+export function queryBooksForLovePoints(query: RecyclingPointsQuery): RecyclingPointsResult {
+  const limit = Math.max(query.limit ?? 50, 1);
+  const offset = Math.max(query.offset ?? 0, 0);
+
+  const filtered = filterBooksForLovePoints(query);
   const total = filtered.length;
   const points = filtered.slice(offset, offset + limit);
 

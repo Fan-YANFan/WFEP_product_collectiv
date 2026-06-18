@@ -9,9 +9,11 @@ import {
   Lightbulb,
   Monitor,
   Package,
+  Pill,
   Plug,
   Recycle,
   Shirt,
+  UtensilsCrossed,
   Wrench,
 } from "lucide-react";
 import { EXPIRED_WASTE_TYPES, SHORT_TERM_WASTE_TYPES, type WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
@@ -67,9 +69,9 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
   },
   Paper: {
     icon: FileText,
-    chip: "border-teal-200 bg-teal-50 text-teal-900 hover:bg-teal-100 hover:border-teal-300",
-    chipActive: "border-teal-600 bg-teal-600 text-white shadow-md shadow-teal-200",
-    tag: "border border-teal-200 bg-teal-50 text-teal-900",
+    chip: "border-stone-500 bg-stone-100 text-stone-800 hover:bg-stone-200 hover:border-stone-600",
+    chipActive: "border-stone-700 bg-stone-700 text-white shadow-md shadow-stone-200",
+    tag: "border border-stone-300 bg-stone-100 text-stone-800",
   },
   Metals: {
     icon: Wrench,
@@ -91,9 +93,9 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
   },
   "Glass Bottle": {
     icon: GlassWater,
-    chip: "border-emerald-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 hover:border-emerald-300",
-    chipActive: "border-emerald-600 bg-emerald-600 text-white shadow-md shadow-emerald-200",
-    tag: "border border-emerald-200 bg-emerald-50 text-emerald-800",
+    chip: "border-emerald-500 bg-emerald-50 text-emerald-950 hover:bg-emerald-100 hover:border-emerald-600",
+    chipActive: "border-emerald-800 bg-emerald-800 text-white shadow-md shadow-emerald-200",
+    tag: "border border-emerald-300 bg-emerald-50 text-emerald-950",
   },
   "Fluorescent Lamps": {
     icon: Lightbulb,
@@ -109,27 +111,41 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
   },
   "Small Electrical Appliances": {
     icon: Plug,
-    chip: "border-violet-200 bg-violet-50 text-violet-800 hover:bg-violet-100 hover:border-violet-300",
-    chipActive: "border-violet-600 bg-violet-600 text-white shadow-md shadow-violet-200",
-    tag: "border border-violet-200 bg-violet-50 text-violet-800",
+    chip: "border-indigo-400 bg-indigo-50 text-indigo-950 hover:bg-indigo-100 hover:border-indigo-500",
+    chipActive: "border-indigo-800 bg-indigo-800 text-white shadow-md shadow-indigo-200",
+    tag: "border border-indigo-300 bg-indigo-50 text-indigo-950",
   },
   "Regulated Electrical Equipment": {
     icon: Monitor,
-    chip: "border-indigo-200 bg-indigo-50 text-indigo-800 hover:bg-indigo-100 hover:border-indigo-300",
-    chipActive: "border-indigo-600 bg-indigo-600 text-white shadow-md shadow-indigo-200",
-    tag: "border border-indigo-200 bg-indigo-50 text-indigo-800",
+    chip: "border-slate-600 bg-slate-200 text-slate-900 hover:bg-slate-300 hover:border-slate-700",
+    chipActive: "border-slate-900 bg-slate-900 text-white shadow-md shadow-slate-200",
+    tag: "border border-slate-400 bg-slate-200 text-slate-900",
   },
-  Clothes: {
+  Clothing: {
     icon: Shirt,
-    chip: "border-rose-200 bg-rose-50 text-rose-800 hover:bg-rose-100 hover:border-rose-300",
-    chipActive: "border-rose-500 bg-rose-500 text-white shadow-md shadow-rose-200",
-    tag: "border border-rose-200 bg-rose-50 text-rose-800",
+    chip: "border-pink-300 bg-pink-50 text-pink-900 hover:bg-pink-100 hover:border-pink-400",
+    chipActive: "border-pink-600 bg-pink-600 text-white shadow-md shadow-pink-200",
+    tag: "border border-pink-200 bg-pink-50 text-pink-900",
+  },
+  "Food Rescue": {
+    icon: UtensilsCrossed,
+    chip: "border-red-300 bg-red-50 text-red-900 hover:bg-red-100 hover:border-red-400",
+    chipActive: "border-red-700 bg-red-700 text-white shadow-md shadow-red-200",
+    tag: "border border-red-200 bg-red-50 text-red-900",
   },
   "Tetra Pak": {
     icon: Box,
     chip: "border-lime-200 bg-lime-50 text-lime-800 hover:bg-lime-100 hover:border-lime-300",
     chipActive: "border-lime-600 bg-lime-600 text-white shadow-md shadow-lime-200",
     tag: "border border-lime-200 bg-lime-50 text-lime-800",
+  },
+  Medication: {
+    icon: Pill,
+    chip:
+      "border-teal-300 bg-gradient-to-r from-teal-50 to-cyan-50 text-teal-950 shadow-sm ring-2 ring-teal-200/70 hover:from-teal-100 hover:to-cyan-100",
+    chipActive:
+      "border-teal-600 bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg shadow-teal-300/50 ring-2 ring-teal-300 scale-105",
+    tag: "border border-teal-200 bg-teal-50 text-teal-900 font-semibold",
   },
 };
 
@@ -140,6 +156,18 @@ const FALLBACK_STYLE: WasteTypeStyle = {
   tag: "border border-fuchsia-200 bg-fuchsia-50 text-fuchsia-900",
 };
 
+export function normalizeWasteTypeKey(type: string): string {
+  if (type === "Clothes") return "Clothing";
+  return type;
+}
+
+export function getExpiredBadgeClass(type: string): string {
+  if (type === "Medication") return "bg-teal-600/90 text-white";
+  if (type === "Books") return "bg-amber-600/90 text-white";
+  return EXPIRED_WASTE_TYPE_STYLE.badge;
+}
+
 export function getWasteTypeStyle(type: string): WasteTypeStyle {
-  return WASTE_TYPE_STYLES[type as WasteTypeFilter] ?? FALLBACK_STYLE;
+  const key = normalizeWasteTypeKey(type);
+  return WASTE_TYPE_STYLES[key as WasteTypeFilter] ?? FALLBACK_STYLE;
 }
