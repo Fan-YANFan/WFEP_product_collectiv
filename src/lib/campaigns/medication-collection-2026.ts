@@ -1,4 +1,5 @@
 import type { RecyclingCollectionPoint, RecyclingPointsQuery, RecyclingPointsResult } from "@/lib/csdi/types";
+import { filterAdventistMedicationDisposalPoints } from "./adventist-medication-disposal";
 import { MEDICATION_COLLECTION_POINTS } from "./medication-collection-locations";
 
 export const MEDICATION_WASTE_TYPE = "Medication";
@@ -50,11 +51,13 @@ function matchesSearch(point: RecyclingCollectionPoint, search: string): boolean
 export function filterMedicationCollectionPoints(
   query: RecyclingPointsQuery,
 ): RecyclingCollectionPoint[] {
-  let filtered = MEDICATION_COLLECTION_POINTS.filter((point) => {
+  let active = MEDICATION_COLLECTION_POINTS.filter((point) => {
     if (query.district && point.district_id !== query.district) return false;
     if (query.search && !matchesSearch(point, query.search)) return false;
     return true;
   });
+
+  const ended = filterAdventistMedicationDisposalPoints(query);
 
   if (
     query.lat != null &&
@@ -62,7 +65,7 @@ export function filterMedicationCollectionPoints(
     query.radiusMeters != null &&
     query.radiusMeters > 0
   ) {
-    filtered = filtered
+    active = active
       .map((point) => ({
         point,
         dist: distanceMeters(query.lat!, query.lng!, point.lat, point.lng),
@@ -72,7 +75,7 @@ export function filterMedicationCollectionPoints(
       .map(({ point }) => point);
   }
 
-  return filtered;
+  return [...active, ...ended];
 }
 
 export function queryMedicationCollectionPoints(

@@ -137,8 +137,8 @@ export const zh: Translations = {
       "2026年6月20日（星期六）上午10時至下午3時，帝柏海灣及柏景灣會所正門對出空地舉行單日回收活動。接受衣物、鞋履、手袋、小型家電、玩具、首飾、家庭用品及電腦用品等。",
     greenCollectionCampaignLink: "活動海報及詳情 →",
     medicationCampaignTitle: "藥餘收集計劃 2026 — 綠領行動",
-    medicationCampaignEndedDesc:
-      "此計劃已結束。全港島、九龍及新界共46個收集箱曾接受剩餘或過期藥物。以下列出官方收集點列表，僅供參考。",
+    medicationCampaignDesc:
+      "進行中的短期回收計劃。全港島、九龍及新界共46個收集箱接受剩餘或過期藥物。",
     medicationCampaignRule1:
       "接受：剩餘或過期的藥丸及西藥，請保留在原包裝袋或藥瓶內，並塗掉標籤上的個人資料。",
     medicationCampaignRule2:
@@ -146,6 +146,15 @@ export const zh: Translations = {
     medicationCampaignLinkEn: "官方收集點列表（英文 PDF）→",
     medicationCampaignLinkTc: "官方收集點列表（中文 PDF）→",
     medicationCampaignFolderLink: "Google Drive 資料夾 →",
+    adventistMedicationCampaignTitle: "藥房「藥餘回收計劃」— 香港港安醫院（荃灣）",
+    adventistMedicationCampaignEndedDesc:
+      "此計劃已結束。醫院藥房曾於2026年5月11日至31日接受剩餘或過期藥丸及西藥。以下收集點僅供參考。",
+    adventistMedicationCampaignRule1:
+      "接受：剩餘或過期的藥丸及西藥，請保留在原包裝袋或藥瓶內，並塗掉標籤上的個人資料。",
+    adventistMedicationCampaignRule2:
+      "不接受：藥水、藥膏、吸入器、中藥、中成藥及危險藥物。",
+    adventistMedicationCampaignLink: "活動海報及詳情 →",
+    adventistMedicationCampaignHospitalLink: "醫院網站 →",
     campaignDetails: "活動詳情",
     wasteTypes: {
       Books: "書籍（慈善回收）",

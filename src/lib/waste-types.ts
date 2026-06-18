@@ -135,9 +135,11 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
   },
   "Tetra Pak": {
     icon: Box,
-    chip: "border-lime-200 bg-lime-50 text-lime-800 hover:bg-lime-100 hover:border-lime-300",
-    chipActive: "border-lime-600 bg-lime-600 text-white shadow-md shadow-lime-200",
-    tag: "border border-lime-200 bg-lime-50 text-lime-800",
+    chip:
+      "border-lime-300 bg-gradient-to-r from-lime-50 to-green-50 text-lime-950 shadow-sm ring-2 ring-lime-200/70 hover:from-lime-100 hover:to-green-100",
+    chipActive:
+      "border-lime-600 bg-gradient-to-r from-lime-500 to-green-500 text-white shadow-lg shadow-lime-300/50 ring-2 ring-lime-300 scale-105",
+    tag: "border border-lime-200 bg-lime-50 text-lime-900 font-semibold",
   },
   Medication: {
     icon: Pill,
@@ -161,9 +163,7 @@ export function normalizeWasteTypeKey(type: string): string {
   return type;
 }
 
-export function getExpiredBadgeClass(type: string): string {
-  if (type === "Medication") return "bg-teal-600/90 text-white";
-  if (type === "Books") return "bg-amber-600/90 text-white";
+export function getExpiredBadgeClass(_type: string): string {
   return EXPIRED_WASTE_TYPE_STYLE.badge;
 }
 

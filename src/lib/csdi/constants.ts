@@ -62,10 +62,10 @@ export const WASTE_TYPE_FILTERS = [
 ] as const;
 
 /** Short-term / campaign waste types shown with highlight styling */
-export const SHORT_TERM_WASTE_TYPES = ["Skincare Containers"] as const;
+export const SHORT_TERM_WASTE_TYPES = ["Skincare Containers", "Medication"] as const;
 
-/** Ended campaigns — shown greyed out, listed after active filters */
-export const EXPIRED_WASTE_TYPES = ["Books", "Medication"] as const;
+/** Ended campaigns — shown greyed out on result cards (not on filter chips) */
+export const EXPIRED_WASTE_TYPES = [] as const;
 
 export type ShortTermWasteType = (typeof SHORT_TERM_WASTE_TYPES)[number];
 

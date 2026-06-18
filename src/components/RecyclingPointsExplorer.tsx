@@ -12,6 +12,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { HK_DISTRICTS, WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
 import { BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
+import { ADVENTIST_MEDICATION_CAMPAIGN } from "@/lib/campaigns/adventist-medication-disposal";
 import { MEDICATION_COLLECTION_CAMPAIGN } from "@/lib/campaigns/medication-collection-2026";
 import { FOOD_ANGEL_CAMPAIGN } from "@/lib/campaigns/food-angel-food-rescue";
 import {
@@ -338,40 +339,69 @@ export function RecyclingPointsExplorer() {
         )}
 
         {wasteType === "Medication" && (
-          <div className="animate-fade-in mt-4 rounded-xl border border-teal-200 bg-gradient-to-r from-teal-50 to-cyan-50 p-4 text-sm text-teal-950">
-            <p className="font-semibold">{t.explorer.medicationCampaignTitle}</p>
-            <p className="mt-1 leading-relaxed text-teal-900/90">{t.explorer.medicationCampaignEndedDesc}</p>
-            <ul className="mt-2 list-inside list-disc space-y-1 text-teal-900/85">
-              <li>{t.explorer.medicationCampaignRule1}</li>
-              <li>{t.explorer.medicationCampaignRule2}</li>
-            </ul>
-            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
-              <a
-                href={MEDICATION_COLLECTION_CAMPAIGN.pointsPdfEn}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-teal-800 underline hover:text-teal-950"
-              >
-                {t.explorer.medicationCampaignLinkEn}
-              </a>
-              <a
-                href={MEDICATION_COLLECTION_CAMPAIGN.pointsPdfTc}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-teal-800 underline hover:text-teal-950"
-              >
-                {t.explorer.medicationCampaignLinkTc}
-              </a>
-              <a
-                href={MEDICATION_COLLECTION_CAMPAIGN.pointsFolderUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-teal-800 underline hover:text-teal-950"
-              >
-                {t.explorer.medicationCampaignFolderLink}
-              </a>
+          <>
+            <div className="animate-fade-in mt-4 rounded-xl border border-teal-200 bg-gradient-to-r from-teal-50 to-cyan-50 p-4 text-sm text-teal-950">
+              <p className="font-semibold">{t.explorer.medicationCampaignTitle}</p>
+              <p className="mt-1 leading-relaxed text-teal-900/90">{t.explorer.medicationCampaignDesc}</p>
+              <ul className="mt-2 list-inside list-disc space-y-1 text-teal-900/85">
+                <li>{t.explorer.medicationCampaignRule1}</li>
+                <li>{t.explorer.medicationCampaignRule2}</li>
+              </ul>
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+                <a
+                  href={MEDICATION_COLLECTION_CAMPAIGN.pointsPdfEn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-teal-800 underline hover:text-teal-950"
+                >
+                  {t.explorer.medicationCampaignLinkEn}
+                </a>
+                <a
+                  href={MEDICATION_COLLECTION_CAMPAIGN.pointsPdfTc}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-teal-800 underline hover:text-teal-950"
+                >
+                  {t.explorer.medicationCampaignLinkTc}
+                </a>
+                <a
+                  href={MEDICATION_COLLECTION_CAMPAIGN.pointsFolderUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-teal-800 underline hover:text-teal-950"
+                >
+                  {t.explorer.medicationCampaignFolderLink}
+                </a>
+              </div>
             </div>
-          </div>
+
+            <div className="animate-fade-in mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              <p className="font-semibold text-slate-700">{t.explorer.adventistMedicationCampaignTitle}</p>
+              <p className="mt-1 leading-relaxed">{t.explorer.adventistMedicationCampaignEndedDesc}</p>
+              <ul className="mt-2 list-inside list-disc space-y-1">
+                <li>{t.explorer.adventistMedicationCampaignRule1}</li>
+                <li>{t.explorer.adventistMedicationCampaignRule2}</li>
+              </ul>
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+                <a
+                  href={ADVENTIST_MEDICATION_CAMPAIGN.eventUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-slate-500 underline hover:text-slate-700"
+                >
+                  {t.explorer.adventistMedicationCampaignLink}
+                </a>
+                <a
+                  href={ADVENTIST_MEDICATION_CAMPAIGN.hospitalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-slate-500 underline hover:text-slate-700"
+                >
+                  {t.explorer.adventistMedicationCampaignHospitalLink}
+                </a>
+              </div>
+            </div>
+          </>
         )}
 
         {wasteType === "Skincare Containers" && (
@@ -520,6 +550,7 @@ export function RecyclingPointsExplorer() {
                   locale={siteLocale}
                   t={t}
                   expiredCampaign={isPointExpiredCampaign(point)}
+                  activeWasteType={wasteType || undefined}
                   bookmarked={isBookmarked(point.cp_id)}
                   showBookmark={!!member}
                   onToggleBookmark={() =>

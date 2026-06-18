@@ -141,8 +141,8 @@ export const en: Translations = {
       "One-day collection at Central Park & Park Avenue (Tai Kok Tsui) on Sat 20 Jun 2026, 10 AM–3 PM. Accepts clothing, footwear, bags, small home appliances, toys, accessories, household items, and computer supplies.",
     greenCollectionCampaignLink: "Event poster & details →",
     medicationCampaignTitle: "Medicine Collection Program 2026 — Greeners Action",
-    medicationCampaignEndedDesc:
-      "This programme has ended. 46 collection boxes across Hong Kong Island, Kowloon and the New Territories accepted leftover or expired medicine. All points from the official list are shown below for reference only.",
+    medicationCampaignDesc:
+      "Ongoing short-term programme. 46 collection boxes across Hong Kong Island, Kowloon and the New Territories accept leftover or expired medicine.",
     medicationCampaignRule1:
       "Accepted: residual or expired solid pills and Western medicine — keep in original bags or bottles and cross out personal details on labels.",
     medicationCampaignRule2:
@@ -150,6 +150,16 @@ export const en: Translations = {
     medicationCampaignLinkEn: "Official collection points (EN PDF) →",
     medicationCampaignLinkTc: "官方收集點列表（中文 PDF）→",
     medicationCampaignFolderLink: "Google Drive folder →",
+    adventistMedicationCampaignTitle:
+      "Pharmacy Medication Disposal Programme — Hong Kong Adventist Hospital (Tsuen Wan)",
+    adventistMedicationCampaignEndedDesc:
+      "This programme has ended. The hospital pharmacy accepted residual or expired solid pills and Western medicine from 11 May – 31 May 2026. The collection point is shown below for reference only.",
+    adventistMedicationCampaignRule1:
+      "Accepted: residual or expired solid pills and Western medicine — keep in original bags or bottles and cross out personal details on labels.",
+    adventistMedicationCampaignRule2:
+      "Not accepted: liquids, ointments, inhalers, Chinese medicine, proprietary Chinese medicine, or dangerous drugs.",
+    adventistMedicationCampaignLink: "Event poster & details →",
+    adventistMedicationCampaignHospitalLink: "Hospital website →",
     campaignDetails: "Campaign details",
     wasteTypes: {
       Books: "Books (charity drive)",

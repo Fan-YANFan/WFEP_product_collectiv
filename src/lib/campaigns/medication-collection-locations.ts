@@ -27,7 +27,7 @@ function buildPoint(
     : "綠領行動藥餘收集箱。營業時間視乎個別機構而定。";
   return {
     cp_id: id,
-    cp_state: "Ended",
+    cp_state: "Short-term",
     district_id: district,
     address_en: nameEn,
     address2_en: addressEn,
@@ -38,7 +38,7 @@ function buildPoint(
     lat,
     lng,
     waste_type: MEDICATION_WASTE_TYPE,
-    legend: "Medicine Collection Program 2026 — Greeners Action collection box (programme ended)",
+    legend: "Medicine Collection Program 2026 — Greeners Action collection box (ongoing)",
     accessibilty_notes: null,
     contact_en: contactEn,
     contact_tc: contactTc,
@@ -48,7 +48,7 @@ function buildPoint(
     openhour_sc: null,
     campaign_source: MEDICATION_COLLECTION_CAMPAIGN.id,
     campaign_url: MEDICATION_COLLECTION_CAMPAIGN.pointsFolderUrl,
-    is_short_term: false,
+    is_short_term: true,
   };
 }
 

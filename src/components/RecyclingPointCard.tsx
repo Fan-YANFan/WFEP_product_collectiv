@@ -21,7 +21,10 @@ import {
 import { getDistrictLabel } from "@/lib/i18n/districts";
 import type { Translations } from "@/lib/i18n/types";
 import { MIL_BUS_CAMPAIGN } from "@/lib/campaigns/mil-bus-recycling";
+import { BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
+import { ADVENTIST_MEDICATION_CAMPAIGN } from "@/lib/campaigns/adventist-medication-disposal";
 import { GREEN_COLLECTION_CAMPAIGN } from "@/lib/campaigns/green-collection-programme";
+import { MEDICATION_COLLECTION_CAMPAIGN } from "@/lib/campaigns/medication-collection-2026";
 import {
   EXPIRED_WASTE_TYPE_STYLE,
   getWasteTypeStyle,
@@ -35,6 +38,8 @@ export type RecyclingPointCardProps = {
   locale: "en" | "zh";
   t: Translations;
   expiredCampaign?: boolean;
+  /** Active waste-type filter — used for short-term styling on multi-type campaign points */
+  activeWasteType?: string;
   bookmarked?: boolean;
   showBookmark?: boolean;
   onToggleBookmark?: () => void;
@@ -50,6 +55,7 @@ export function RecyclingPointCard({
   locale,
   t,
   expiredCampaign = false,
+  activeWasteType,
   bookmarked = false,
   showBookmark = false,
   onToggleBookmark,
@@ -64,12 +70,18 @@ export function RecyclingPointCard({
   const isShortTermEvent = point.is_short_term && !expiredCampaign;
   const mapPinClass = isShortTermEvent ? "short-term-map-pin text-amber-500" : "text-slate-400";
   const wasteTypes = parseWasteTypes(point.waste_type);
-  const singleWasteType = wasteTypes.length === 1 ? wasteTypes[0] : null;
-  const primaryWasteStyle = singleWasteType ? getWasteTypeStyle(singleWasteType) : null;
+  const normalizedActiveType = activeWasteType ? normalizeWasteTypeKey(activeWasteType) : null;
+  const highlightedType =
+    normalizedActiveType && wasteTypes.some((type) => normalizeWasteTypeKey(type) === normalizedActiveType)
+      ? normalizedActiveType
+      : wasteTypes.length === 1
+        ? normalizeWasteTypeKey(wasteTypes[0])
+        : null;
+  const primaryWasteStyle = highlightedType ? getWasteTypeStyle(highlightedType) : null;
   const useWasteTypeStatusBadge =
     !expiredCampaign &&
     primaryWasteStyle &&
-    singleWasteType &&
+    highlightedType &&
     (point.is_short_term || point.cp_state === "Upcoming");
 
   return (
@@ -284,6 +296,15 @@ export function isPointExpiredCampaign(point: RecyclingCollectionPoint): boolean
   }
   if (point.campaign_source === GREEN_COLLECTION_CAMPAIGN.id) {
     return point.cp_state === "Ended";
+  }
+  if (point.campaign_source === MEDICATION_COLLECTION_CAMPAIGN.id) {
+    return false;
+  }
+  if (point.campaign_source === ADVENTIST_MEDICATION_CAMPAIGN.id) {
+    return true;
+  }
+  if (point.campaign_source === BOOKS_FOR_LOVE_CAMPAIGN.id) {
+    return true;
   }
   const types = parseWasteTypes(point.waste_type);
   return types.some((w) => isExpiredWasteType(normalizeWasteTypeKey(w)));
