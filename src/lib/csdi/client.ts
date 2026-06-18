@@ -3,6 +3,7 @@ import {
   CSDI_MAX_PAGE_SIZE,
   DEFAULT_PAGE_SIZE,
 } from "./constants";
+import { getWasteTypeSearchTerms } from "@/lib/waste-types";
 import type {
   ArcGISCountResponse,
   ArcGISQueryResponse,
@@ -24,10 +25,12 @@ function buildWhereClause(query: RecyclingPointsQuery): string {
     clauses.push(`district_id = '${escapeSqlLiteral(query.district)}'`);
   }
 
-  if (query.wasteType === "Clothing") {
-    clauses.push(`(waste_type LIKE '%Clothes%' OR waste_type LIKE '%Clothing%')`);
-  } else if (query.wasteType) {
-    clauses.push(`waste_type LIKE '%${escapeSqlLiteral(query.wasteType)}%'`);
+  if (query.wasteType) {
+    const terms = getWasteTypeSearchTerms(query.wasteType);
+    const likes = terms
+      .map((term) => `waste_type LIKE '%${escapeSqlLiteral(term)}%'`)
+      .join(" OR ");
+    clauses.push(`(${likes})`);
   }
 
   if (query.search?.trim()) {

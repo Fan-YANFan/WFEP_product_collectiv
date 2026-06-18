@@ -3,8 +3,9 @@
 import { CalendarPlus, Clock } from "lucide-react";
 import type { EventReminder } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
-import { appleCalendarIcs, daysUntil, googleCalendarUrl } from "@/lib/calendar";
+import { appleCalendarIcs, googleCalendarUrl } from "@/lib/calendar";
 import { formatMessage } from "@/lib/i18n";
+import { getUpcomingReminders } from "@/lib/reminders";
 
 type ReminderCountdownCardsProps = {
   reminders: EventReminder[];
@@ -13,10 +14,7 @@ type ReminderCountdownCardsProps = {
 export function ReminderCountdownCards({ reminders }: ReminderCountdownCardsProps) {
   const { t } = useLanguage();
 
-  const upcoming = reminders
-    .map((r) => ({ ...r, daysLeft: daysUntil(r.date) }))
-    .filter((r) => r.daysLeft >= 0 && r.daysLeft <= 14)
-    .sort((a, b) => a.daysLeft - b.daysLeft);
+  const upcoming = getUpcomingReminders(reminders);
 
   if (upcoming.length === 0) return null;
 

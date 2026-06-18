@@ -6,12 +6,16 @@ import { useState } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { formatMessage } from "@/lib/i18n";
+import { getUpcomingReminders } from "@/lib/reminders";
 
 export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { member, ready } = useAuth();
+  const { member, ready, reminders } = useAuth();
   const { t } = useLanguage();
+
+  const upcomingReminderCount = member ? getUpcomingReminders(reminders).length : 0;
 
   const nav = [
     { href: "/", label: t.nav.home },
@@ -22,8 +26,8 @@ export function Header() {
   const authLabel = member ? t.nav.myAccount : t.nav.login;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/80 glass">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+    <header className="glass sticky top-0 z-40 overflow-visible border-b border-slate-200/80">
+      <div className="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-3 overflow-visible px-4 py-1.5 sm:px-6">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <span className="logo-brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -40,7 +44,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-1 overflow-visible md:flex">
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -56,9 +60,19 @@ export function Header() {
           ))}
           <LanguageSwitcher />
           {ready && (
-            <Link href={authHref} className="btn-primary ml-1 rounded-full px-5 py-2 text-sm">
-              {authLabel}
-            </Link>
+            <span className="relative ml-1 inline-flex shrink-0">
+              <Link href={authHref} className="btn-primary rounded-full px-5 py-2 text-sm">
+                {authLabel}
+              </Link>
+              {upcomingReminderCount > 0 && (
+                <span
+                  className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1 text-[10px] font-bold leading-none text-white shadow-md ring-2 ring-white"
+                  aria-label={formatMessage(t.nav.remindersBadge, { count: upcomingReminderCount })}
+                >
+                  {upcomingReminderCount}
+                </span>
+              )}
+            </span>
           )}
         </nav>
 
@@ -96,10 +110,15 @@ export function Header() {
           {ready && (
             <Link
               href={authHref}
-              className="btn-primary mt-2 block rounded-full px-3 py-2.5 text-center text-sm"
+              className="btn-primary relative mt-2 block rounded-full px-3 py-2.5 text-center text-sm"
               onClick={() => setMenuOpen(false)}
             >
               {authLabel}
+              {upcomingReminderCount > 0 && (
+                <span className="ml-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1 text-[10px] font-bold text-white">
+                  {upcomingReminderCount}
+                </span>
+              )}
             </Link>
           )}
         </nav>

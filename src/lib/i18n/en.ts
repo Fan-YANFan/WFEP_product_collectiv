@@ -30,6 +30,7 @@ export const en: Translations = {
     myAccount: "My Account",
     login: "Log In / Sign In",
     openMenu: "Open menu",
+    remindersBadge: "{count} upcoming reminders",
   },
   footer: {
     tagline:
@@ -125,6 +126,16 @@ export const en: Translations = {
     batteryLoopCampaignEndedDesc:
       "This student-initiated programme has ended (collection until 31 May 2026). 26 collection boxes across Hong Kong accepted single-use and rechargeable batteries. Points from the official map are listed in grey at the end for reference only.",
     batteryLoopCampaignMapLink: "Official collection box map →",
+    contactLensCaseCampaignTitle: "CON Case & Foil Recycling — Contact Lens Easy",
+    contactLensCaseCampaignDesc:
+      "Ongoing programme. 91 collection points across Hong Kong accept used contact lens cases (CON殼) and foil blister packs. Cases and foil are recycled into new products. You can also mail bags to the Tsim Sha Tsui store or drop off at partner locations.",
+    contactLensCaseCampaignRule1:
+      "Clean and dry cases and foil separately — do not mix them in the same bag.",
+    contactLensCaseCampaignRule2:
+      "Flagship drop-off: Contact Lens Easy, 1/F Kar Wai Building, 41C-41D Granville Road, Tsim Sha Tsui (outdoor collection box).",
+    contactLensCaseCampaignRule3:
+      "Some partner points are restricted to residents, staff or students only — check each listing before visiting.",
+    contactLensCaseCampaignLink: "Official programme & collection points →",
     milBusCampaignTitle: "Mil Mill 喵巴士 — Community Recycling Bus",
     milBusCampaignDesc:
       "The 20 Jun 2026 stop (Kingswood Villas) is the active short-term 喵巴士 event. Earlier June stops are listed in grey at the end for reference. Stops after 20 Jun are not shown.",
@@ -170,8 +181,7 @@ export const en: Translations = {
       "Skincare Containers": "Skincare containers",
       Paper: "Paper",
       Metals: "Metals",
-      Plastics: "Plastics",
-      "Plastic Bottle": "Plastic Bottle",
+      Plastics: "Plastics & bottles",
       "Glass Bottle": "Glass Bottle",
       "Fluorescent Lamps": "Fluorescent Lamps",
       "Rechargeable Batteries": "Rechargeable Batteries",
@@ -181,6 +191,7 @@ export const en: Translations = {
       "Food Rescue": "Food rescue (dry goods)",
       "Tetra Pak": "Tetra Pak",
       Medication: "Medication disposal",
+      "Contact Lens Cases": "Contact lens cases",
     },
   },
   booking: {
@@ -315,6 +326,8 @@ export const en: Translations = {
     orderHistory: "Order history",
     orderDesc: "Review your past pickups and booking status.",
     noOrders: "No orders yet.",
+    orderExpand: "Show order details",
+    orderCollapse: "Hide order details",
     orderCol: "Order",
     dateCol: "Date",
     itemsCol: "Items",
@@ -339,6 +352,9 @@ export const en: Translations = {
     notesPlaceholder: "Location, time, what to bring…",
     addReminder: "Add reminder",
     noReminders: "No reminders set yet.",
+    reminderBannerView: "View reminders",
+    reminderBannerDismiss: "Dismiss for now",
+    reminderBannerMore: "and {count} more",
     ecoDashboard: {
       badge: "Your impact",
       title: "Eco Dashboard",

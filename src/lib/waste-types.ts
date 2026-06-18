@@ -4,6 +4,7 @@ import {
   BookOpen,
   Box,
   Droplets,
+  Eye,
   FileText,
   GlassWater,
   Lightbulb,
@@ -69,9 +70,11 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
   },
   Paper: {
     icon: FileText,
-    chip: "border-stone-500 bg-stone-100 text-stone-800 hover:bg-stone-200 hover:border-stone-600",
-    chipActive: "border-stone-700 bg-stone-700 text-white shadow-md shadow-stone-200",
-    tag: "border border-stone-300 bg-stone-100 text-stone-800",
+    chip:
+      "border-stone-400 bg-gradient-to-r from-stone-50 to-amber-50 text-stone-950 shadow-sm ring-2 ring-stone-200/70 hover:from-stone-100 hover:to-amber-100",
+    chipActive:
+      "border-stone-600 bg-gradient-to-r from-stone-500 to-amber-500 text-white shadow-lg shadow-stone-300/50 ring-2 ring-stone-300 scale-105",
+    tag: "border border-stone-300 bg-stone-50 text-stone-900 font-semibold",
   },
   Metals: {
     icon: Wrench,
@@ -81,15 +84,11 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
   },
   Plastics: {
     icon: Package,
-    chip: "border-sky-200 bg-sky-50 text-sky-800 hover:bg-sky-100 hover:border-sky-300",
-    chipActive: "border-sky-500 bg-sky-500 text-white shadow-md shadow-sky-200",
-    tag: "border border-sky-200 bg-sky-50 text-sky-800",
-  },
-  "Plastic Bottle": {
-    icon: Recycle,
-    chip: "border-cyan-200 bg-cyan-50 text-cyan-800 hover:bg-cyan-100 hover:border-cyan-300",
-    chipActive: "border-cyan-600 bg-cyan-600 text-white shadow-md shadow-cyan-200",
-    tag: "border border-cyan-200 bg-cyan-50 text-cyan-800",
+    chip:
+      "border-sky-300 bg-gradient-to-r from-sky-50 to-cyan-50 text-sky-950 shadow-sm ring-2 ring-sky-200/70 hover:from-sky-100 hover:to-cyan-100",
+    chipActive:
+      "border-sky-600 bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-lg shadow-sky-300/50 ring-2 ring-sky-300 scale-105",
+    tag: "border border-sky-200 bg-sky-50 text-sky-900 font-semibold",
   },
   "Glass Bottle": {
     icon: GlassWater,
@@ -149,6 +148,12 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
       "border-teal-600 bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg shadow-teal-300/50 ring-2 ring-teal-300 scale-105",
     tag: "border border-teal-200 bg-teal-50 text-teal-900 font-semibold",
   },
+  "Contact Lens Cases": {
+    icon: Eye,
+    chip: "border-sky-300 bg-sky-50 text-sky-800 hover:bg-sky-100 hover:border-sky-400",
+    chipActive: "border-sky-600 bg-sky-600 text-white shadow-md shadow-sky-200",
+    tag: "border border-sky-200 bg-sky-50 text-sky-800",
+  },
 };
 
 const FALLBACK_STYLE: WasteTypeStyle = {
@@ -158,9 +163,42 @@ const FALLBACK_STYLE: WasteTypeStyle = {
   tag: "border border-fuchsia-200 bg-fuchsia-50 text-fuchsia-900",
 };
 
+/** Map EPD/CSDI and campaign variant labels to canonical filter-chip keys */
+const WASTE_TYPE_ALIASES: Record<string, WasteTypeFilter> = {
+  Clothes: "Clothing",
+  "Beverage Cartons": "Tetra Pak",
+  "Fluorescent Lamp": "Fluorescent Lamps",
+  "Fluorescent Lamps": "Fluorescent Lamps",
+  "Glass Bottles": "Glass Bottle",
+  "Glass Bottle": "Glass Bottle",
+  "Plastic Bottle": "Plastics",
+  "Plastic Bottles": "Plastics",
+  "Small Electrical and Electronic Equipment": "Small Electrical Appliances",
+  "Small Electrical Appliances": "Small Electrical Appliances",
+  "Regulated Electrical Equipment": "Regulated Electrical Equipment",
+  "REE": "Regulated Electrical Equipment",
+};
+
 export function normalizeWasteTypeKey(type: string): string {
-  if (type === "Clothes") return "Clothing";
-  return type;
+  const trimmed = type.trim();
+  return WASTE_TYPE_ALIASES[trimmed] ?? trimmed;
+}
+
+export function getWasteTypeLabel(
+  type: string,
+  labels: Record<string, string>,
+): string {
+  const key = normalizeWasteTypeKey(type);
+  return labels[key] ?? labels[type.trim()] ?? type.trim();
+}
+
+/** All CSDI/EPD strings to match when filtering by a canonical waste-type key */
+export function getWasteTypeSearchTerms(canonicalKey: string): string[] {
+  const terms = new Set<string>([canonicalKey]);
+  for (const [alias, canonical] of Object.entries(WASTE_TYPE_ALIASES)) {
+    if (canonical === canonicalKey) terms.add(alias);
+  }
+  return [...terms];
 }
 
 export function getExpiredBadgeClass(_type: string): string {

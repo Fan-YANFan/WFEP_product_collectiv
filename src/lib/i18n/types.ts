@@ -25,6 +25,7 @@ export type Translations = {
     myAccount: string;
     login: string;
     openMenu: string;
+    remindersBadge: string;
   };
   footer: {
     tagline: string;
@@ -108,6 +109,12 @@ export type Translations = {
     batteryLoopCampaignTitle: string;
     batteryLoopCampaignEndedDesc: string;
     batteryLoopCampaignMapLink: string;
+    contactLensCaseCampaignTitle: string;
+    contactLensCaseCampaignDesc: string;
+    contactLensCaseCampaignRule1: string;
+    contactLensCaseCampaignRule2: string;
+    contactLensCaseCampaignRule3: string;
+    contactLensCaseCampaignLink: string;
     milBusCampaignTitle: string;
     milBusCampaignDesc: string;
     milBusCampaignLink: string;
@@ -248,6 +255,8 @@ export type Translations = {
     orderHistory: string;
     orderDesc: string;
     noOrders: string;
+    orderExpand: string;
+    orderCollapse: string;
     orderCol: string;
     dateCol: string;
     itemsCol: string;
@@ -270,6 +279,9 @@ export type Translations = {
     notesPlaceholder: string;
     addReminder: string;
     noReminders: string;
+    reminderBannerView: string;
+    reminderBannerDismiss: string;
+    reminderBannerMore: string;
     ecoDashboard: {
       badge: string;
       title: string;

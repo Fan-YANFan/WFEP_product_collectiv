@@ -49,12 +49,11 @@ export const HK_DISTRICTS = [
  * 1. Daily household recyclables (paper, plastics, bottles, cans, drink cartons)
  * 2. Donation & surplus (clothing, food, books)
  * 3. Electrical & hazardous (batteries, appliances, lamps)
- * 4. Special / campaign programmes (medication, skincare)
+ * 4. Special / campaign programmes (contact lens cases, medication, skincare)
  */
 export const WASTE_TYPE_FILTERS = [
   "Paper",
   "Plastics",
-  "Plastic Bottle",
   "Glass Bottle",
   "Metals",
   "Tetra Pak",
@@ -65,6 +64,7 @@ export const WASTE_TYPE_FILTERS = [
   "Small Electrical Appliances",
   "Regulated Electrical Equipment",
   "Fluorescent Lamps",
+  "Contact Lens Cases",
   "Medication",
   "Skincare Containers",
 ] as const;

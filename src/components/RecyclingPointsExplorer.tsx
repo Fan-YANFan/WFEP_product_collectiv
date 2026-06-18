@@ -10,6 +10,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { CONTACT_LENS_CASE_CAMPAIGN } from "@/lib/campaigns/contact-lens-case-recycling";
 import { HK_DISTRICTS, WASTE_TYPE_FILTERS } from "@/lib/csdi/constants";
 import { BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
 import { ADVENTIST_MEDICATION_CAMPAIGN } from "@/lib/campaigns/adventist-medication-disposal";
@@ -48,11 +49,12 @@ const NEARBY_RADIUS_M = 2000;
 function usesCampaignPageSize(wasteType: string): boolean {
   return (
     wasteType === "Books" ||
+    wasteType === "Contact Lens Cases" ||
     wasteType === "Medication" ||
     wasteType === "Food Rescue" ||
     isGreenCollectionWasteType(wasteType) ||
     wasteType === "Skincare Containers" ||
-    wasteType === "Plastic Bottle" ||
+    wasteType === "Plastics" ||
     wasteType === "Rechargeable Batteries" ||
     isMilBusWasteType(wasteType)
   );
@@ -405,6 +407,26 @@ export function RecyclingPointsExplorer() {
           </>
         )}
 
+        {wasteType === "Contact Lens Cases" && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-sky-200 bg-gradient-to-r from-sky-50 to-blue-50 p-4 text-sm text-sky-950">
+            <p className="font-semibold">{t.explorer.contactLensCaseCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-sky-900/90">{t.explorer.contactLensCaseCampaignDesc}</p>
+            <ul className="mt-2 list-inside list-disc space-y-1 text-sky-900/85">
+              <li>{t.explorer.contactLensCaseCampaignRule1}</li>
+              <li>{t.explorer.contactLensCaseCampaignRule2}</li>
+              <li>{t.explorer.contactLensCaseCampaignRule3}</li>
+            </ul>
+            <a
+              href={CONTACT_LENS_CASE_CAMPAIGN.programUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-block font-semibold text-sky-800 underline hover:text-sky-950"
+            >
+              {t.explorer.contactLensCaseCampaignLink}
+            </a>
+          </div>
+        )}
+
         {wasteType === "Skincare Containers" && (
           <div className="animate-fade-in mt-4 rounded-xl border border-rose-200 bg-gradient-to-r from-rose-50 to-pink-50 p-4 text-sm text-rose-950">
             <p className="font-semibold">{t.explorer.skincareCampaignTitle}</p>
@@ -430,7 +452,7 @@ export function RecyclingPointsExplorer() {
           </div>
         )}
 
-        {wasteType === "Plastic Bottle" && (
+        {wasteType === "Plastics" && (
           <div className="animate-fade-in mt-4 rounded-xl border border-cyan-200 bg-gradient-to-r from-cyan-50 to-sky-50 p-4 text-sm text-cyan-950">
             <p className="font-semibold">{t.explorer.plasticBottleCampaignTitle}</p>
             <p className="mt-1 leading-relaxed text-cyan-900/90">{t.explorer.plasticBottleCampaignDesc}</p>

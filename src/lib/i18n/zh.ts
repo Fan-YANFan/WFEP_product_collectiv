@@ -30,6 +30,7 @@ export const zh: Translations = {
     myAccount: "我的帳戶",
     login: "登入 / 註冊",
     openMenu: "開啟選單",
+    remindersBadge: "{count} 項即將到期提醒",
   },
   footer: {
     tagline:
@@ -124,6 +125,15 @@ export const zh: Translations = {
     batteryLoopCampaignEndedDesc:
       "此學生倡議計劃已結束（收集期至2026年5月31日）。全港26個收集箱曾接受一次性及充電池。以下列出官方地圖上的收集點，以灰色顯示並列於結果最後，僅供參考。",
     batteryLoopCampaignMapLink: "官方收集箱地圖 →",
+    contactLensCaseCampaignTitle: "CON殼錫紙回收計劃 — Contact Lens Easy",
+    contactLensCaseCampaignDesc:
+      "長期進行中的回收計劃。全港91個收集點接受用過的隱形眼鏡CON殼及錫紙面，回收後再造為實用物品。亦可平郵或親身交至尖沙咀門市及合作企業回收點。",
+    contactLensCaseCampaignRule1: "請將CON殼及錫紙面分類、清潔並抹乾，切勿混放同一袋。",
+    contactLensCaseCampaignRule2:
+      "旗艦回收點：尖沙咀加連威老道41C-41D號嘉威大廈1樓A室（門外回收箱）。",
+    contactLensCaseCampaignRule3:
+      "部分合作回收點只限住戶、員工或師生使用，前往前請查看各點詳情。",
+    contactLensCaseCampaignLink: "官方計劃及回收點列表 →",
     milBusCampaignTitle: "喵坊 喵巴士 — 社區回收車",
     milBusCampaignDesc:
       "2026年6月20日（景湖居）為進行中的短期喵巴士活動。6月20日前的站點以灰色顯示並列於結果最後供參考；6月20日後的站點不會顯示。",
@@ -165,17 +175,17 @@ export const zh: Translations = {
       "Skincare Containers": "護膚容器",
       Paper: "紙張",
       Metals: "金屬",
-      Plastics: "塑膠",
-      "Plastic Bottle": "膠樽",
+      Plastics: "塑膠／膠樽",
       "Glass Bottle": "玻璃樽",
-      "Fluorescent Lamps": "慳電膽及光管",
+      "Fluorescent Lamps": "慳電膽",
       "Rechargeable Batteries": "充電池",
-      "Small Electrical Appliances": "小型電器",
+      "Small Electrical Appliances": "小型家電",
       "Regulated Electrical Equipment": "四電一腦",
       Clothing: "衣物",
       "Food Rescue": "食物回收（乾貨）",
       "Tetra Pak": "紙包飲品盒",
       Medication: "藥餘回收",
+      "Contact Lens Cases": "隱形眼鏡盒",
     },
   },
   booking: {
@@ -303,6 +313,8 @@ export const zh: Translations = {
     orderHistory: "訂單紀錄",
     orderDesc: "查看過往預約及回收狀態。",
     noOrders: "暫無訂單。",
+    orderExpand: "展開訂單詳情",
+    orderCollapse: "收起訂單詳情",
     orderCol: "訂單",
     dateCol: "日期",
     itemsCol: "項目",
@@ -326,6 +338,9 @@ export const zh: Translations = {
     notesPlaceholder: "地點、時間、需帶物品…",
     addReminder: "新增提醒",
     noReminders: "尚未設定提醒。",
+    reminderBannerView: "查看提醒",
+    reminderBannerDismiss: "暫時關閉",
+    reminderBannerMore: "另有 {count} 項",
     ecoDashboard: {
       badge: "您的貢獻",
       title: "環保儀表板",

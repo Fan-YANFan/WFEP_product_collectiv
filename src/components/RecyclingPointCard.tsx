@@ -28,6 +28,7 @@ import { GREEN_COLLECTION_CAMPAIGN } from "@/lib/campaigns/green-collection-prog
 import { MEDICATION_COLLECTION_CAMPAIGN } from "@/lib/campaigns/medication-collection-2026";
 import {
   EXPIRED_WASTE_TYPE_STYLE,
+  getWasteTypeLabel,
   getWasteTypeStyle,
   isExpiredWasteType,
   normalizeWasteTypeKey,
@@ -182,7 +183,7 @@ export function RecyclingPointCard({
                 const styleKey = normalizeWasteTypeKey(w);
                 const style = getWasteTypeStyle(styleKey);
                 const Icon = style.icon;
-                const label = t.explorer.wasteTypes[styleKey] ?? t.explorer.wasteTypes[w] ?? w;
+                const label = getWasteTypeLabel(w, t.explorer.wasteTypes);
                 const tagClass = expiredCampaign ? EXPIRED_WASTE_TYPE_STYLE.tag : style.tag;
 
                 return (

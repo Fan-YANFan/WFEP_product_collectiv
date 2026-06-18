@@ -4,6 +4,7 @@ import { CartDrawer } from "@/components/CartDrawer";
 import { CookieBanner } from "@/components/CookieBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { ReminderAlertBanner } from "@/components/ReminderAlertBanner";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
@@ -47,6 +48,7 @@ export default function RootLayout({
               <CartProvider>
                 <div className="flex min-h-screen flex-col">
                   <Header />
+                  <ReminderAlertBanner />
                   <main className="flex-1">{children}</main>
                   <Footer />
                 </div>

@@ -2,6 +2,7 @@ import type { RecyclingCollectionPoint, RecyclingPointsQuery, RecyclingPointsRes
 import { queryRecyclingPoints } from "@/lib/csdi/client";
 import { CSDI_MAX_PAGE_SIZE } from "@/lib/csdi/constants";
 import { filterBatteryLoopPoints } from "./battery-loop-recycling";
+import { getMilBusPointsSplit, MIL_BUS_CAMPAIGN } from "./mil-bus-recycling";
 import { WATSONS_PLASTIC_BATTERY_STORES } from "./watsons-plastic-battery-locations";
 
 /** Watsons HK stores accepting plastic bottle & rechargeable battery recycling (54 branches). */
@@ -22,6 +23,7 @@ export const WATSONS_PLASTIC_BATTERY_CAMPAIGN = {
 } as const;
 
 export const WATSONS_PLASTIC_BOTTLE_WASTE_TYPE = "Plastic Bottle";
+export const PLASTICS_WASTE_TYPE = "Plastics";
 export const WATSONS_RECHARGEABLE_BATTERY_WASTE_TYPE = "Rechargeable Batteries";
 
 function distanceMeters(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -168,6 +170,93 @@ export async function queryPlasticBottlePoints(
   query: RecyclingPointsQuery,
 ): Promise<RecyclingPointsResult> {
   return mergeWithCsdiPoints(query, getWatsonsPlasticBottlePoints(query));
+}
+
+export async function queryPlasticsPoints(
+  query: RecyclingPointsQuery,
+): Promise<RecyclingPointsResult> {
+  const limit = Math.max(query.limit ?? 50, 1);
+  const offset = Math.max(query.offset ?? 0, 0);
+  const plasticsQuery = { ...query, wasteType: PLASTICS_WASTE_TYPE };
+  const { active, ended } = getMilBusPointsSplit(query);
+  const watsons = getWatsonsPlasticBottlePoints(query);
+
+  const useGeo =
+    query.lat != null &&
+    query.lng != null &&
+    query.radiusMeters != null &&
+    query.radiusMeters > 0;
+
+  if (useGeo) {
+    const csdiResult = await queryRecyclingPoints({
+      ...plasticsQuery,
+      offset: 0,
+      limit: CSDI_MAX_PAGE_SIZE,
+    });
+    const lat = query.lat!;
+    const lng = query.lng!;
+    const radius = query.radiusMeters!;
+
+    const sortNearby = (points: RecyclingCollectionPoint[]) =>
+      points
+        .map((point) => ({
+          point,
+          dist: distanceMeters(lat, lng, point.lat, point.lng),
+        }))
+        .filter(({ dist }) => dist <= radius)
+        .sort((a, b) => a.dist - b.dist)
+        .map(({ point }) => point);
+
+    const merged = [
+      ...sortNearby(active),
+      ...sortNearby(watsons),
+      ...sortNearby(csdiResult.points),
+      ...sortNearby(ended),
+    ];
+
+    return {
+      points: merged.slice(offset, offset + limit),
+      total: merged.length,
+      offset,
+      limit,
+      source: MIL_BUS_CAMPAIGN.officialUrl,
+    };
+  }
+
+  const csdiTotal = await countCsdiForQuery(plasticsQuery);
+  const { points, total } = await paginateSegments(offset, limit, [
+    {
+      total: active.length,
+      fetch: (localOffset, count) => active.slice(localOffset, localOffset + count),
+    },
+    {
+      total: watsons.length,
+      fetch: (localOffset, count) => watsons.slice(localOffset, localOffset + count),
+    },
+    {
+      total: csdiTotal,
+      fetch: async (localOffset, count) => {
+        const result = await queryRecyclingPoints({
+          ...plasticsQuery,
+          offset: localOffset,
+          limit: count,
+        });
+        return result.points;
+      },
+    },
+    {
+      total: ended.length,
+      fetch: (localOffset, count) => ended.slice(localOffset, localOffset + count),
+    },
+  ]);
+
+  return {
+    points,
+    total,
+    offset,
+    limit,
+    source: WATSONS_PLASTIC_BATTERY_CAMPAIGN.storeFinderUrl,
+  };
 }
 
 export async function queryRechargeableBatteryPoints(
@@ -355,8 +444,13 @@ async function countCsdiForQuery(query: RecyclingPointsQuery): Promise<number> {
   return result.total;
 }
 
+export function isPlasticsWasteType(wasteType?: string): boolean {
+  return wasteType === PLASTICS_WASTE_TYPE;
+}
+
+/** @deprecated Use isPlasticsWasteType — plastic bottles are merged under Plastics */
 export function isPlasticBottleWasteType(wasteType?: string): boolean {
-  return wasteType === WATSONS_PLASTIC_BOTTLE_WASTE_TYPE;
+  return isPlasticsWasteType(wasteType);
 }
 
 export function isRechargeableBatteryWasteType(wasteType?: string): boolean {

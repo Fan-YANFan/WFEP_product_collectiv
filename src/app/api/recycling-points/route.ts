@@ -25,15 +25,20 @@ import {
   queryMilBusMergedCsdi,
 } from "@/lib/campaigns/mil-bus-recycling";
 import {
+  isContactLensCaseWasteType,
+  queryContactLensCasePoints,
+  CONTACT_LENS_CASE_CAMPAIGN,
+} from "@/lib/campaigns/contact-lens-case-recycling";
+import {
   isSkincareContainersWasteType,
   queryWatsonsSkincarePoints,
 } from "@/lib/campaigns/watsons-skincare-recycling";
 import { queryRecyclingPoints } from "@/lib/csdi/client";
 import { CSDI_DATA_ATTRIBUTION, CSDI_MAX_PAGE_SIZE } from "@/lib/csdi/constants";
 import {
-  isPlasticBottleWasteType,
+  isPlasticsWasteType,
   isRechargeableBatteryWasteType,
-  queryPlasticBottlePoints,
+  queryPlasticsPoints,
   queryRechargeableBatteryPoints,
 } from "@/lib/campaigns/watsons-plastic-battery-recycling";
 
@@ -78,12 +83,14 @@ export async function GET(request: NextRequest) {
         books.length,
         BOOKS_FOR_LOVE_CAMPAIGN.officialUrl,
       );
+    } else if (isContactLensCaseWasteType(query.wasteType)) {
+      result = queryContactLensCasePoints(query);
     } else if (isMedicationWasteType(query.wasteType)) {
       result = queryMedicationCollectionPoints(query);
     } else if (isSkincareContainersWasteType(query.wasteType)) {
       result = queryWatsonsSkincarePoints(query);
-    } else if (isPlasticBottleWasteType(query.wasteType)) {
-      result = await queryPlasticBottlePoints(query);
+    } else if (isPlasticsWasteType(query.wasteType)) {
+      result = await queryPlasticsPoints(query);
     } else if (isRechargeableBatteryWasteType(query.wasteType)) {
       result = await queryRechargeableBatteryPoints(query);
     } else if (query.wasteType === CLOTHING_WASTE_TYPE) {
@@ -102,12 +109,14 @@ export async function GET(request: NextRequest) {
       ...result,
       attribution: isBooksWasteType(query.wasteType)
         ? "Mil Mill 喵巴士, Swire Properties — Books for Love @ $10"
-        : isMedicationWasteType(query.wasteType)
+        : isContactLensCaseWasteType(query.wasteType)
+          ? `${CONTACT_LENS_CASE_CAMPAIGN.sponsorEn} — ${CONTACT_LENS_CASE_CAMPAIGN.nameEn}`
+          : isMedicationWasteType(query.wasteType)
           ? `${MEDICATION_COLLECTION_CAMPAIGN.sponsorEn} — ${MEDICATION_COLLECTION_CAMPAIGN.nameEn}`
           : isSkincareContainersWasteType(query.wasteType)
             ? "Watsons Hong Kong — Skincare container recycling (short-term campaign)"
-            : isPlasticBottleWasteType(query.wasteType)
-              ? "Watsons Hong Kong & EPD — Plastic bottle recycling"
+            : isPlasticsWasteType(query.wasteType)
+              ? "Watsons Hong Kong, Mil Mill 喵巴士 & EPD — Plastics & plastic bottle recycling"
               : isRechargeableBatteryWasteType(query.wasteType)
                 ? "Watsons Hong Kong & EPD — Rechargeable battery recycling"
                 : isGreenCollectionWasteType(query.wasteType)
