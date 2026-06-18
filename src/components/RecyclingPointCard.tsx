@@ -21,6 +21,7 @@ import {
 import { getDistrictLabel } from "@/lib/i18n/districts";
 import type { Translations } from "@/lib/i18n/types";
 import { MIL_BUS_CAMPAIGN } from "@/lib/campaigns/mil-bus-recycling";
+import { BATTERY_LOOP_CAMPAIGN } from "@/lib/campaigns/battery-loop-recycling";
 import { BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
 import { ADVENTIST_MEDICATION_CAMPAIGN } from "@/lib/campaigns/adventist-medication-disposal";
 import { GREEN_COLLECTION_CAMPAIGN } from "@/lib/campaigns/green-collection-programme";
@@ -304,6 +305,9 @@ export function isPointExpiredCampaign(point: RecyclingCollectionPoint): boolean
     return true;
   }
   if (point.campaign_source === BOOKS_FOR_LOVE_CAMPAIGN.id) {
+    return true;
+  }
+  if (point.campaign_source === BATTERY_LOOP_CAMPAIGN.id) {
     return true;
   }
   const types = parseWasteTypes(point.waste_type);

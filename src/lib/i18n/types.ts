@@ -105,6 +105,9 @@ export type Translations = {
     batteryCampaignProgramLink: string;
     batteryCampaignGovLink: string;
     batteryCampaignStoreLink: string;
+    batteryLoopCampaignTitle: string;
+    batteryLoopCampaignEndedDesc: string;
+    batteryLoopCampaignMapLink: string;
     milBusCampaignTitle: string;
     milBusCampaignDesc: string;
     milBusCampaignLink: string;

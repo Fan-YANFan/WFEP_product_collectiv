@@ -1,6 +1,7 @@
 import type { RecyclingCollectionPoint, RecyclingPointsQuery, RecyclingPointsResult } from "@/lib/csdi/types";
 import { queryRecyclingPoints } from "@/lib/csdi/client";
 import { CSDI_MAX_PAGE_SIZE } from "@/lib/csdi/constants";
+import { filterBatteryLoopPoints } from "./battery-loop-recycling";
 import { WATSONS_PLASTIC_BATTERY_STORES } from "./watsons-plastic-battery-locations";
 
 /** Watsons HK stores accepting plastic bottle & rechargeable battery recycling (54 branches). */
@@ -172,7 +173,105 @@ export async function queryPlasticBottlePoints(
 export async function queryRechargeableBatteryPoints(
   query: RecyclingPointsQuery,
 ): Promise<RecyclingPointsResult> {
-  return mergeWithCsdiPoints(query, getWatsonsBatteryPoints(query));
+  const ended = filterBatteryLoopPoints(query);
+  return mergeBatteryWithCsdi(query, getWatsonsBatteryPoints(query), ended);
+}
+
+type SegmentFetcher = (
+  localOffset: number,
+  count: number,
+) => RecyclingCollectionPoint[] | Promise<RecyclingCollectionPoint[]>;
+
+async function paginateSegments(
+  offset: number,
+  limit: number,
+  segments: Array<{ total: number; fetch: SegmentFetcher }>,
+): Promise<{ points: RecyclingCollectionPoint[]; total: number }> {
+  const grandTotal = segments.reduce((sum, seg) => sum + seg.total, 0);
+  const points: RecyclingCollectionPoint[] = [];
+  let remaining = limit;
+  let cursor = offset;
+
+  for (const segment of segments) {
+    if (remaining <= 0) break;
+    if (cursor >= segment.total) {
+      cursor -= segment.total;
+      continue;
+    }
+
+    const take = Math.min(remaining, segment.total - cursor);
+    const slice = await segment.fetch(cursor, take);
+    points.push(...slice);
+    remaining -= slice.length;
+    cursor = 0;
+  }
+
+  return { points, total: grandTotal };
+}
+
+async function mergeBatteryWithCsdi(
+  query: RecyclingPointsQuery,
+  watsonsPoints: RecyclingCollectionPoint[],
+  endedPoints: RecyclingCollectionPoint[],
+): Promise<RecyclingPointsResult> {
+  const limit = Math.max(query.limit ?? 50, 1);
+  const offset = Math.max(query.offset ?? 0, 0);
+  const watsonsTotal = watsonsPoints.length;
+  const endedTotal = endedPoints.length;
+
+  const useGeo =
+    query.lat != null &&
+    query.lng != null &&
+    query.radiusMeters != null &&
+    query.radiusMeters > 0;
+
+  if (useGeo) {
+    const csdiResult = await queryRecyclingPoints({
+      ...query,
+      offset: 0,
+      limit: CSDI_MAX_PAGE_SIZE,
+    });
+    const merged = [...watsonsPoints, ...csdiResult.points, ...endedPoints];
+    return {
+      points: merged.slice(offset, offset + limit),
+      total: merged.length,
+      offset,
+      limit,
+      source: WATSONS_PLASTIC_BATTERY_CAMPAIGN.storeFinderUrl,
+    };
+  }
+
+  const csdiTotal = await countCsdiForQuery(query);
+
+  const { points, total } = await paginateSegments(offset, limit, [
+    {
+      total: watsonsTotal,
+      fetch: (localOffset, count) => watsonsPoints.slice(localOffset, localOffset + count),
+    },
+    {
+      total: csdiTotal,
+      fetch: async (localOffset, count) => {
+        const result = await queryRecyclingPoints({
+          ...query,
+          offset: localOffset,
+          limit: count,
+        });
+        return result.points;
+      },
+    },
+    {
+      total: endedTotal,
+      fetch: (localOffset, count) => endedPoints.slice(localOffset, localOffset + count),
+    },
+  ]);
+
+  return {
+    points,
+    total,
+    offset,
+    limit,
+    source: WATSONS_PLASTIC_BATTERY_CAMPAIGN.storeFinderUrl,
+  };
 }
 
 async function mergeWithCsdiPoints(

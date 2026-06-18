@@ -121,6 +121,10 @@ export const en: Translations = {
     batteryCampaignProgramLink: "Watsons recycling services →",
     batteryCampaignGovLink: "Government battery programme →",
     batteryCampaignStoreLink: "Official store finder →",
+    batteryLoopCampaignTitle: "Battery Loop 回芯轉意 — Battery Collection Box Map",
+    batteryLoopCampaignEndedDesc:
+      "This student-initiated programme has ended (collection until 31 May 2026). 26 collection boxes across Hong Kong accepted single-use and rechargeable batteries. Points from the official map are listed in grey at the end for reference only.",
+    batteryLoopCampaignMapLink: "Official collection box map →",
     milBusCampaignTitle: "Mil Mill 喵巴士 — Community Recycling Bus",
     milBusCampaignDesc:
       "The 20 Jun 2026 stop (Kingswood Villas) is the active short-term 喵巴士 event. Earlier June stops are listed in grey at the end for reference. Stops after 20 Jun are not shown.",

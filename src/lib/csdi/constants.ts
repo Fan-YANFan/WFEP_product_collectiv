@@ -42,23 +42,31 @@ export const HK_DISTRICTS = [
   "Macau",
 ] as const;
 
-/** Common waste types for filter chips */
+/**
+ * Waste-type filter chips — ordered by everyday recycling habit (most familiar first),
+ * not by database point count.
+ *
+ * 1. Daily household recyclables (paper, plastics, bottles, cans, drink cartons)
+ * 2. Donation & surplus (clothing, food, books)
+ * 3. Electrical & hazardous (batteries, appliances, lamps)
+ * 4. Special / campaign programmes (medication, skincare)
+ */
 export const WASTE_TYPE_FILTERS = [
-  "Skincare Containers",
   "Paper",
-  "Metals",
   "Plastics",
   "Plastic Bottle",
   "Glass Bottle",
-  "Fluorescent Lamps",
+  "Metals",
+  "Tetra Pak",
+  "Clothing",
+  "Food Rescue",
+  "Books",
   "Rechargeable Batteries",
   "Small Electrical Appliances",
   "Regulated Electrical Equipment",
-  "Clothing",
-  "Food Rescue",
-  "Tetra Pak",
-  "Books",
+  "Fluorescent Lamps",
   "Medication",
+  "Skincare Containers",
 ] as const;
 
 /** Short-term / campaign waste types shown with highlight styling */

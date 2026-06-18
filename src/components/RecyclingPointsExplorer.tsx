@@ -21,6 +21,7 @@ import {
 } from "@/lib/campaigns/green-collection-programme";
 import { isMilBusWasteType, MIL_BUS_CAMPAIGN } from "@/lib/campaigns/mil-bus-recycling";
 import { WATSONS_SKINCARE_CAMPAIGN } from "@/lib/campaigns/watsons-skincare-recycling";
+import { BATTERY_LOOP_CAMPAIGN } from "@/lib/campaigns/battery-loop-recycling";
 import { WATSONS_PLASTIC_BATTERY_CAMPAIGN } from "@/lib/campaigns/watsons-plastic-battery-recycling";
 import { getAddress } from "@/lib/csdi/display";
 import type { RecyclingCollectionPoint } from "@/lib/csdi/types";
@@ -455,36 +456,51 @@ export function RecyclingPointsExplorer() {
         )}
 
         {wasteType === "Rechargeable Batteries" && (
-          <div className="animate-fade-in mt-4 rounded-xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 p-4 text-sm text-orange-950">
-            <p className="font-semibold">{t.explorer.batteryCampaignTitle}</p>
-            <p className="mt-1 leading-relaxed text-orange-900/90">{t.explorer.batteryCampaignDesc}</p>
-            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+          <>
+            <div className="animate-fade-in mt-4 rounded-xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 p-4 text-sm text-orange-950">
+              <p className="font-semibold">{t.explorer.batteryCampaignTitle}</p>
+              <p className="mt-1 leading-relaxed text-orange-900/90">{t.explorer.batteryCampaignDesc}</p>
+              <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                <a
+                  href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.programUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-orange-800 underline hover:text-orange-950"
+                >
+                  {t.explorer.batteryCampaignProgramLink}
+                </a>
+                <a
+                  href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.batteryProgramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-orange-800 underline hover:text-orange-950"
+                >
+                  {t.explorer.batteryCampaignGovLink}
+                </a>
+                <a
+                  href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.storeFinderUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-orange-800 underline hover:text-orange-950"
+                >
+                  {t.explorer.batteryCampaignStoreLink}
+                </a>
+              </div>
+            </div>
+
+            <div className="animate-fade-in mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              <p className="font-semibold text-slate-700">{t.explorer.batteryLoopCampaignTitle}</p>
+              <p className="mt-1 leading-relaxed">{t.explorer.batteryLoopCampaignEndedDesc}</p>
               <a
-                href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.programUrl}
+                href={BATTERY_LOOP_CAMPAIGN.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-orange-800 underline hover:text-orange-950"
+                className="mt-2 inline-block font-semibold text-slate-500 underline hover:text-slate-700"
               >
-                {t.explorer.batteryCampaignProgramLink}
-              </a>
-              <a
-                href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.batteryProgramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-orange-800 underline hover:text-orange-950"
-              >
-                {t.explorer.batteryCampaignGovLink}
-              </a>
-              <a
-                href={WATSONS_PLASTIC_BATTERY_CAMPAIGN.storeFinderUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-orange-800 underline hover:text-orange-950"
-              >
-                {t.explorer.batteryCampaignStoreLink}
+                {t.explorer.batteryLoopCampaignMapLink}
               </a>
             </div>
-          </div>
+          </>
         )}
 
         {isMilBusWasteType(wasteType) && (

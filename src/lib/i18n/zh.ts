@@ -120,6 +120,10 @@ export const zh: Translations = {
     batteryCampaignProgramLink: "屈臣氏回收服務 →",
     batteryCampaignGovLink: "政府充電池回收計劃 →",
     batteryCampaignStoreLink: "官方分店搜尋器 →",
+    batteryLoopCampaignTitle: "回芯轉意 — 電池收集箱地圖",
+    batteryLoopCampaignEndedDesc:
+      "此學生倡議計劃已結束（收集期至2026年5月31日）。全港26個收集箱曾接受一次性及充電池。以下列出官方地圖上的收集點，以灰色顯示並列於結果最後，僅供參考。",
+    batteryLoopCampaignMapLink: "官方收集箱地圖 →",
     milBusCampaignTitle: "喵坊 喵巴士 — 社區回收車",
     milBusCampaignDesc:
       "2026年6月20日（景湖居）為進行中的短期喵巴士活動。6月20日前的站點以灰色顯示並列於結果最後供參考；6月20日後的站點不會顯示。",
