@@ -11,6 +11,11 @@ import {
   FOOD_ANGEL_CAMPAIGN,
 } from "@/lib/campaigns/food-angel-food-rescue";
 import {
+  FOOD_WASTE_CAMPAIGN,
+  isFoodWasteType,
+  queryFoodWastePoints,
+} from "@/lib/campaigns/food-waste-recycling-spots";
+import {
   CLOTHING_WASTE_TYPE,
   isGreenCollectionWasteType,
   queryGreenCollectionMergedCsdi,
@@ -101,6 +106,8 @@ export async function GET(request: NextRequest) {
       result = await queryMilBusMergedCsdi(query);
     } else if (isFoodRescueWasteType(query.wasteType)) {
       result = queryFoodAngelPoints(query);
+    } else if (isFoodWasteType(query.wasteType)) {
+      result = queryFoodWastePoints(query);
     } else {
       result = await queryRecyclingPoints(query);
     }
@@ -125,7 +132,9 @@ export async function GET(request: NextRequest) {
                     ? `${MIL_BUS_CAMPAIGN.sponsorEn} — ${MIL_BUS_CAMPAIGN.nameEn}`
                     : isFoodRescueWasteType(query.wasteType)
                       ? `${FOOD_ANGEL_CAMPAIGN.sponsorEn} — ${FOOD_ANGEL_CAMPAIGN.nameEn}`
-                      : CSDI_DATA_ATTRIBUTION,
+                      : isFoodWasteType(query.wasteType)
+                        ? `${FOOD_WASTE_CAMPAIGN.sponsorEn} — ${FOOD_WASTE_CAMPAIGN.nameEn}`
+                        : CSDI_DATA_ATTRIBUTION,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to fetch recycling points";

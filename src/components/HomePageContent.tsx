@@ -1,6 +1,6 @@
 "use client";
 
-import { Map, Recycle, ShieldCheck } from "lucide-react";
+import { Bookmark, Map, Recycle } from "lucide-react";
 import { HomeEventCarousel } from "@/components/HomeEventCarousel";
 import { RecyclingPointsExplorer } from "@/components/RecyclingPointsExplorer";
 import { useLanguage } from "@/context/LanguageContext";
@@ -29,7 +29,7 @@ export function HomePageContent() {
           accent="from-emerald-50 to-green-50 border-emerald-100"
         />
         <Feature
-          icon={<ShieldCheck className="h-6 w-6 text-violet-500" />}
+          icon={<Bookmark className="h-6 w-6 text-violet-500" />}
           title={t.home.feature3Title}
           desc={t.home.feature3Desc}
           delay="stagger-3"

@@ -52,12 +52,15 @@ export const en: Translations = {
     subtitle:
       "Professional door-to-door collection. We weigh it, we pay it, you save the planet. Or use our explorer below to find public drop-off points.",
     cta: "Start Your First Pickup",
-    feature1Title: "All 18 Districts",
-    feature1Desc: "From Central to Yuen Long, our pickup fleet covers the whole territory.",
-    feature2Title: "Verified Recycling",
-    feature2Desc: "We partner with Green@Community to ensure 100% material recovery.",
-    feature3Title: "Fair Pricing",
-    feature3Desc: "Live weight-based calculation. No hidden transport fees.",
+    feature1Title: "Find recycling points",
+    feature1Desc:
+      "Search by district, waste type, or nearby. Everyday drop-offs plus EPD and community programmes across Hong Kong.",
+    feature2Title: "Campaigns in one place",
+    feature2Desc:
+      "Government and community short-term programmes — with hours, rules, and past collections kept for reference.",
+    feature3Title: "Save, remind, or book pickup",
+    feature3Desc:
+      "Bookmark favourite spots, get campaign reminders on your account, or schedule door-to-door collection when that works better.",
     explorerTitle: "Find Public Recyclable Collection Points",
     explorerDesc: "Prefer to drop it off yourself? Search public recycling bins across Hong Kong via the",
     explorerDescSuffix: ".",
@@ -151,6 +154,14 @@ export const en: Translations = {
       "Bulk donations (50 kg+): contact Food Angel logistics — Mon–Fri 9 AM–6 PM.",
     foodRescueCampaignLink: "Programme details (EN) →",
     foodRescueCampaignLinkTc: "活動詳情（中文）→",
+    foodWasteCampaignTitle: "EPD Food Waste Recycling Spots 廚餘回收流動點",
+    foodWasteCampaignDesc:
+      "105 evening kerbside booths and mobile truck stops across Hong Kong. EPD collects household and small-business food waste for treatment at O·Park facilities.",
+    foodWasteRule1: "Bring cooked or uncooked food scraps only — no plastic bags, utensils, or packaging.",
+    foodWasteRule2: "Each spot operates at fixed evening hours only — check the listing before visiting.",
+    foodWasteRule3: "Some locations marked # are served by the nighttime mobile recycling truck.",
+    foodWasteCampaignLink: "Programme overview →",
+    foodWasteSpotsPdfLink: "Official spots list (PDF) →",
     greenCollectionCampaignTitle: "Green Collection Programme — Christian Action",
     greenCollectionCampaignDesc:
       "One-day collection at Central Park & Park Avenue (Tai Kok Tsui) on Sat 20 Jun 2026, 10 AM–3 PM. Accepts clothing, footwear, bags, small home appliances, toys, accessories, household items, and computer supplies.",
@@ -199,6 +210,7 @@ export const en: Translations = {
       "Regulated Electrical Equipment": "Regulated Electrical Equipment",
       Clothing: "Clothing",
       "Food Rescue": "Food rescue (dry goods)",
+      "Food Waste": "Food waste",
       "Tetra Pak": "Tetra Pak",
       Medication: "Medication disposal",
       "Contact Lens Cases": "Contact lens cases",

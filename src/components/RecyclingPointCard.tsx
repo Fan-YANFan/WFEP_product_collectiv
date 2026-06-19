@@ -298,7 +298,6 @@ export function RecyclingPointCard({
     </div>
   );
 }
-
 export function isPointExpiredCampaign(point: RecyclingCollectionPoint): boolean {
   if (point.campaign_source === MIL_BUS_CAMPAIGN.id) {
     return !point.is_short_term;
@@ -321,3 +320,4 @@ export function isPointExpiredCampaign(point: RecyclingCollectionPoint): boolean
   const types = parseWasteTypes(point.waste_type);
   return types.some((w) => isExpiredWasteType(normalizeWasteTypeKey(w)));
 }
+

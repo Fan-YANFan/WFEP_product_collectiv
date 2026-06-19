@@ -125,6 +125,13 @@ export type Translations = {
     foodRescueRule3: string;
     foodRescueCampaignLink: string;
     foodRescueCampaignLinkTc: string;
+    foodWasteCampaignTitle: string;
+    foodWasteCampaignDesc: string;
+    foodWasteRule1: string;
+    foodWasteRule2: string;
+    foodWasteRule3: string;
+    foodWasteCampaignLink: string;
+    foodWasteSpotsPdfLink: string;
     greenCollectionCampaignTitle: string;
     greenCollectionCampaignDesc: string;
     greenCollectionCampaignLink: string;

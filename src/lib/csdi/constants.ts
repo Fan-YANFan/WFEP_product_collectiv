@@ -59,6 +59,7 @@ export const WASTE_TYPE_FILTERS = [
   "Tetra Pak",
   "Clothing",
   "Food Rescue",
+  "Food Waste",
   "Books",
   "Rechargeable Batteries",
   "Small Electrical Appliances",

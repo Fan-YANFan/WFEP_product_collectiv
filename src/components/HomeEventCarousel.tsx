@@ -13,15 +13,11 @@ const IMAGE_SLIDES = [
     id: "books-for-love",
     src: "/carousel/books-for-love.png",
     altKey: "slide1Alt" as const,
-    width: 1024,
-    height: 576,
   },
   {
     id: "medication-recycling",
     src: "/carousel/medication-recycling.png",
     altKey: "slide2Alt" as const,
-    width: 1024,
-    height: 575,
   },
 ] as const;
 
@@ -111,103 +107,103 @@ export function HomeEventCarousel() {
         </h2>
 
         <div className="relative rounded-2xl border border-slate-200/80 bg-white/60 shadow-sm backdrop-blur-sm">
-          {/* Fixed-height viewport — every slide shares the same frame on mobile */}
-          <div
-            className="relative aspect-video w-full overflow-hidden rounded-2xl sm:aspect-[16/7] md:aspect-[21/8]"
-            onTouchStart={(e) => handleTouchStart(e.touches[0]?.clientX ?? 0)}
-            onTouchEnd={(e) => handleTouchEnd(e.changedTouches[0]?.clientX ?? 0)}
-          >
+          <div className="isolate overflow-hidden rounded-2xl">
             <div
-              className="flex h-full transition-transform duration-500 ease-out"
+              className="flex transition-transform duration-500 ease-out"
               style={{ transform: `translateX(-${active * 100}%)` }}
+              onTouchStart={(e) => handleTouchStart(e.touches[0]?.clientX ?? 0)}
+              onTouchEnd={(e) => handleTouchEnd(e.changedTouches[0]?.clientX ?? 0)}
             >
-              {IMAGE_SLIDES.map((slide, index) => (
-                <div
-                  key={slide.id}
-                  className="flex h-full min-w-full items-center justify-center bg-white px-2 py-3 sm:px-4 sm:py-4"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`${index + 1} / ${SLIDE_COUNT}`}
-                  aria-hidden={index !== active}
-                >
+            {IMAGE_SLIDES.map((slide, index) => (
+              <div
+                key={slide.id}
+                className="relative min-w-full"
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${index + 1} / ${SLIDE_COUNT}`}
+                aria-hidden={index !== active}
+              >
+                <div className="relative aspect-[4/3] w-full sm:aspect-[16/7] md:aspect-[21/8]">
                   <Image
                     src={slide.src}
                     alt={t.home.carousel[slide.altKey]}
-                    width={slide.width}
-                    height={slide.height}
+                    fill
                     priority={index === 0}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1152px"
-                    className="max-h-full w-auto max-w-full object-contain"
+                    className="bg-white object-contain object-center"
                   />
                 </div>
-              ))}
+              </div>
+            ))}
 
-              {/* Slide 3 — Collectiv hero + CTA */}
-              <div
-                className="flex h-full min-w-full items-center justify-center px-4 py-4 text-center sm:px-8 sm:py-6"
-                role="group"
-                aria-roledescription="slide"
-                aria-label={`${HERO_SLIDE_INDEX + 1} / ${SLIDE_COUNT}`}
-                aria-hidden={active !== HERO_SLIDE_INDEX}
-              >
-                <div className="mx-auto max-w-3xl">
-                  <p className="badge-brand inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider shadow-sm sm:px-4 sm:py-1.5 sm:text-xs">
+            {/* Slide 3 — Collectiv hero + CTA */}
+            <div
+              className="relative min-w-full"
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${HERO_SLIDE_INDEX + 1} / ${SLIDE_COUNT}`}
+              aria-hidden={active !== HERO_SLIDE_INDEX}
+            >
+              <div className="relative flex aspect-[4/3] w-full items-center justify-center px-4 py-10 text-center sm:aspect-[16/7] sm:px-8 sm:py-12 md:aspect-[21/8]">
+                <div className="relative mx-auto max-w-3xl">
+                  <p className="badge-brand inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider shadow-sm">
                     <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-gradient" />
                     {t.home.badge}
                   </p>
-                  <h1 className="mt-3 mb-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:mt-5 sm:mb-4 sm:text-4xl md:text-5xl lg:text-6xl">
+                  <h1 className="mt-5 mb-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:mt-6 sm:mb-5 sm:text-4xl md:text-5xl lg:text-6xl">
                     {t.home.titleLine1} <br />
                     <span className="text-brand-gradient">{t.home.titleLine2}</span>
                   </h1>
-                  <p className="mx-auto mb-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:mb-8 sm:text-lg md:text-xl">
+                  <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-slate-600 sm:mb-10 sm:text-lg md:text-xl">
                     {t.home.subtitle}
                   </p>
                   <Link
                     href="/booking"
-                    className="btn-primary inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm sm:px-8 sm:py-4 sm:text-lg"
+                    className="btn-primary inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-base sm:px-8 sm:py-4 sm:text-lg"
                   >
                     {t.home.cta}{" "}
-                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition group-hover:translate-x-0.5" />
+                    <ArrowRight className="h-5 w-5 transition group-hover:translate-x-0.5" />
                   </Link>
                 </div>
               </div>
             </div>
+          </div>
+          </div>
 
-            <div className="carousel-controls pointer-events-none absolute inset-0 z-20 flex items-center justify-between px-1 sm:px-4">
-              <button
-                type="button"
-                onClick={handlePrev}
-                className="btn-primary carousel-nav-btn pointer-events-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full shadow-lg sm:h-11 sm:w-11"
-                aria-label={t.home.carousel.prev}
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                className="btn-primary carousel-nav-btn pointer-events-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full shadow-lg sm:h-11 sm:w-11"
-                aria-label={t.home.carousel.next}
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
+          <div className="carousel-controls absolute inset-0 z-20 flex items-center justify-between px-2 sm:px-4">
+            <button
+              type="button"
+              onClick={handlePrev}
+              className="btn-primary carousel-nav-btn flex h-11 w-11 shrink-0 items-center justify-center rounded-full shadow-lg"
+              aria-label={t.home.carousel.prev}
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="btn-primary carousel-nav-btn flex h-11 w-11 shrink-0 items-center justify-center rounded-full shadow-lg"
+              aria-label={t.home.carousel.next}
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-2 z-20 flex justify-center gap-2 sm:bottom-4">
-              {Array.from({ length: SLIDE_COUNT }, (_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => handleDot(index)}
-                  className={`pointer-events-auto h-2.5 rounded-full shadow-sm transition-all ${
-                    index === active
-                      ? "w-7 bg-brand-cyan-dark ring-2 ring-white/80"
-                      : "w-2.5 bg-slate-600/70 ring-1 ring-white/60 hover:bg-slate-700"
-                  }`}
-                  aria-label={`${t.home.carousel.goToSlide} ${index + 1}`}
-                  aria-current={index === active ? "true" : undefined}
-                />
-              ))}
-            </div>
+          <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex justify-center gap-2 sm:bottom-4">
+            {Array.from({ length: SLIDE_COUNT }, (_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => handleDot(index)}
+                className={`pointer-events-auto h-2.5 rounded-full shadow-sm transition-all ${
+                  index === active
+                    ? "w-7 bg-brand-cyan-dark ring-2 ring-white/80"
+                    : "w-2.5 bg-slate-600/70 ring-1 ring-white/60 hover:bg-slate-700"
+                }`}
+                aria-label={`${t.home.carousel.goToSlide} ${index + 1}`}
+                aria-current={index === active ? "true" : undefined}
+              />
+            ))}
           </div>
         </div>
       </div>

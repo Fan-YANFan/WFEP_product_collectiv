@@ -14,6 +14,7 @@ import {
   Plug,
   Recycle,
   Shirt,
+  Salad,
   UtensilsCrossed,
   Wrench,
 } from "lucide-react";
@@ -131,6 +132,12 @@ export const WASTE_TYPE_STYLES: Record<WasteTypeFilter, WasteTypeStyle> = {
     chip: "border-red-300 bg-red-50 text-red-900 hover:bg-red-100 hover:border-red-400",
     chipActive: "border-red-700 bg-red-700 text-white shadow-md shadow-red-200",
     tag: "border border-red-200 bg-red-50 text-red-900",
+  },
+  "Food Waste": {
+    icon: Salad,
+    chip: "border-emerald-300 bg-emerald-50 text-emerald-900 hover:bg-emerald-100 hover:border-emerald-400",
+    chipActive: "border-emerald-700 bg-emerald-700 text-white shadow-md shadow-emerald-200",
+    tag: "border border-emerald-200 bg-emerald-50 text-emerald-900",
   },
   "Tetra Pak": {
     icon: Box,

@@ -16,6 +16,7 @@ import { BOOKS_FOR_LOVE_CAMPAIGN } from "@/lib/campaigns/books-for-love";
 import { ADVENTIST_MEDICATION_CAMPAIGN } from "@/lib/campaigns/adventist-medication-disposal";
 import { MEDICATION_COLLECTION_CAMPAIGN } from "@/lib/campaigns/medication-collection-2026";
 import { FOOD_ANGEL_CAMPAIGN } from "@/lib/campaigns/food-angel-food-rescue";
+import { FOOD_WASTE_CAMPAIGN } from "@/lib/campaigns/food-waste-recycling-spots";
 import {
   isGreenCollectionWasteType,
   GREEN_COLLECTION_CAMPAIGN,
@@ -52,6 +53,7 @@ function usesCampaignPageSize(wasteType: string): boolean {
     wasteType === "Contact Lens Cases" ||
     wasteType === "Medication" ||
     wasteType === "Food Rescue" ||
+    wasteType === "Food Waste" ||
     isGreenCollectionWasteType(wasteType) ||
     wasteType === "Skincare Containers" ||
     wasteType === "Plastics" ||
@@ -321,6 +323,36 @@ export function RecyclingPointsExplorer() {
                 className="font-semibold text-red-800 underline hover:text-red-950"
               >
                 {t.explorer.foodRescueCampaignLinkTc}
+              </a>
+            </div>
+          </div>
+        )}
+
+        {wasteType === "Food Waste" && (
+          <div className="animate-fade-in mt-4 rounded-xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-lime-50 p-4 text-sm text-emerald-950">
+            <p className="font-semibold">{t.explorer.foodWasteCampaignTitle}</p>
+            <p className="mt-1 leading-relaxed text-emerald-900/90">{t.explorer.foodWasteCampaignDesc}</p>
+            <ul className="mt-2 list-inside list-disc space-y-1 text-emerald-900/85">
+              <li>{t.explorer.foodWasteRule1}</li>
+              <li>{t.explorer.foodWasteRule2}</li>
+              <li>{t.explorer.foodWasteRule3}</li>
+            </ul>
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+              <a
+                href={FOOD_WASTE_CAMPAIGN.programUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-emerald-800 underline hover:text-emerald-950"
+              >
+                {t.explorer.foodWasteCampaignLink}
+              </a>
+              <a
+                href={FOOD_WASTE_CAMPAIGN.spotsPdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-emerald-800 underline hover:text-emerald-950"
+              >
+                {t.explorer.foodWasteSpotsPdfLink}
               </a>
             </div>
           </div>
