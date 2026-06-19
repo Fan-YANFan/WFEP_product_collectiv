@@ -17,15 +17,21 @@ export function Footer() {
   ];
 
   return (
-    <footer className="border-t border-slate-200 bg-slate-900 text-slate-300">
+    <footer className="footer-brand border-t border-slate-200/80 text-slate-700">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
-            <p className="font-display text-xl font-semibold text-white">Collectiv</p>
-            <p className="mt-3 text-sm leading-relaxed text-slate-400">{t.footer.tagline}</p>
+            <div className="flex items-center gap-2.5">
+              <span className="logo-brand">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/favicon.png" alt="" width={32} height={32} decoding="async" />
+              </span>
+              <p className="font-display text-xl font-semibold text-slate-900">Collectiv</p>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">{t.footer.tagline}</p>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <p className="text-xs font-semibold uppercase tracking-wider text-brand-cyan-foreground">
               {t.footer.links}
             </p>
             <ul className="mt-4 space-y-2">
@@ -33,7 +39,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-slate-300 transition hover:text-white"
+                    className="text-sm text-slate-600 transition hover:text-brand-cyan-dark"
                   >
                     {item.label}
                   </Link>
@@ -43,7 +49,7 @@ export function Footer() {
                 <button
                   type="button"
                   onClick={openSettings}
-                  className="text-sm text-slate-300 transition hover:text-white"
+                  className="text-sm text-slate-600 transition hover:text-brand-cyan-dark"
                 >
                   {t.footer.cookiePreferences}
                 </button>
@@ -51,14 +57,17 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <p className="text-xs font-semibold uppercase tracking-wider text-brand-cyan-foreground">
               {t.footer.contact}
             </p>
-            <ul className="mt-4 space-y-2 text-sm text-slate-400">
+            <ul className="mt-4 space-y-2 text-sm text-slate-600">
               <li>{COMPANY.name}</li>
               <li>{COMPANY.address}</li>
               <li>
-                <a href={`mailto:${COMPANY.email}`} className="hover:text-white">
+                <a
+                  href={`mailto:${COMPANY.email}`}
+                  className="link-brand font-medium transition"
+                >
                   {COMPANY.email}
                 </a>
               </li>
@@ -66,7 +75,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-2 border-t border-slate-800 pt-8 text-xs text-slate-500 sm:flex-row sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t border-slate-200 pt-8 text-xs text-slate-500 sm:flex-row sm:justify-between">
           <p>
             © {new Date().getFullYear()} {COMPANY.name}. {t.common.allRights}
           </p>
