@@ -142,6 +142,16 @@ export type Translations = {
     adventistMedicationCampaignLink: string;
     adventistMedicationCampaignHospitalLink: string;
     campaignDetails: string;
+    shortTermCountdown: {
+      startsToday: string;
+      startsTomorrow: string;
+      startsInDays: string;
+      endsToday: string;
+      endsTomorrow: string;
+      endsInDays: string;
+      eventDate: string;
+      urgent: string;
+    };
     wasteTypes: Record<string, string>;
   };
   booking: {

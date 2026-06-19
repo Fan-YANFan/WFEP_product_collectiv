@@ -33,6 +33,8 @@ import {
   isExpiredWasteType,
   normalizeWasteTypeKey,
 } from "@/lib/waste-types";
+import { getShortTermCountdown } from "@/lib/short-term-countdown";
+import { ShortTermCountdownBar } from "@/components/ShortTermCountdownBar";
 
 export type RecyclingPointCardProps = {
   point: RecyclingCollectionPoint;
@@ -70,6 +72,7 @@ export function RecyclingPointCard({
   const showDetails = !collapsible || expanded;
   const hasCoords = Number.isFinite(point.lat) && Number.isFinite(point.lng) && (point.lat !== 0 || point.lng !== 0);
   const isShortTermEvent = point.is_short_term && !expiredCampaign;
+  const shortTermCountdown = getShortTermCountdown(point, expiredCampaign);
   const mapPinClass = isShortTermEvent ? "short-term-map-pin text-amber-500" : "text-slate-400";
   const wasteTypes = parseWasteTypes(point.waste_type);
   const normalizedActiveType = activeWasteType ? normalizeWasteTypeKey(activeWasteType) : null;
@@ -167,6 +170,10 @@ export function RecyclingPointCard({
           <MapPin className={`h-3 w-3 shrink-0 ${mapPinClass}`} />
           {getDistrictLabel(point.district_id, locale)}
         </p>
+      )}
+
+      {shortTermCountdown && (
+        <ShortTermCountdownBar info={shortTermCountdown} locale={locale} t={t} />
       )}
 
       {showDetails && (

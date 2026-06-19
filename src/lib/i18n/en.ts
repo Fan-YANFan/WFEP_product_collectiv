@@ -176,6 +176,16 @@ export const en: Translations = {
     adventistMedicationCampaignLink: "Event poster & details →",
     adventistMedicationCampaignHospitalLink: "Hospital website →",
     campaignDetails: "Campaign details",
+    shortTermCountdown: {
+      startsToday: "Starts today!",
+      startsTomorrow: "Starts tomorrow",
+      startsInDays: "Starts in {days} days",
+      endsToday: "Ends today — visit now!",
+      endsTomorrow: "Ends tomorrow",
+      endsInDays: "{days} days left",
+      eventDate: "Event date: {date}",
+      urgent: "Soon",
+    },
     wasteTypes: {
       Books: "Books (charity drive)",
       "Skincare Containers": "Skincare containers",

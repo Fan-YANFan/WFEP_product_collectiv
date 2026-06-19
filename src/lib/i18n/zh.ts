@@ -170,6 +170,16 @@ export const zh: Translations = {
     adventistMedicationCampaignLink: "活動海報及詳情 →",
     adventistMedicationCampaignHospitalLink: "醫院網站 →",
     campaignDetails: "活動詳情",
+    shortTermCountdown: {
+      startsToday: "今日開始！",
+      startsTomorrow: "明日開始",
+      startsInDays: "還有 {days} 天開始",
+      endsToday: "今日結束 — 請盡快前往！",
+      endsTomorrow: "明日結束",
+      endsInDays: "還有 {days} 天",
+      eventDate: "活動日期：{date}",
+      urgent: "即將到期",
+    },
     wasteTypes: {
       Books: "書籍（慈善回收）",
       "Skincare Containers": "護膚容器",
