@@ -10,7 +10,7 @@ export function HomePageContent() {
   const { t } = useLanguage();
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50/30">
+    <div className="flex flex-col bg-slate-50/30">
       <HomeEventCarousel />
 
       <section className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-16 md:grid-cols-3">
